@@ -1,0 +1,934 @@
+{
+  "id": "act5",
+  "index": 5,
+  "title": "Two become one",
+  "era": "An Asgard archaeal host and an alphaproteobacterium; mitochondrion, nucleus, sex",
+  "unit": [
+    "merged cell",
+    "merged cells"
+  ],
+  "screen": "nested",
+  "blockName": "Exchanged metabolites",
+  "blockPool": "nad",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.5,
+    "how": "Genes spread through the species by recombination."
+  },
+  "intro": "At the boundary where oxygen meets the dark mud, your archaea live beside your oxygen breathers. The archaea ferment and make H₂; the bacteria eat it. Two of your species are about to become one.",
+  "quote": "Two lives become one.",
+  "food": "organics",
+  "foodIn": 1.0,
+  "env": {
+    "organics": 1.0,
+    "O2": 1.0,
+    "H2": 0.01
+  },
+  "pacing": {
+    "g": 0.25,
+    "k": 0.9,
+    "delta0": 0.3,
+    "U": 0.12,
+    "cellsPerSite": 10000000.0,
+    "blockRate": 0.1,
+    "biomassBase": 4,
+    "bgMutRate": 1.3,
+    "carrierScale": 6000000
+  },
+  "genome": {
+    "copyCap": 60,
+    "energyCap": 9
+  },
+  "fixes": {
+    "adenylate-p": [
+      "a5-pres",
+      "a5-ent"
+    ]
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "hgrow",
+    "uptake": "hferm",
+    "carrier": [
+      "hferm",
+      "aac"
+    ],
+    "ec": {
+      "atp": "ATPh",
+      "adp": "ADPh"
+    },
+    "compartments": [
+      {
+        "id": "host",
+        "name": "Asgard archaeon (host)",
+        "x": 30,
+        "y": 50,
+        "w": 500,
+        "h": 520
+      },
+      {
+        "id": "partner",
+        "name": "Alphaproteobacterium (partner)",
+        "x": 590,
+        "y": 120,
+        "w": 380,
+        "h": 380
+      }
+    ],
+    "species": [
+      {
+        "id": "Org",
+        "name": "Organics",
+        "plain": "Amino acids and organics",
+        "pool": "carbon",
+        "init": 1,
+        "kind": "boundary",
+        "env": "organics",
+        "x": 60,
+        "y": 25,
+        "card": "syntrophy"
+      },
+      {
+        "id": "O2",
+        "name": "O₂",
+        "plain": "Oxygen",
+        "pool": "oxygen",
+        "init": 1,
+        "kind": "boundary",
+        "env": "O2",
+        "x": 950,
+        "y": 30,
+        "card": "respiration"
+      },
+      {
+        "id": "H2e",
+        "name": "H₂ (lost)",
+        "plain": "Hydrogen escaping to the water",
+        "pool": "nad",
+        "init": 0.01,
+        "kind": "boundary",
+        "env": "H2",
+        "x": 380,
+        "y": 600
+      },
+      {
+        "id": "H2h",
+        "name": "H₂ (host)",
+        "plain": "Hydrogen piling up in the host",
+        "pool": "nad",
+        "init": 0.2,
+        "kind": "main",
+        "x": 380,
+        "y": 300,
+        "label": "above",
+        "card": "syntrophy",
+        "compartment": "host"
+      },
+      {
+        "id": "H2p",
+        "name": "H₂ (partner)",
+        "plain": "Hydrogen handed to the partner",
+        "pool": "nad",
+        "init": 0.1,
+        "kind": "main",
+        "x": 700,
+        "y": 300,
+        "label": "above",
+        "card": "syntrophy",
+        "compartment": "partner"
+      },
+      {
+        "id": "ATPh",
+        "name": "ATP (host)",
+        "plain": "Host's spendable energy",
+        "pool": "atp",
+        "init": 2,
+        "kind": "cofactor",
+        "card": "atp",
+        "compartment": "host"
+      },
+      {
+        "id": "ADPh",
+        "name": "ADP (host)",
+        "plain": "Host's spent energy",
+        "pool": "atp",
+        "init": 1,
+        "kind": "cofactor",
+        "card": "atp",
+        "compartment": "host"
+      },
+      {
+        "id": "ATPp",
+        "name": "ATP (partner)",
+        "plain": "Partner's spendable energy",
+        "pool": "atp",
+        "init": 2,
+        "kind": "cofactor",
+        "card": "atp",
+        "compartment": "partner"
+      },
+      {
+        "id": "ADPp",
+        "name": "ADP (partner)",
+        "plain": "Partner's spent energy",
+        "pool": "atp",
+        "init": 1,
+        "kind": "cofactor",
+        "card": "atp",
+        "compartment": "partner"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "Host ATP / ADP",
+        "plain": "Host energy",
+        "pool": "atp",
+        "charged": "ATPh",
+        "species": [
+          "ATPh",
+          "ADPh"
+        ]
+      },
+      {
+        "id": "adenylate-p",
+        "name": "Partner ATP / ADP",
+        "plain": "Partner energy",
+        "pool": "atp",
+        "charged": "ATPp",
+        "species": [
+          "ATPp",
+          "ADPp"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "hferm",
+        "name": "Amino acid fermentation",
+        "short": "Ferment",
+        "plain": "The host breaks down organics, releasing H₂",
+        "gene": true,
+        "sub": {
+          "Org": 1,
+          "ADPh": 2
+        },
+        "prod": {
+          "ATPh": 2,
+          "H2h": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "Org": 0.3,
+            "ADPh": 0.3
+          }
+        },
+        "mods": [
+          {
+            "species": "H2h",
+            "type": "inh",
+            "K": 0.6,
+            "n": 2
+          }
+        ],
+        "x": 210,
+        "y": 190,
+        "compartment": "host",
+        "slots": 2,
+        "card": "syntrophy"
+      },
+      {
+        "id": "h2leak",
+        "name": "H₂ escape",
+        "short": "Escape",
+        "plain": "Hydrogen drifts away into the water",
+        "sub": {
+          "H2h": 1
+        },
+        "prod": {
+          "H2e": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.04,
+          "a": "H2h",
+          "b": "H2e",
+          "scale": [
+            "leakH2"
+          ]
+        },
+        "x": 380,
+        "y": 470,
+        "compartment": "host",
+        "card": "syntrophy"
+      },
+      {
+        "id": "xh2",
+        "name": "Hydrogen handoff",
+        "short": "Handoff",
+        "plain": "The partner takes the host's hydrogen",
+        "gene": true,
+        "sub": {
+          "H2h": 1
+        },
+        "prod": {
+          "H2p": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.03,
+          "a": "H2h",
+          "b": "H2p",
+          "scale": [
+            "exch"
+          ]
+        },
+        "x": 560,
+        "y": 300,
+        "card": "syntrophy"
+      },
+      {
+        "id": "pres",
+        "name": "Partner respiration (H₂)",
+        "short": "Resp-H₂",
+        "plain": "The partner burns H₂ with oxygen",
+        "gene": true,
+        "sub": {
+          "H2p": 1,
+          "O2": 0.5,
+          "ADPp": 2
+        },
+        "prod": {
+          "ATPp": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "H2p": 0.1,
+            "O2": 0.1,
+            "ADPp": 0.3
+          }
+        },
+        "x": 830,
+        "y": 300,
+        "compartment": "partner",
+        "slots": 2,
+        "card": "respiration"
+      },
+      {
+        "id": "porg",
+        "name": "Partner respiration (organics)",
+        "short": "Resp-org",
+        "plain": "The partner burns its share of the organics",
+        "gene": true,
+        "sub": {
+          "Org": 1,
+          "O2": 1,
+          "ADPp": 3
+        },
+        "prod": {
+          "ATPp": 3
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.3,
+          "Km": {
+            "Org": 0.3,
+            "O2": 0.1,
+            "ADPp": 0.3
+          },
+          "scale": [
+            "share"
+          ]
+        },
+        "x": 830,
+        "y": 170,
+        "compartment": "partner",
+        "slots": 2,
+        "card": "respiration"
+      },
+      {
+        "id": "pmaint",
+        "name": "Partner upkeep",
+        "short": "Upkeep",
+        "plain": "The partner runs its own genome",
+        "sub": {
+          "ATPp": 1
+        },
+        "prod": {
+          "ADPp": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "ATPp": 0.2
+          },
+          "scale": [
+            "pdemand"
+          ]
+        },
+        "x": 830,
+        "y": 440,
+        "compartment": "partner",
+        "card": "gene-transfer"
+      },
+      {
+        "id": "aac",
+        "name": "ADP/ATP carrier",
+        "short": "AAC",
+        "plain": "Exports the partner's ATP into the host",
+        "gene": true,
+        "requires": "aac",
+        "sub": {
+          "ATPp": 1,
+          "ADPh": 1
+        },
+        "prod": {
+          "ADPp": 1,
+          "ATPh": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "ATPp": 0.3,
+            "ADPh": 0.3
+          }
+        },
+        "x": 560,
+        "y": 450,
+        "slots": 2,
+        "card": "aac"
+      },
+      {
+        "id": "hgrow",
+        "name": "Host biosynthesis",
+        "short": "Grow",
+        "plain": "Builds new merged cells",
+        "sub": {
+          "Org": 1,
+          "ATPh": 3
+        },
+        "prod": {
+          "ADPh": 3
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "Org": 0.2,
+            "ATPh": 0.3
+          },
+          "scale": [
+            "build"
+          ]
+        },
+        "mods": [
+          {
+            "species": "ADPh",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          },
+          {
+            "species": "ATPp",
+            "type": "act",
+            "K": 0.4,
+            "basal": 0.5
+          }
+        ],
+        "x": 210,
+        "y": 420,
+        "compartment": "host",
+        "card": "growth"
+      },
+      {
+        "id": "hmaint",
+        "name": "Host upkeep",
+        "short": "Maint",
+        "plain": "Upkeep",
+        "sub": {
+          "ATPh": 1
+        },
+        "prod": {
+          "ADPh": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.008,
+          "Km": {
+            "ATPh": 0.1
+          }
+        },
+        "x": 120,
+        "y": 520,
+        "hide": true,
+        "compartment": "host",
+        "card": "maintenance"
+      }
+    ],
+    "params": {
+      "exch": 1,
+      "leakH2": 1,
+      "share": 0.5,
+      "pdemand": 1,
+      "build": 1
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a5-hferm",
+      "name": "Peptidases",
+      "kind": "point",
+      "molecular": "Secreted proteases chop proteins into fermentable amino acids",
+      "local": "Host fermentation kcat ×1.5",
+      "target": "hferm",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "hferm",
+          "mul": 1.5
+        }
+      ],
+      "cost": 25,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "syntrophy"
+    },
+    {
+      "id": "a5-pres",
+      "name": "Partner hydrogenase",
+      "kind": "point",
+      "molecular": "An O₂-tolerant NiFe hydrogenase in the partner's membrane",
+      "local": "Partner H₂ respiration kcat ×1.5, Km ×0.6",
+      "target": "pres",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pres",
+          "mul": 1.5
+        },
+        {
+          "type": "Km",
+          "rxn": "pres",
+          "species": "H2p",
+          "mul": 0.6
+        }
+      ],
+      "cost": 25,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "respiration"
+    },
+    {
+      "id": "a5-porg",
+      "name": "Partner organic uptake",
+      "kind": "point",
+      "molecular": "Transporters for the host's leftover organics",
+      "local": "Partner organic respiration kcat ×1.5",
+      "target": "porg",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "porg",
+          "mul": 1.5
+        }
+      ],
+      "cost": 30,
+      "levels": 2,
+      "costGrowth": 2.3
+    },
+    {
+      "id": "a5-ent",
+      "name": "Stage 2 · Entanglement",
+      "kind": "stage",
+      "molecular": "Long host protrusions wrap the partner, as in the cultured Asgard archaeon",
+      "local": "Hydrogen handoff ×4. The partner can no longer leave",
+      "target": "xh2",
+      "effects": [
+        {
+          "type": "param",
+          "key": "exch",
+          "mul": 4
+        }
+      ],
+      "cost": 64,
+      "block": 28,
+      "card": "entanglement"
+    },
+    {
+      "id": "a5-endo",
+      "name": "Stage 3 · Endosymbiont",
+      "kind": "stage",
+      "molecular": "The partner ends up inside the host; the host controls its division",
+      "local": "Handoff ×3; the partner, safe inside, respires 30% faster. One organism, two boards",
+      "target": "xh2",
+      "effects": [
+        {
+          "type": "param",
+          "key": "exch",
+          "mul": 3
+        },
+        {
+          "type": "flag",
+          "key": "endo"
+        },
+        {
+          "type": "kcat",
+          "rxn": "pres",
+          "mul": 1.3
+        }
+      ],
+      "cost": 128,
+      "block": 56,
+      "requires": [
+        "a5-ent"
+      ],
+      "card": "endosymbiosis"
+    },
+    {
+      "id": "a5-egt",
+      "name": "Stage 4 · Gene transfer",
+      "kind": "stage",
+      "molecular": "Partner genes move to the host genome; the partner's genome shrinks",
+      "local": "Partner upkeep ×0.75; energy per gene ×6; genome capacity +30",
+      "effects": [
+        {
+          "type": "param",
+          "key": "pdemand",
+          "mul": 0.75
+        },
+        {
+          "type": "param",
+          "key": "energyPerGene",
+          "mul": 6
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 30
+        }
+      ],
+      "cost": 192,
+      "block": 84,
+      "requires": [
+        "a5-endo"
+      ],
+      "card": "gene-transfer"
+    },
+    {
+      "id": "a5-move",
+      "name": "Move genes to the nucleus",
+      "kind": "stage",
+      "molecular": "DNA from partners that die lands in the host genome; copies there take over and the partner’s copies decay",
+      "local": "About a fifth of the partner’s genes move to the host: energy per gene ×1.5",
+      "target": "aac",
+      "effects": [
+        {
+          "type": "param",
+          "key": "energyPerGene",
+          "mul": 1.5
+        },
+        {
+          "type": "param",
+          "key": "pdemand",
+          "mul": 0.9
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 10
+        }
+      ],
+      "cost": 110,
+      "block": 40,
+      "levels": 3,
+      "costGrowth": 1.5,
+      "requires": [
+        "a5-egt"
+      ],
+      "card": "gene-transfer"
+    },
+    {
+      "id": "a5-import",
+      "name": "Stage 5 · Protein import",
+      "kind": "stage",
+      "molecular": "TOM and TIM translocases carry host-made proteins into the partner, including the ADP/ATP carrier",
+      "local": "The partner's ATP now flows to the host: it is a mitochondrion",
+      "target": "aac",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "aac"
+        },
+        {
+          "type": "flag",
+          "key": "organelle"
+        },
+        {
+          "type": "param",
+          "key": "share",
+          "set": 0.55
+        }
+      ],
+      "cost": 288,
+      "block": 126,
+      "requires": [
+        "a5-move"
+      ],
+      "automates": "balance",
+      "card": "aac"
+    },
+    {
+      "id": "a5-aac",
+      "name": "Carrier turnover",
+      "kind": "point",
+      "molecular": "A faster conformational flip in the ADP/ATP carrier",
+      "local": "AAC kcat ×1.8",
+      "target": "aac",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "aac",
+          "mul": 1.8
+        }
+      ],
+      "cost": 60,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a5-import"
+      ],
+      "card": "aac"
+    },
+    {
+      "id": "a5-nucleus",
+      "name": "The nucleus",
+      "kind": "tier",
+      "molecular": "Membranes wrap the genome; splicing happens before translation",
+      "local": "Mutation rate ×0.7, genome capacity +30",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "nucleus"
+        },
+        {
+          "type": "param",
+          "key": "U",
+          "mul": 0.7
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 30
+        }
+      ],
+      "cost": 90,
+      "slots": 2,
+      "requires": [
+        "a5-egt"
+      ],
+      "card": "nucleus"
+    },
+    {
+      "id": "a5-er",
+      "name": "Endomembranes",
+      "kind": "gene",
+      "molecular": "An endoplasmic reticulum folds and ships proteins",
+      "local": "Host biosynthesis ×1.3",
+      "target": "hgrow",
+      "effects": [
+        {
+          "type": "param",
+          "key": "build",
+          "mul": 1.3
+        }
+      ],
+      "cost": 70,
+      "slots": 2,
+      "requires": [
+        "a5-nucleus"
+      ],
+      "card": "endomembranes"
+    },
+    {
+      "id": "a5-cyto",
+      "name": "Cytoskeleton",
+      "kind": "gene",
+      "molecular": "Actin and tubulin, inherited from Asgard ancestors, shape the cell",
+      "local": "Host biosynthesis ×1.3",
+      "target": "hgrow",
+      "effects": [
+        {
+          "type": "param",
+          "key": "build",
+          "mul": 1.3
+        }
+      ],
+      "cost": 70,
+      "slots": 2,
+      "requires": [
+        "a5-endo"
+      ],
+      "card": "cytoskeleton"
+    },
+    {
+      "id": "a5-sex",
+      "name": "Meiosis and sex",
+      "kind": "regulator",
+      "molecular": "Homologous chromosomes pair, swap pieces and segregate",
+      "local": "Good mutations in different lineages combine instead of competing; Variation ×2",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "sex"
+        }
+      ],
+      "cost": 120,
+      "requires": [
+        "a5-nucleus"
+      ],
+      "card": "sex"
+    },
+    {
+      "id": "a5-rnai",
+      "name": "RNA interference",
+      "kind": "defence",
+      "molecular": "Dicer chops double-stranded viral RNA; Argonaute uses the pieces to hunt matching RNA",
+      "local": "Giant virus pressure ×0.35",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "rnai"
+        }
+      ],
+      "cost": 70,
+      "slots": 1,
+      "needsFlag": "virus",
+      "card": "rnai",
+      "hint": "Appears when giant viruses do"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n5-mat",
+      "name": "Microbial mats",
+      "text": "Layered communities where hydrogen is traded",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55
+    },
+    {
+      "id": "n5-sed",
+      "name": "Coastal sediment",
+      "text": "Organic-rich mud below the oxic layer",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6,
+      "supply": {
+        "organics": 0.15
+      }
+    },
+    {
+      "id": "n5-water",
+      "name": "Open water",
+      "text": "Free-living merged cells, now big enough to cruise",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5,
+      "needsFlag": "organelle"
+    }
+  ],
+  "chores": [
+    {
+      "id": "balance",
+      "name": "Share organics",
+      "text": "How much of the organics the host lets its partner burn. Too little and the partner starves; too much and the host does.",
+      "automatedBy": "a5-import",
+      "control": "slider",
+      "param": "share"
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "u.boards",
+      "title": "Two boards",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 1
+      },
+      "card": "syntrophy",
+      "tutorial": "The host ferments organics and makes H₂; H₂ piling up stops its fermentation. The partner eats H₂. Together both grow faster.",
+      "reveals": [
+        "chores"
+      ]
+    },
+    {
+      "id": "u.energy",
+      "title": "Energy per gene",
+      "when": {
+        "stat": "energyRatio",
+        "op": ">",
+        "value": 0.85
+      },
+      "card": "energy-per-gene",
+      "tutorial": "Every gene costs ATP to run. This genome is near its energy ceiling; moving partner genes to the host lifts it."
+    },
+    {
+      "id": "u.partner",
+      "title": "Keep it fair",
+      "when": {
+        "has": "a5-endo"
+      },
+      "card": "endosymbiosis",
+      "tutorial": "Inside the host, the partner lives on the organics it is given (the Share slider). Starve it for long and it escapes, taking every later stage with it. Partner health is on the World screen."
+    }
+  ],
+  "events": [],
+  "virus": {
+    "name": "Giant DNA viruses",
+    "text": "Viruses as large as bacteria, carrying hundreds of genes. They may have shrunk from cells, and they hit the commonest lineage hardest.",
+    "startsWhen": {
+      "all": [
+        {
+          "has": "a5-endo"
+        },
+        {
+          "stat": "time",
+          "op": ">",
+          "value": 900
+        }
+      ]
+    },
+    "strength": 1.0,
+    "defences": [
+      "a5-rnai"
+    ]
+  },
+  "gate": {
+    "flux": 15.4,
+    "when": {
+      "all": [
+        {
+          "has": "a5-import"
+        },
+        {
+          "has": "a5-nucleus"
+        }
+      ]
+    },
+    "text": "Move the partner’s genes to the nucleus until it is an organelle, wrap the genome in a nucleus, and hold ATP flux above 10^15.4 per second.",
+    "wall": "The eukaryote cannot photosynthesise"
+  }
+}

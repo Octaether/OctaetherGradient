@@ -1,0 +1,908 @@
+{
+  "id": "act6",
+  "index": 6,
+  "title": "Algae and hunters",
+  "era": "A cyanobacterium becomes the chloroplast; much later, the nitroplast",
+  "unit": [
+    "cell",
+    "cells"
+  ],
+  "screen": "branches",
+  "blockName": "Fixed nitrogen",
+  "blockPool": "nitrogen",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.5,
+    "how": "Genes spread through the species by sex and recombination."
+  },
+  "intro": "Your eukaryotes swim in surface water full of your cyanobacteria, and eat them. One day a cyanobacterium they swallow does not die.",
+  "quote": "Green, open water.",
+  "food": "prey",
+  "foodIn": 1.0,
+  "foodSwitch": [
+    {
+      "flag": "alga",
+      "food": "light",
+      "foodIn": 1.0
+    }
+  ],
+  "env": {
+    "prey": 1.0,
+    "light": 1.0,
+    "CO2": 5,
+    "O2": 1.0,
+    "nitrate": 1.0,
+    "N2": 1.0
+  },
+  "envDyn": {
+    "nitrate": {
+      "relax": 0.004,
+      "flux": 0.006
+    }
+  },
+  "pacing": {
+    "g": 0.25,
+    "k": 0.9,
+    "delta0": 0.3,
+    "U": 0.1,
+    "cellsPerSite": 100000000.0,
+    "blockRate": 0.1,
+    "biomassBase": 4,
+    "bgMutRate": 1.3,
+    "carrierScale": 6000000
+  },
+  "genome": {
+    "copyCap": 120,
+    "energyCap": 80
+  },
+  "fixes": {
+    "adenylate": [
+      "a6-mito",
+      "a6-tpt"
+    ]
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "grow",
+    "uptake": "phag",
+    "carrier": [
+      "mito"
+    ],
+    "ec": {
+      "atp": "ATP",
+      "adp": "ADP"
+    },
+    "compartments": [
+      {
+        "id": "host",
+        "name": "Eukaryote with mitochondria",
+        "x": 30,
+        "y": 70,
+        "w": 560,
+        "h": 500
+      },
+      {
+        "id": "plastid",
+        "name": "Cyanobacterium → plastid",
+        "x": 640,
+        "y": 120,
+        "w": 330,
+        "h": 360,
+        "requires": "plastid"
+      }
+    ],
+    "species": [
+      {
+        "id": "Prey",
+        "name": "Bacteria",
+        "plain": "Bacteria to eat",
+        "pool": "carbon",
+        "init": 1,
+        "kind": "boundary",
+        "env": "prey",
+        "x": 60,
+        "y": 40,
+        "card": "phagocytosis"
+      },
+      {
+        "id": "Light",
+        "name": "Light",
+        "plain": "Sunlight",
+        "pool": "light",
+        "init": 1,
+        "kind": "boundary",
+        "env": "light",
+        "x": 940,
+        "y": 40,
+        "card": "photosynthesis"
+      },
+      {
+        "id": "CO2",
+        "name": "CO₂",
+        "plain": "Carbon dioxide",
+        "pool": "carbon",
+        "init": 5,
+        "kind": "boundary",
+        "env": "CO2",
+        "x": 700,
+        "y": 40,
+        "card": "co2"
+      },
+      {
+        "id": "O2",
+        "name": "O₂",
+        "plain": "Oxygen",
+        "pool": "oxygen",
+        "init": 1,
+        "kind": "boundary",
+        "env": "O2",
+        "x": 380,
+        "y": 600,
+        "card": "respiration"
+      },
+      {
+        "id": "Nenv",
+        "name": "Nitrate",
+        "plain": "Nitrogen in the water",
+        "pool": "nitrogen",
+        "init": 1,
+        "kind": "boundary",
+        "env": "nitrate",
+        "x": 60,
+        "y": 420,
+        "card": "nitrogen-budget"
+      },
+      {
+        "id": "N2",
+        "name": "N₂",
+        "plain": "Nitrogen gas",
+        "pool": "nitrogen",
+        "init": 1,
+        "kind": "boundary",
+        "env": "N2",
+        "x": 560,
+        "y": 600,
+        "card": "nitroplast"
+      },
+      {
+        "id": "Sug",
+        "name": "Sugar",
+        "plain": "Sugar in the cytosol",
+        "pool": "carbon",
+        "init": 0.4,
+        "kind": "main",
+        "x": 380,
+        "y": 300,
+        "label": "above",
+        "compartment": "host",
+        "card": "calvin"
+      },
+      {
+        "id": "N",
+        "name": "Fixed N",
+        "plain": "Ammonium and amino groups",
+        "pool": "nitrogen",
+        "init": 0.4,
+        "kind": "main",
+        "x": 240,
+        "y": 470,
+        "label": "below",
+        "compartment": "host",
+        "card": "nitrogen-budget"
+      },
+      {
+        "id": "TP",
+        "name": "Triose-P",
+        "plain": "Triose phosphate made in the plastid",
+        "pool": "carbon",
+        "init": 0.1,
+        "kind": "main",
+        "x": 800,
+        "y": 360,
+        "label": "below",
+        "compartment": "plastid",
+        "card": "tpt"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP",
+        "plain": "Spendable energy (ATP)",
+        "pool": "atp",
+        "init": 2,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "plain": "Spent energy (ADP)",
+        "pool": "atp",
+        "init": 1,
+        "kind": "cofactor",
+        "card": "atp"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "ATP / ADP",
+        "plain": "Spendable energy",
+        "pool": "atp",
+        "charged": "ATP",
+        "species": [
+          "ATP",
+          "ADP"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "phag",
+        "name": "Phagocytosis",
+        "short": "Engulf",
+        "plain": "Swallow and digest bacteria",
+        "gene": true,
+        "sub": {
+          "Prey": 1,
+          "ATP": 1
+        },
+        "prod": {
+          "Sug": 1,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "Prey": 0.3,
+            "ATP": 0.3
+          }
+        },
+        "x": 200,
+        "y": 170,
+        "compartment": "host",
+        "slots": 3,
+        "card": "phagocytosis"
+      },
+      {
+        "id": "mito",
+        "name": "Mitochondrial respiration",
+        "short": "Mito",
+        "plain": "Solved in Act 5: sugar + O₂ → many ATP",
+        "gene": true,
+        "sub": {
+          "Sug": 1,
+          "O2": 1,
+          "ADP": 6
+        },
+        "prod": {
+          "ATP": 6
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "Sug": 0.3,
+            "O2": 0.1,
+            "ADP": 0.4
+          }
+        },
+        "x": 380,
+        "y": 450,
+        "steps": 20,
+        "compartment": "host",
+        "slots": 2,
+        "card": "respiration"
+      },
+      {
+        "id": "nupt",
+        "name": "Nitrate uptake",
+        "short": "N-uptake",
+        "plain": "Pull nitrate in and reduce it",
+        "gene": true,
+        "sub": {
+          "Nenv": 1,
+          "ATP": 1
+        },
+        "prod": {
+          "N": 1,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.25,
+          "Km": {
+            "Nenv": 0.15,
+            "ATP": 0.3
+          }
+        },
+        "x": 140,
+        "y": 470,
+        "compartment": "host",
+        "slots": 1,
+        "card": "nitrogen-budget"
+      },
+      {
+        "id": "nfix",
+        "name": "Nitroplast",
+        "short": "Nitroplast",
+        "plain": "UCYN-A turns N₂ into ammonium",
+        "gene": true,
+        "requires": "nitroplast",
+        "sub": {
+          "N2": 1,
+          "ATP": 8
+        },
+        "prod": {
+          "N": 2,
+          "ADP": 8
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.12,
+          "Km": {
+            "N2": 0.1,
+            "ATP": 0.8
+          }
+        },
+        "mods": [
+          {
+            "species": "O2",
+            "type": "inh",
+            "K": 0.15
+          }
+        ],
+        "x": 480,
+        "y": 530,
+        "compartment": "host",
+        "slots": 2,
+        "card": "nitroplast"
+      },
+      {
+        "id": "pps",
+        "name": "Plastid photosynthesis",
+        "short": "Photo",
+        "plain": "The captive cyanobacterium fixes CO₂ with light",
+        "gene": true,
+        "requires": "plastid",
+        "hiddenIf": "hetero",
+        "sub": {
+          "Light": 1,
+          "CO2": 1
+        },
+        "prod": {
+          "TP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "Light": 0.3,
+            "CO2": 1
+          },
+          "scale": [
+            "plastidEff"
+          ]
+        },
+        "x": 800,
+        "y": 220,
+        "steps": 16,
+        "compartment": "plastid",
+        "slots": 3,
+        "card": "chloroplast"
+      },
+      {
+        "id": "tpt",
+        "name": "Triose-phosphate translocator",
+        "short": "TPT",
+        "plain": "Exports the plastid's sugar to the host",
+        "gene": true,
+        "requires": "plastid",
+        "hiddenIf": "hetero",
+        "sub": {
+          "TP": 1
+        },
+        "prod": {
+          "Sug": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.15,
+          "Km": {
+            "TP": 0.2
+          },
+          "scale": [
+            "tptEff"
+          ]
+        },
+        "x": 610,
+        "y": 330,
+        "slots": 1,
+        "card": "tpt"
+      },
+      {
+        "id": "pdiv",
+        "name": "Plastid keeps its share",
+        "short": "Keeps",
+        "plain": "The captive still spends sugar on itself",
+        "requires": "plastid",
+        "hiddenIf": "hetero",
+        "sub": {
+          "TP": 1
+        },
+        "prod": {},
+        "law": {
+          "type": "ma",
+          "k": 0.2,
+          "scale": [
+            "pdiv"
+          ]
+        },
+        "x": 900,
+        "y": 430,
+        "hide": true,
+        "compartment": "plastid",
+        "card": "chloroplast"
+      },
+      {
+        "id": "grow",
+        "name": "Biosynthesis",
+        "short": "Grow",
+        "plain": "Builds new cells (needs nitrogen)",
+        "sub": {
+          "Sug": 1,
+          "ATP": 3,
+          "N": 0.3
+        },
+        "prod": {
+          "ADP": 3
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "Sug": 0.2,
+            "ATP": 0.3,
+            "N": 0.08
+          }
+        },
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          }
+        ],
+        "x": 230,
+        "y": 300,
+        "compartment": "host",
+        "card": "growth"
+      },
+      {
+        "id": "maint",
+        "name": "Maintenance",
+        "short": "Maint",
+        "plain": "Upkeep",
+        "sub": {
+          "ATP": 1
+        },
+        "prod": {
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.012,
+          "Km": {
+            "ATP": 0.1
+          }
+        },
+        "x": 100,
+        "y": 560,
+        "hide": true,
+        "card": "maintenance"
+      }
+    ],
+    "params": {
+      "plastidEff": 1,
+      "tptEff": 1,
+      "pdiv": 1
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a6-phag",
+      "name": "Pseudopods",
+      "kind": "point",
+      "molecular": "Actin-driven arms reach and wrap prey",
+      "local": "Phagocytosis kcat ×1.5",
+      "target": "phag",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "phag",
+          "mul": 1.5
+        }
+      ],
+      "cost": 25,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "phagocytosis"
+    },
+    {
+      "id": "a6-mito",
+      "name": "Cristae",
+      "kind": "point",
+      "molecular": "Folded inner membranes pack more respiratory chains",
+      "local": "Mitochondrial respiration kcat ×1.5",
+      "target": "mito",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "mito",
+          "mul": 1.5
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "respiration"
+    },
+    {
+      "id": "a6-nupt",
+      "name": "Nitrate reductase",
+      "kind": "point",
+      "molecular": "A molybdenum enzyme reduces nitrate to nitrite",
+      "local": "Nitrate uptake kcat ×1.5, Km ×0.6",
+      "target": "nupt",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "nupt",
+          "mul": 1.5
+        },
+        {
+          "type": "Km",
+          "rxn": "nupt",
+          "species": "Nenv",
+          "mul": 0.6
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "nitrogen-budget"
+    },
+    {
+      "id": "a6-klepto",
+      "name": "Stage 1 · A captive cyanobacterium",
+      "kind": "stage",
+      "molecular": "A swallowed cyanobacterium survives digestion and keeps photosynthesising",
+      "local": "New compartment: the plastid. Most of its sugar it keeps for itself",
+      "target": "pps",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "plastid"
+        }
+      ],
+      "cost": 50,
+      "block": 25,
+      "card": "chloroplast"
+    },
+    {
+      "id": "a6-endo2",
+      "name": "Stage 2 · Endosymbiont",
+      "kind": "stage",
+      "molecular": "The host controls the captive's division and feeds it CO₂",
+      "local": "Plastid keeps less (×0.5); sugar export ×2",
+      "target": "tpt",
+      "effects": [
+        {
+          "type": "param",
+          "key": "pdiv",
+          "mul": 0.5
+        },
+        {
+          "type": "param",
+          "key": "tptEff",
+          "mul": 2
+        }
+      ],
+      "cost": 80,
+      "block": 40,
+      "requires": [
+        "a6-klepto"
+      ],
+      "card": "endosymbiosis"
+    },
+    {
+      "id": "a6-alga",
+      "name": "Branch · Algae keep the captive",
+      "kind": "stage",
+      "molecular": "Keep the plastid for good; light becomes the main food",
+      "local": "The captive becomes a permanent partner: photosynthesis ×1.4, and light becomes the main food",
+      "target": "pps",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "algaLine"
+        },
+        {
+          "type": "param",
+          "key": "plastidEff",
+          "mul": 1.4
+        }
+      ],
+      "cost": 60,
+      "requires": [
+        "a6-endo2"
+      ],
+      "card": "branch"
+    },
+    {
+      "id": "a6-egt",
+      "name": "Stage 3 · Plastid genes to the nucleus",
+      "kind": "stage",
+      "molecular": "Most cyanobacterial genes move to the host nucleus",
+      "local": "Plastid keeps less (×0.3); energy per gene ×2",
+      "target": "pps",
+      "effects": [
+        {
+          "type": "param",
+          "key": "pdiv",
+          "mul": 0.3
+        },
+        {
+          "type": "param",
+          "key": "energyPerGene",
+          "mul": 2
+        }
+      ],
+      "cost": 110,
+      "block": 60,
+      "requires": [
+        "a6-alga"
+      ],
+      "card": "gene-transfer"
+    },
+    {
+      "id": "a6-tic",
+      "name": "Stage 4 · TIC/TOC import",
+      "kind": "stage",
+      "molecular": "Host-made proteins are imported through the TOC and TIC translocons: it is a chloroplast",
+      "local": "Sugar export ×3; photosynthesis ×1.5",
+      "target": "tpt",
+      "effects": [
+        {
+          "type": "param",
+          "key": "tptEff",
+          "mul": 3
+        },
+        {
+          "type": "param",
+          "key": "plastidEff",
+          "mul": 1.5
+        },
+        {
+          "type": "flag",
+          "key": "chloroplast"
+        }
+      ],
+      "cost": 160,
+      "block": 80,
+      "requires": [
+        "a6-egt"
+      ],
+      "card": "chloroplast"
+    },
+    {
+      "id": "a6-tpt",
+      "name": "Translocator: phosphate swap",
+      "kind": "point",
+      "molecular": "Strict 1:1 exchange of triose phosphate for phosphate",
+      "local": "Translocator kcat ×1.6",
+      "target": "tpt",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "tpt",
+          "mul": 1.6
+        }
+      ],
+      "cost": 50,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a6-alga"
+      ],
+      "card": "tpt"
+    },
+    {
+      "id": "a6-nitro",
+      "name": "Nitroplast",
+      "kind": "stage",
+      "molecular": "UCYN-A, a nitrogen-fixing cyanobacterium, becomes an organelle in Braarudosphaera bigelowii",
+      "local": "New reaction: N₂ + 8 ATP → 2 fixed N. Oxygen inhibits it",
+      "target": "nfix",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "nitroplast"
+        }
+      ],
+      "cost": 140,
+      "block": 70,
+      "requires": [
+        "a6-tic"
+      ],
+      "card": "nitroplast"
+    },
+    {
+      "id": "a6-nitroO2",
+      "name": "Nitroplast O₂ shielding",
+      "kind": "point",
+      "molecular": "Nitrogen is fixed in the dark and the nitroplast's respiration scrubs O₂",
+      "local": "Oxygen inhibition of nitrogenase ×0.15",
+      "target": "nfix",
+      "effects": [
+        {
+          "type": "K",
+          "rxn": "nfix",
+          "species": "O2",
+          "mul": 7
+        }
+      ],
+      "cost": 90,
+      "requires": [
+        "a6-nitro"
+      ],
+      "card": "nitroplast"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n6-coast",
+      "name": "Coastal water",
+      "text": "Nutrient-rich shallows near river mouths",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55,
+      "supply": {
+        "nitrate": 0.05
+      }
+    },
+    {
+      "id": "n6-ocean",
+      "name": "Open ocean",
+      "text": "Vast, bright, and short of nitrogen",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6
+    },
+    {
+      "id": "n6-upwell",
+      "name": "Upwelling zones",
+      "text": "Deep water brings nitrate to the surface",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5,
+      "supply": {
+        "nitrate": 0.2
+      }
+    }
+  ],
+  "chores": [],
+  "unlocks": [
+    {
+      "id": "u.nbudget",
+      "title": "A nitrogen budget",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 2
+      },
+      "card": "nitrogen-budget",
+      "tutorial": "From now on growth needs nitrogen. Nitrate in the water runs down as the population grows, and fixing N₂ is costly and oxygen-sensitive."
+    },
+    {
+      "id": "u.branch",
+      "title": "A fork in the tree",
+      "when": {
+        "has": "a6-endo2"
+      },
+      "card": "branch",
+      "tutorial": "Two branches of your tree: keep the captive and become algae (Evolve), and let other cells digest theirs and become hunters (Evolve, Community). Hunters eat algae, so their numbers rise and fall together."
+    },
+    {
+      "id": "u.waves",
+      "title": "Boom and bust",
+      "when": {
+        "stat": "world.hunter",
+        "op": ">",
+        "value": 0.08
+      },
+      "card": "functional-response",
+      "tutorial": "Hunters multiply while algae are plentiful, eat them down, then starve: predator–prey waves. Efficient hunters swing harder. Refuges, prey switching, interference and mixotrophy calm the waves."
+    }
+  ],
+  "events": [
+    {
+      "id": "e.alga",
+      "when": {
+        "has": "a6-alga"
+      },
+      "title": "Algae",
+      "text": "Your lineage keeps its plastid. Light is the food now; bacteria are a snack.",
+      "flags": [
+        "alga"
+      ]
+    },
+    {
+      "id": "e.size",
+      "when": {
+        "all": [
+          {
+            "flag": "alga"
+          },
+          {
+            "stat": "world.hunter",
+            "op": ">",
+            "value": 0.02
+          },
+          {
+            "any": [
+              {
+                "stat": "time",
+                "op": ">",
+                "value": 1500
+              },
+              {
+                "flag": "bighunters"
+              }
+            ]
+          }
+        ]
+      },
+      "title": "Bigger predators",
+      "text": "Your hunters grow bigger, and small cells sink or get eaten. Single cells stay small while size is rewarded: the pressure that leads to bodies.",
+      "flags": [
+        "size"
+      ]
+    }
+  ],
+  "gate": {
+    "flux": 15.6,
+    "when": {
+      "all": [
+        {
+          "flag": "size"
+        },
+        {
+          "has": "a6-tic"
+        },
+        {
+          "stat": "world.hunter",
+          "op": ">",
+          "value": 0.05,
+          "label": "Your hunters persist"
+        },
+        {
+          "stat": "world.waves",
+          "op": "<",
+          "value": 0.15,
+          "for": 60,
+          "label": "Predator–prey waves calm (swing under 15%) for a minute"
+        }
+      ]
+    },
+    "text": "Turn the captive into a chloroplast (TIC/TOC import), keep both branches alive with the predator–prey waves calm, and meet the size pressure with ATP flux above 10^15.6 per second.",
+    "wall": "Single cells stay small while predators and sinking reward size"
+  }
+}

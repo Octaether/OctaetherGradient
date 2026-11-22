@@ -1,0 +1,229 @@
+/* Screen-specific pieces: the Act 0 vessel, the cassette and genome panels,
+   the lineage tree, and the act-transition sweep. */
+
+/* ---------- Act 0 vessel ---------- */
+.site-h { font-size: 10px; font-weight: 650; margin-bottom: 7px; display: flex; align-items: center; gap: 7px; }
+.site-h::before { content: ''; width: 6px; height: 6px; background: var(--accent); }
+.stock { display: grid; grid-template-columns: 8px 1fr auto; gap: 8px; align-items: baseline; padding: 2px 0; font-size: 12px; }
+.stock .sw { width: 7px; height: 7px; border-radius: 50%; align-self: center; }
+.stock .v { font-family: var(--mono); font-weight: 600; }
+.stock .r { grid-column: 2 / 4; font-size: 11px; color: var(--text-3); margin-top: -2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cycle-btn {
+  position: relative; width: 108px; height: 108px; border-radius: 50%; overflow: visible; cursor: pointer;
+  border: 1px solid rgb(var(--acc) / 0.6); background: transparent; color: var(--text);
+  display: grid; place-items: center; font-size: 12.5px; font-weight: 600; text-align: center; line-height: 1.25;
+  transition: transform 0.12s, background 0.2s;
+}
+.cycle-btn:hover { background: rgb(var(--acc) / 0.08); }
+.cycle-btn:active { transform: scale(0.97); }
+.cycle-btn svg { position: absolute; inset: -5px; width: calc(100% + 10px); height: calc(100% + 10px); pointer-events: none; }
+.float-txt {
+  position: absolute; pointer-events: none; font-size: 13px; font-weight: 650; color: var(--accent); white-space: nowrap; z-index: 20;
+  text-shadow: 0 0 12px rgb(var(--acc) / 0.5); animation: floatup 2.6s var(--ease) forwards;
+}
+
+/* RNA strand panel */
+.strand { font-family: var(--mono); font-size: 11px; line-height: 1.55; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.overlay-chip.lib { max-height: max(250px, calc(100% - 380px)); overflow: hidden; display: flex; flex-direction: column; }
+/* short windows: drop the flavour caption above the cycle button so the bowl fits */
+@media (max-height: 720px) { .pond-caption { display: none; } }
+.overlay-chip.lib .strand { font-size: 10.5px; line-height: 1.5; }
+.overlay-chip.lib .strand.long { white-space: normal; word-break: break-all; overflow: visible; }
+.overlay-chip.lib .strand .len { color: var(--text-4); margin-left: 6px; }
+.strandchart { margin: 2px 0 6px; flex: none; }
+/* every row stays on one line, so the panel never changes height as numbers change */
+.sc-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 11px; color: var(--text-3); line-height: 1.5; margin-top: 4px; white-space: nowrap; }
+.sc-row > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.sc-row b { flex: none; color: var(--text); font-weight: 600; font-size: 11.5px; }
+.sc-row.big { margin: 0 0 4px; }
+.sc-row.big b { font-size: 13px; color: var(--rna); }
+.sc-note { font-size: 10px; line-height: 1.45; color: var(--text-4); margin: 4px 0 2px; }
+.sc-sub { font-size: 10px; color: var(--text-4); line-height: 1.4; }
+.sc-bar { position: relative; height: 4px; background: rgba(255, 255, 255, 0.08); margin: 3px 0; }
+.sc-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: #ff5e8a; transition: width 0.6s var(--ease); }
+.sc-key { display: flex; flex-wrap: wrap; gap: 3px 8px; font-size: 9.5px; color: var(--text-3); margin: 3px 0 2px; white-space: nowrap; }
+.sc-key span { display: inline-flex; align-items: center; gap: 4px; }
+.sc-key i { width: 7px; height: 7px; display: inline-block; }
+.lib-h {
+  flex: none; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; color: var(--text-4);
+  margin: 6px 0 3px; padding-top: 6px; border-top: 1px dashed var(--line-2);
+}
+.lib-list {
+  flex: 1 1 auto; min-height: 0; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent); mask-image: linear-gradient(to bottom, #000 80%, transparent);
+}
+
+/* ---------- Evolve drawer: transformation cassette and genome burden ---------- */
+.cassette { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line-2); }
+.cas-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.cas-items { display: flex; flex-wrap: wrap; gap: 5px; }
+.cas-chip {
+  display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 1px; cursor: pointer;
+  border: 1px solid rgb(var(--acc) / 0.5); background: rgb(var(--acc) / 0.12); color: var(--text); font-size: 11.5px;
+}
+.cas-chip .x { color: var(--text-3); }
+.cas-chip:hover .x { color: var(--danger); }
+.cas-uptake { display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: center; margin-top: 9px; }
+.cas-grid { display: grid; grid-template-columns: repeat(10, 6px); gap: 1.4px; }
+.cas-grid i { width: 6px; height: 6px; border-radius: 1px; }
+.cas-foot { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.genome { border: 1px solid var(--line); background: var(--panel); padding: 10px 11px; margin-bottom: 10px; display: grid; gap: 8px; }
+.gm-row { display: grid; gap: 4px; }
+.gm-lab { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--text-2); gap: 8px; white-space: nowrap; }
+.gm-lab > span { overflow: hidden; text-overflow: ellipsis; }
+.gm-lab b { font-family: var(--mono); font-weight: 600; font-size: 11.5px; white-space: nowrap; }
+.gm-bar { position: relative; height: 4px; background: rgba(255, 255, 255, 0.08); }
+.gm-bar i { position: absolute; top: 0; bottom: 0; left: 0; }
+.gm-note { font-size: 11px; color: var(--text-3); line-height: 1.45; }
+
+/* ---------- lineage tree ---------- */
+.tree-tools { display: flex; align-items: center; gap: 6px; padding: 0 28px 10px; }
+.tree-box { position: relative; flex: 1; min-height: 0; overflow: auto; scrollbar-gutter: stable; border-top: 1px solid var(--line); }
+/* only the hit areas take the mouse, so labels that appear on hover cannot steal it back */
+.tree-box svg * { pointer-events: none; }
+.tree-box svg [data-hit] { pointer-events: all; }
+
+/* ---------- act transitions: one scan sweep ---------- */
+.scan-sweep {
+  position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--accent); opacity: 0.55; pointer-events: none;
+  animation: sweep 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s 1 both;
+}
+@media (prefers-reduced-motion: reduce) { .scan-sweep { display: none; } }
+
+/* ---------- deep-time interlude between acts ---------- */
+.deeptime { position: relative; height: 66px; margin: 6px 0 0; }
+.dt-line { position: absolute; left: 0; right: 0; top: 14px; height: 1px; background: var(--line-3); }
+.dt-pt { position: absolute; top: 0; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; width: 70px; }
+.dt-pt i { width: 7px; height: 7px; margin-top: 11px; background: var(--bg); border: 1px solid var(--line-3); }
+.dt-pt span { font-size: 10px; color: var(--text-4); white-space: nowrap; }
+.dt-pt b { font-family: var(--mono); font-size: 9px; font-weight: 500; color: var(--text-4); }
+.dt-pt.done i { background: var(--text-3); border-color: var(--text-3); }
+.dt-pt.done span { color: var(--text-3); }
+.dt-pt.now i { background: var(--accent); border-color: var(--accent); width: 9px; height: 9px; margin-top: 10px; }
+.dt-pt.now span { color: var(--accent); font-weight: 600; }
+.dt-unit { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-4); }
+.dt-lineage { margin-top: 14px; padding: 10px 12px; border: 1px solid var(--line); background: var(--panel); }
+.dt-row { display: grid; gap: 1px; padding: 5px 0; border-top: 1px solid var(--line); font-size: 12px; }
+.dt-row:first-of-type { border-top: none; }
+.dt-row b { font-weight: 600; color: var(--text); }
+.dt-row span { color: var(--text-2); }
+.dt-row em { font-style: normal; color: var(--text-3); font-size: 11.5px; }
+.dt-carry { margin-top: 10px; font-size: 12.5px; color: var(--text-2); }
+
+/* genome as genes: width is length; ghosts are pooled genes not carried yet */
+.gm-genes { position: relative; height: 14px; background: rgba(255, 255, 255, 0.05); margin-top: 4px; }
+.gm-genes i { position: absolute; top: 2px; bottom: 2px; opacity: 0.85; }
+.gm-genes i.ghost { background: none; border: 1px dashed; opacity: 0.7; }
+.gm-genes em { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 1px solid var(--danger); }
+.gm-ticks { position: relative; height: 13px; font-size: 9.5px; color: var(--text-3); font-family: var(--mono); }
+.gm-ticks span { position: absolute; white-space: nowrap; }
+.pool-row { display: grid; grid-template-columns: minmax(0, 1fr) 70px 38px; gap: 8px; align-items: center; font-size: 11.5px; padding: 2px 0; }
+.pool-row .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pool-row .num { text-align: right; font-size: 11px; color: var(--text-2); }
+
+
+/* act intro: the content scrolls (no visible bar) and fades at the bottom; Continue sits below it, never over the text */
+.cine-body { position: relative; display: flex; flex-direction: column; text-align: center; width: min(640px, calc(100vw - 32px)); max-height: 100vh; padding-top: 18px; }
+.cine-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 10px 18px; scrollbar-width: thin; scrollbar-color: rgb(var(--acc) / 0.45) transparent; }
+/* while there is more to read: fade the bottom edge */
+.cine-scroll.more { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 56px), transparent); }
+.cine-cta { flex: none; padding: 12px 0 22px; }
+
+/* RNA panel: tall screens show the odds and the sample together; shorter ones switch with two tabs */
+.lib-tabs { display: none; gap: 2px; margin: -2px 0 8px; }
+.lib-tabs button { flex: 1; height: 22px; border: 1px solid var(--line-2); background: none; color: var(--text-3); font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.lib-tabs button.on { color: var(--text); border-color: var(--accent); }
+@media (max-height: 940px) {
+  .lib-tabs { display: flex; }
+  .lib.view-odds .pane-sample, .lib.view-sample .pane-odds { display: none; }
+  .lib.view-sample .lib-h { border-top: none; margin-top: 0; padding-top: 0; }
+}
+
+/* the odds pane shrinks and scrolls (no bar) if the panel is short; a small tag says there is more */
+.overlay-chip.lib .pane-odds { flex: 0 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: none; position: relative; }
+.overlay-chip.lib .pane-odds::-webkit-scrollbar { display: none; }
+.more-below {
+  position: sticky; bottom: 0; text-align: center; padding: 10px 0 1px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); background: linear-gradient(to bottom, transparent, var(--panel) 60%); pointer-events: none;
+}
+.sc-note { margin: 2px 0 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.more-hint {
+  display: inline-flex; align-items: center; gap: 6px; margin: 0 auto 12px; padding: 4px 10px; border: 1px solid rgb(var(--acc) / 0.5);
+  background: rgba(3, 5, 7, 0.8); color: var(--accent); font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+}
+.more-hint span { display: inline-block; animation: nudge 1.4s ease-in-out infinite; }
+.cine-cta { display: flex; flex-direction: column; align-items: center; }
+@keyframes nudge { 0%, 100% { transform: translateY(-1px); } 50% { transform: translateY(3px); } }
+
+/* Act 0 site panels: what is built, on one row that fades out at the edge (full list on hover) */
+.built-row { display: flex; gap: 4px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line-2); overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+.built-row .chip { flex: none; }
+
+/* ---------- World screen ---------- */
+.world-side { overflow-y: auto; scrollbar-width: thin; }
+.wg { margin-top: 8px; }
+.wg-h { display: flex; justify-content: space-between; gap: 8px; font-size: 11.5px; color: var(--text-2); white-space: nowrap; }
+.wg-h > span { overflow: hidden; text-overflow: ellipsis; }
+.wg-h b { color: var(--text); font-weight: 600; font-size: 11.5px; flex: none; }
+.wg-bar { position: relative; height: 6px; margin-top: 4px; background: rgba(255, 255, 255, 0.06); }
+.wg-bar i { position: absolute; left: 0; top: 0; bottom: 0; opacity: 0.85; transition: width 0.6s ease; }
+.wg-bar em { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 1px solid var(--text-3); }
+.wg-bar em.toxic { border-color: var(--danger); }
+.wg-bar em.goal { border-color: var(--accent); }
+.wg-note { font-size: 9.5px; color: var(--text-3); margin-top: 3px; font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wrow { display: grid; grid-template-columns: 8px minmax(0, 1fr) 52px 62px; gap: 7px; align-items: center; font-size: 11.5px; padding: 3px 0; }
+.wrow > i { width: 8px; height: 8px; border-radius: 50%; }
+.wrow .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wrow .wbar { height: 4px; background: rgba(255, 255, 255, 0.06); position: relative; }
+.wrow .wbar b { position: absolute; left: 0; top: 0; bottom: 0; transition: width 0.6s ease; }
+.wrow .st { font-size: 9.5px; font-family: var(--mono); text-transform: uppercase; color: var(--text-3); text-align: right; white-space: nowrap; }
+.wrow .st.thriving, .wrow .st.growing { color: var(--nitrogen); }
+.wrow .st.declining, .wrow .st.rare { color: var(--amber); }
+.wrow .st.in-focus { color: var(--accent); }
+.wrow.lost { opacity: 0.45; text-decoration: line-through; }
+.wrow.danger .st { color: var(--oxygen); }
+.wlog { margin-top: 10px; font-size: 11px; color: var(--text-2); }
+.wlog summary { cursor: pointer; color: var(--text-3); font-size: 11px; }
+.wlog div { padding: 2px 0; }
+.world-tip { position: absolute; z-index: 5; pointer-events: none; max-width: 260px; padding: 9px 11px; font-size: 11.5px; line-height: 1.45; background: rgba(8, 10, 14, 0.94); border: 1px solid var(--line-2); display: grid; gap: 2px; }
+.world-chart { display: flex; flex-direction: column; padding: 8px 12px; }
+.wc-h { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; }
+.wc-svg { flex: 1; width: 100%; min-height: 0; margin-top: 4px; }
+.wc-grid { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.wc-key { display: flex; flex-wrap: nowrap; gap: 10px; font-size: 10px; color: var(--text-3); overflow: hidden; white-space: nowrap; }
+.wc-key span { display: inline-flex; align-items: center; gap: 4px; }
+.wc-key i { width: 8px; height: 2px; }
+
+/* ---------- Records: achievements and challenges ---------- */
+.records { position: absolute; inset: 0; overflow-y: auto; padding: 22px 26px 40px; scrollbar-width: thin; }
+.records h2 { font-size: 20px; margin: 0 0 4px; letter-spacing: 0.02em; }
+.records h3 { font-size: 13px; margin: 26px 0 4px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-2); }
+.rec-sum { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); margin-bottom: 18px; }
+.rec-sum b { color: var(--text); }
+.ach-row { display: grid; grid-template-columns: 120px repeat(6, minmax(0, 1fr)); gap: 6px; margin-bottom: 6px; align-items: stretch; }
+.ach-row .rn { font-size: 10.5px; color: var(--text-3); font-family: var(--mono); text-transform: uppercase; align-self: center; letter-spacing: 0.04em; }
+.ach { border: 1px solid var(--line); padding: 8px 9px; min-height: 58px; font-size: 11px; line-height: 1.35; background: rgba(255, 255, 255, 0.015); }
+.ach b { display: block; font-size: 11.5px; color: var(--text-2); margin-bottom: 2px; }
+.ach span { color: var(--text-3); }
+.ach.done { border-color: rgb(var(--acc) / 0.55); background: rgb(var(--acc) / 0.08); }
+.ach.done b { color: var(--text); }
+.ch-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; margin-top: 10px; }
+.ch { border: 1px solid var(--line); padding: 12px 13px; background: rgba(255, 255, 255, 0.015); display: flex; flex-direction: column; gap: 6px; }
+.ch .t { font-weight: 650; font-size: 13px; }
+.ch .x { font-size: 12px; color: var(--text-2); line-height: 1.45; flex: 1; }
+.ch .f { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 11.5px; }
+.ch.done { border-color: rgb(var(--acc) / 0.5); }
+.ch-banner { display: flex; align-items: center; gap: 10px; font-size: 12px; padding: 4px 10px; border: 1px solid rgb(var(--acc) / 0.5); background: rgb(var(--acc) / 0.08); white-space: nowrap; }
+
+/* ---------- inspector experiments ---------- */
+.exp-row { display: flex; gap: 6px; margin-top: 8px; }
+.exp-row .btn { flex: 1; padding-left: 4px; padding-right: 4px; }
+.exp-res { margin-top: 8px; font-size: 11.5px; color: var(--text-2); line-height: 1.45; }
+.exp-res b { color: var(--text); }
+.exp-res svg { width: 100%; height: 44px; display: block; margin-top: 4px; }
+
+/* the community drawer */
+.comm-sum { display: grid; gap: 3px; margin: 2px 2px 12px; }
+.comm-guild { font-size: 10.5px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 14px 2px 6px; display: flex; align-items: center; gap: 6px; }
+.comm-guild i { width: 7px; height: 7px; border-radius: 50%; }

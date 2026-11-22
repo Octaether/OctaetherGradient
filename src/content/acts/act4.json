@@ -1,0 +1,1312 @@
+{
+  "id": "act4",
+  "index": 4,
+  "title": "The oxygen we made",
+  "era": "Anoxygenic then oxygenic photosynthesis; the Great Oxidation Event; respiration",
+  "unit": [
+    "cell",
+    "cells"
+  ],
+  "screen": "light",
+  "blockName": "Light",
+  "blockPool": "light",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.6,
+    "how": "Bacteria take up DNA from their surroundings (transformation)."
+  },
+  "intro": "Food is scarce. One branch of your bacteria learns to use light, starting in the dim middle water where the light is steady. Its waste will change the planet; your archaea and the rest of the community live on below.",
+  "quote": "Crisis, then dawn.",
+  "food": "light",
+  "foodIn": 1.0,
+  "env": {
+    "light": 1.0,
+    "H2S": 1.0,
+    "water": 1.0,
+    "CO2": 5,
+    "O2": 0,
+    "sulfur": 0,
+    "organics": 0
+  },
+  "envDyn": {
+    "light": {
+      "cycle": {
+        "period": 240,
+        "min": 0.03,
+        "max": 1.0,
+        "flag": "surface",
+        "steady": 0.55
+      }
+    },
+    "H2S": {
+      "relax": 0.004,
+      "flux": 0.012
+    },
+    "O2": {
+      "relax": 0.0015,
+      "flux": 0.004,
+      "sink": {
+        "capacity": 0.9,
+        "rate": 0.25
+      },
+      "max": 3
+    }
+  },
+  "dayCycle": {
+    "key": "light",
+    "period": 240
+  },
+  "damage": [
+    {
+      "species": "ROS",
+      "k": 2.5,
+      "label": "Reactive oxygen"
+    }
+  ],
+  "pacing": {
+    "g": 0.3,
+    "k": 0.95,
+    "delta0": 0.3,
+    "U": 0.12,
+    "cellsPerSite": 1000000000.0,
+    "blockRate": 0.1,
+    "biomassBase": 4,
+    "bgMutRate": 1.4,
+    "carrierScale": 600000
+  },
+  "genome": {
+    "copyCap": 60,
+    "energyCap": 15
+  },
+  "fixes": {
+    "nadp": [
+      "a4-calvink",
+      "a4-calvin"
+    ],
+    "nad": [
+      "a4-cox",
+      "a4-resp"
+    ]
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "grow",
+    "uptake": "psa",
+    "carrier": [
+      "atps",
+      "ferm"
+    ],
+    "ec": {
+      "atp": "ATP",
+      "adp": "ADP"
+    },
+    "species": [
+      {
+        "id": "Light",
+        "name": "Light",
+        "plain": "Sunlight",
+        "pool": "light",
+        "init": 1,
+        "kind": "boundary",
+        "env": "light",
+        "x": 60,
+        "y": 110,
+        "card": "photosynthesis"
+      },
+      {
+        "id": "H2S",
+        "name": "H₂S",
+        "plain": "Hydrogen sulfide (electron donor)",
+        "pool": "sulfur",
+        "init": 1,
+        "kind": "boundary",
+        "env": "H2S",
+        "x": 60,
+        "y": 250,
+        "card": "anoxygenic"
+      },
+      {
+        "id": "H2O",
+        "name": "H₂O",
+        "plain": "Water (electron donor)",
+        "pool": "nad",
+        "init": 1,
+        "kind": "boundary",
+        "env": "water",
+        "x": 60,
+        "y": 390,
+        "card": "psii"
+      },
+      {
+        "id": "CO2",
+        "name": "CO₂",
+        "plain": "Carbon dioxide",
+        "pool": "carbon",
+        "init": 5,
+        "kind": "boundary",
+        "env": "CO2",
+        "x": 520,
+        "y": 40,
+        "card": "co2"
+      },
+      {
+        "id": "O2",
+        "name": "O₂",
+        "plain": "Oxygen",
+        "pool": "oxygen",
+        "init": 0,
+        "kind": "boundary",
+        "env": "O2",
+        "x": 520,
+        "y": 585,
+        "card": "goe"
+      },
+      {
+        "id": "S0",
+        "name": "Sulfur",
+        "plain": "Elemental sulfur (waste)",
+        "pool": "sulfur",
+        "init": 0,
+        "kind": "boundary",
+        "env": "sulfur",
+        "x": 280,
+        "y": 40
+      },
+      {
+        "id": "Org",
+        "name": "Organic acids",
+        "plain": "Fermentation waste",
+        "pool": "carbon",
+        "init": 0,
+        "kind": "boundary",
+        "env": "organics",
+        "x": 950,
+        "y": 300
+      },
+      {
+        "id": "Hout",
+        "name": "H⁺ gradient",
+        "plain": "Stored potential (H⁺ gradient)",
+        "pool": "proton",
+        "init": 0.5,
+        "kind": "main",
+        "x": 370,
+        "y": 300,
+        "label": "below",
+        "card": "pmf"
+      },
+      {
+        "id": "Sug",
+        "name": "Sugar",
+        "plain": "Fixed carbon (sugar)",
+        "pool": "carbon",
+        "init": 0.4,
+        "kind": "main",
+        "x": 760,
+        "y": 160,
+        "label": "above",
+        "card": "calvin"
+      },
+      {
+        "id": "ROS",
+        "name": "Superoxide",
+        "plain": "Reactive oxygen (damages enzymes)",
+        "pool": "oxygen",
+        "init": 0.0,
+        "kind": "main",
+        "x": 300,
+        "y": 510,
+        "label": "below",
+        "card": "ros"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP",
+        "plain": "Spendable energy (ATP)",
+        "pool": "atp",
+        "init": 2,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "plain": "Spent energy (ADP)",
+        "pool": "atp",
+        "init": 1,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "NADPH",
+        "name": "NADPH",
+        "plain": "Carries electrons for building (NADPH)",
+        "pool": "nad",
+        "init": 0.4,
+        "kind": "cofactor",
+        "card": "nad"
+      },
+      {
+        "id": "NADP",
+        "name": "NADP⁺",
+        "plain": "Empty building electron carrier",
+        "pool": "nad",
+        "init": 0.6,
+        "kind": "cofactor",
+        "card": "nad"
+      },
+      {
+        "id": "NAD",
+        "name": "NAD⁺",
+        "plain": "Empty electron carrier (NAD⁺)",
+        "pool": "nad",
+        "init": 0.7,
+        "kind": "cofactor",
+        "card": "nad"
+      },
+      {
+        "id": "NADH",
+        "name": "NADH",
+        "plain": "Carries electrons (NADH)",
+        "pool": "nad",
+        "init": 0.3,
+        "kind": "cofactor",
+        "card": "nad"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "ATP / ADP",
+        "plain": "Spendable energy",
+        "pool": "atp",
+        "charged": "ATP",
+        "species": [
+          "ATP",
+          "ADP"
+        ]
+      },
+      {
+        "id": "nadp",
+        "name": "NADPH / NADP⁺",
+        "plain": "Building electrons",
+        "pool": "nad",
+        "charged": "NADPH",
+        "species": [
+          "NADPH",
+          "NADP"
+        ]
+      },
+      {
+        "id": "nad",
+        "name": "NAD⁺ / NADH",
+        "plain": "Burning electrons",
+        "pool": "nad",
+        "charged": "NAD",
+        "species": [
+          "NAD",
+          "NADH"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "psa",
+        "name": "Type I reaction centre",
+        "short": "RC-I",
+        "plain": "Light pulls electrons off H₂S",
+        "gene": true,
+        "sub": {
+          "Light": 1,
+          "H2S": 1,
+          "NADP": 1
+        },
+        "prod": {
+          "NADPH": 1,
+          "Hout": 2,
+          "S0": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.55,
+          "Km": {
+            "Light": 0.25,
+            "H2S": 0.25,
+            "NADP": 0.1
+          }
+        },
+        "x": 200,
+        "y": 190,
+        "slots": 2,
+        "card": "anoxygenic"
+      },
+      {
+        "id": "pso",
+        "name": "Photosystems II + I",
+        "short": "PSII+PSI",
+        "plain": "Light splits water; oxygen is the waste",
+        "gene": true,
+        "requires": "oxygenic",
+        "sub": {
+          "Light": 1,
+          "H2O": 1,
+          "NADP": 1
+        },
+        "prod": {
+          "NADPH": 1,
+          "Hout": 3,
+          "O2": 0.5
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "Light": 0.3,
+            "H2O": 0.1,
+            "NADP": 0.1
+          }
+        },
+        "x": 200,
+        "y": 360,
+        "slots": 3,
+        "card": "psii"
+      },
+      {
+        "id": "cef",
+        "name": "Cyclic electron flow",
+        "short": "Cyclic",
+        "plain": "Light cycles electrons to pump protons only, topping up ATP",
+        "gene": true,
+        "sub": {
+          "Light": 1
+        },
+        "prod": {
+          "Hout": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.25,
+          "Km": {
+            "Light": 0.3
+          }
+        },
+        "x": 260,
+        "y": 270,
+        "slots": 1,
+        "card": "cyclic-flow"
+      },
+      {
+        "id": "atps",
+        "name": "ATP synthase",
+        "short": "ATPase",
+        "plain": "Turns the gradient into ATP",
+        "gene": true,
+        "sub": {
+          "Hout": 3,
+          "ADP": 1
+        },
+        "prod": {
+          "ATP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 1.0,
+          "Km": {
+            "Hout": 0.3,
+            "ADP": 0.3
+          }
+        },
+        "x": 520,
+        "y": 300,
+        "slots": 3,
+        "card": "atp-synthase"
+      },
+      {
+        "id": "leak",
+        "name": "Membrane leak",
+        "short": "Leak",
+        "plain": "Protons slip back",
+        "sub": {
+          "Hout": 1
+        },
+        "prod": {},
+        "law": {
+          "type": "ma",
+          "k": 0.05
+        },
+        "x": 400,
+        "y": 380,
+        "hide": true,
+        "card": "pmf"
+      },
+      {
+        "id": "calvin",
+        "name": "Calvin cycle",
+        "short": "RuBisCO…",
+        "plain": "Fixes CO₂ into sugar with ATP and NADPH",
+        "gene": true,
+        "sub": {
+          "CO2": 1,
+          "ATP": 3,
+          "NADPH": 2
+        },
+        "prod": {
+          "Sug": 1,
+          "ADP": 3,
+          "NADP": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "CO2": 1,
+            "ATP": 0.5,
+            "NADPH": 0.15
+          }
+        },
+        "mods": [
+          {
+            "species": "O2",
+            "type": "inh",
+            "K": 1.5
+          },
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 1.0,
+            "n": 2
+          }
+        ],
+        "x": 620,
+        "y": 160,
+        "steps": 13,
+        "slots": 3,
+        "card": "calvin"
+      },
+      {
+        "id": "ferm",
+        "name": "Fermentation",
+        "short": "Ferm",
+        "plain": "Burns sugar without oxygen, for little ATP",
+        "gene": true,
+        "sub": {
+          "Sug": 1,
+          "ADP": 2
+        },
+        "prod": {
+          "ATP": 2,
+          "Org": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.12,
+          "Km": {
+            "Sug": 0.3,
+            "ADP": 0.3
+          }
+        },
+        "x": 860,
+        "y": 300,
+        "slots": 1,
+        "card": "fermentation"
+      },
+      {
+        "id": "tca",
+        "name": "Glycolysis + Krebs cycle",
+        "short": "Krebs",
+        "plain": "Strips every electron from sugar",
+        "gene": true,
+        "requires": "resp",
+        "sub": {
+          "Sug": 1,
+          "NAD": 4
+        },
+        "prod": {
+          "NADH": 4
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.25,
+          "Km": {
+            "Sug": 0.3,
+            "NAD": 0.2
+          }
+        },
+        "mods": [
+          {
+            "species": "NADH",
+            "type": "inh",
+            "K": 0.6
+          }
+        ],
+        "x": 760,
+        "y": 430,
+        "steps": 18,
+        "slots": 3,
+        "card": "krebs"
+      },
+      {
+        "id": "etc",
+        "name": "Respiratory chain",
+        "short": "ETC",
+        "plain": "Electrons fall to oxygen, pumping protons",
+        "gene": true,
+        "requires": "resp",
+        "sub": {
+          "NADH": 1,
+          "O2": 1
+        },
+        "prod": {
+          "NAD": 1,
+          "Hout": 4
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.8,
+          "Km": {
+            "NADH": 0.1,
+            "O2": 0.06
+          }
+        },
+        "x": 560,
+        "y": 450,
+        "steps": 4,
+        "slots": 3,
+        "card": "respiration"
+      },
+      {
+        "id": "rosf",
+        "name": "Electron leak to O₂",
+        "short": "Leak→O₂⁻",
+        "plain": "Stray electrons make superoxide",
+        "sub": {
+          "NADPH": 1,
+          "O2": 1
+        },
+        "prod": {
+          "ROS": 1,
+          "NADP": 1
+        },
+        "law": {
+          "type": "ma",
+          "k": 0.04,
+          "scale": [
+            "rosk"
+          ]
+        },
+        "x": 300,
+        "y": 440,
+        "card": "ros"
+      },
+      {
+        "id": "sod",
+        "name": "Superoxide dismutase",
+        "short": "SOD",
+        "plain": "Defuses superoxide",
+        "gene": true,
+        "requires": "sod",
+        "sub": {
+          "ROS": 1
+        },
+        "prod": {},
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "ROS": 0.03
+          }
+        },
+        "x": 180,
+        "y": 545,
+        "slots": 1,
+        "card": "sod"
+      },
+      {
+        "id": "rosd",
+        "name": "Superoxide decay",
+        "short": "Decay",
+        "plain": "Superoxide reacts away",
+        "sub": {
+          "ROS": 1
+        },
+        "prod": {},
+        "law": {
+          "type": "ma",
+          "k": 0.05
+        },
+        "x": 400,
+        "y": 560,
+        "hide": true,
+        "card": "ros"
+      },
+      {
+        "id": "grow",
+        "name": "Biosynthesis",
+        "short": "Grow",
+        "plain": "Builds new cells",
+        "sub": {
+          "Sug": 1,
+          "ATP": 3,
+          "NADPH": 1
+        },
+        "prod": {
+          "ADP": 3,
+          "NADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "Sug": 0.2,
+            "ATP": 0.3,
+            "NADPH": 0.1
+          }
+        },
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          }
+        ],
+        "x": 900,
+        "y": 110,
+        "card": "growth"
+      },
+      {
+        "id": "maint",
+        "name": "Maintenance",
+        "short": "Maint",
+        "plain": "Upkeep",
+        "sub": {
+          "ATP": 1
+        },
+        "prod": {
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.01,
+          "Km": {
+            "ATP": 0.1
+          },
+          "scale": [
+            "maint"
+          ]
+        },
+        "x": 900,
+        "y": 560,
+        "hide": true,
+        "card": "maintenance"
+      }
+    ],
+    "params": {
+      "maint": 1,
+      "rosk": 1
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a4-psa",
+      "name": "Bacteriochlorophyll antenna",
+      "kind": "point",
+      "molecular": "More pigment molecules funnel photons to the reaction centre",
+      "local": "Type I centre kcat ×1.5",
+      "target": "psa",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "psa",
+          "mul": 1.5
+        }
+      ],
+      "cost": 25,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "anoxygenic"
+    },
+    {
+      "id": "a4-cef",
+      "name": "Cyclic flow tuning",
+      "kind": "point",
+      "molecular": "Ferredoxin hands electrons back to the cytochrome complex instead of to NADP⁺",
+      "local": "Cyclic electron flow ×1.5",
+      "target": "cef",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "cef",
+          "mul": 1.5
+        }
+      ],
+      "cost": 25,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "card": "cyclic-flow"
+    },
+    {
+      "id": "a4-atps",
+      "name": "ATP synthase: c-ring",
+      "kind": "point",
+      "molecular": "A larger c-ring makes ATP from a weaker gradient",
+      "local": "ATP synthase Km(H⁺) ×0.6",
+      "target": "atps",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "atps",
+          "species": "Hout",
+          "mul": 0.6
+        }
+      ],
+      "cost": 30,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "card": "atp-synthase"
+    },
+    {
+      "id": "a4-calvink",
+      "name": "Sedoheptulose bisphosphatase",
+      "kind": "point",
+      "molecular": "A dedicated phosphatase clears the cycle's slowest regeneration step",
+      "local": "Calvin cycle kcat ×1.5",
+      "target": "calvin",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "calvin",
+          "mul": 1.5
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "calvin"
+    },
+    {
+      "id": "a4-calvin",
+      "name": "RuBisCO: CO₂ over O₂",
+      "kind": "point",
+      "molecular": "Loop 6 of the large subunit closes tighter over the carbamylated Lys201",
+      "local": "O₂ inhibition of RuBisCO ×0.5",
+      "target": "calvin",
+      "effects": [
+        {
+          "type": "K",
+          "rxn": "calvin",
+          "species": "O2",
+          "mul": 2
+        }
+      ],
+      "cost": 50,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "card": "rubisco"
+    },
+    {
+      "id": "a4-ferm",
+      "name": "Glycogen fermentation",
+      "kind": "point",
+      "molecular": "Glycogen phosphorylase feeds night-time fermentation",
+      "local": "Fermentation kcat ×1.6",
+      "target": "ferm",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "ferm",
+          "mul": 1.6
+        }
+      ],
+      "cost": 25,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "card": "fermentation"
+    },
+    {
+      "id": "a4-oxy",
+      "name": "Oxygenic photosynthesis",
+      "kind": "gene",
+      "molecular": "A second photosystem with a Mn₄CaO₅ cluster pulls electrons from water",
+      "local": "New reaction: light + water → NADPH + H⁺ gradient + O₂",
+      "target": "pso",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "oxygenic"
+        }
+      ],
+      "cost": 70,
+      "block": 40,
+      "needsFlag": "u.oxygenic",
+      "card": "psii",
+      "hint": "Appears when sulfide grows scarce"
+    },
+    {
+      "id": "a4-psii",
+      "name": "Water-splitting cluster",
+      "kind": "point",
+      "molecular": "A Tyr–His relay feeds electrons from the Mn cluster to P680",
+      "local": "PSII+PSI kcat ×1.6",
+      "target": "pso",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pso",
+          "mul": 1.6
+        }
+      ],
+      "cost": 50,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "requires": [
+        "a4-oxy"
+      ],
+      "card": "psii"
+    },
+    {
+      "id": "a4-shield",
+      "name": "Carotenoid shield",
+      "kind": "point",
+      "molecular": "Carotenoids quench excited chlorophyll before it hands electrons to O₂",
+      "local": "Superoxide formation ×0.5",
+      "target": "rosf",
+      "effects": [
+        {
+          "type": "param",
+          "key": "rosk",
+          "mul": 0.5
+        }
+      ],
+      "cost": 45,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a4-oxy"
+      ],
+      "card": "ros"
+    },
+    {
+      "id": "a4-sod",
+      "name": "Superoxide dismutase",
+      "kind": "gene",
+      "molecular": "A metal-centred enzyme turns superoxide into peroxide and oxygen",
+      "local": "New reaction: superoxide → harmless",
+      "target": "sod",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "sod"
+        }
+      ],
+      "cost": 55,
+      "needsFlag": "u.sod",
+      "card": "sod",
+      "hint": "Appears when oxygen does"
+    },
+    {
+      "id": "a4-cat",
+      "name": "Catalase",
+      "kind": "point",
+      "molecular": "A haem enzyme splits peroxide millions of times per second",
+      "local": "Antioxidant defence ×2",
+      "target": "sod",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "sod",
+          "mul": 2
+        }
+      ],
+      "cost": 50,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a4-sod"
+      ],
+      "card": "catalase"
+    },
+    {
+      "id": "a4-resp",
+      "name": "Aerobic respiration",
+      "kind": "gene",
+      "molecular": "A detoxifying oxygen reductase is coupled to proton pumping, and the Krebs cycle joins in",
+      "local": "New pathway: sugar + O₂ → many ATP",
+      "target": "etc",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "resp"
+        }
+      ],
+      "cost": 110,
+      "block": 60,
+      "needsFlag": "u.resp",
+      "card": "respiration",
+      "hint": "Appears when oxygen stays high and defences are in place",
+      "founds": "resp"
+    },
+    {
+      "id": "a4-cox",
+      "name": "Cytochrome oxidase: high affinity",
+      "kind": "point",
+      "molecular": "A haem–copper centre binds O₂ at micromolar levels",
+      "local": "Respiratory chain Km(O₂) ×0.5",
+      "target": "etc",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "etc",
+          "species": "O2",
+          "mul": 0.5
+        },
+        {
+          "type": "kcat",
+          "rxn": "etc",
+          "mul": 1.3
+        }
+      ],
+      "cost": 60,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a4-resp"
+      ],
+      "card": "respiration"
+    },
+    {
+      "id": "a4-krebs",
+      "name": "Krebs cycle: citrate synthase",
+      "kind": "point",
+      "molecular": "His274, His320 and Asp375 line up acetyl-CoA and oxaloacetate",
+      "local": "Krebs kcat ×1.5",
+      "target": "tca",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "tca",
+          "mul": 1.5
+        }
+      ],
+      "cost": 60,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a4-resp"
+      ],
+      "card": "krebs"
+    },
+    {
+      "id": "a4-kai",
+      "name": "Circadian clock (KaiABC)",
+      "kind": "regulator",
+      "molecular": "Three Kai proteins phosphorylate in a 24-hour rhythm, even in a test tube",
+      "local": "Photosynthesis and fermentation follow day and night on their own",
+      "effects": [
+        {
+          "type": "mod",
+          "rxn": "psa",
+          "mod": {
+            "species": "Light",
+            "type": "act",
+            "K": 0.03,
+            "basal": 0.1
+          }
+        },
+        {
+          "type": "mod",
+          "rxn": "cef",
+          "mod": {
+            "species": "Light",
+            "type": "act",
+            "K": 0.03,
+            "basal": 0.1
+          }
+        },
+        {
+          "type": "mod",
+          "rxn": "calvin",
+          "mod": {
+            "species": "Light",
+            "type": "act",
+            "K": 0.03,
+            "basal": 0.1
+          }
+        },
+        {
+          "type": "mod",
+          "rxn": "ferm",
+          "mod": {
+            "species": "Light",
+            "type": "inh",
+            "K": 0.03
+          }
+        },
+        {
+          "type": "param",
+          "key": "maint",
+          "mul": 0.55
+        }
+      ],
+      "cost": 70,
+      "slots": 1,
+      "automates": "daynight",
+      "card": "kaiabc"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n4-surface",
+      "name": "Sunlit surface waters",
+      "text": "Spread up into the bright top few metres: more light by day, none at night",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55,
+      "flag": "surface"
+    },
+    {
+      "id": "n4-shelf",
+      "name": "Coastal shelves",
+      "text": "Shallow coastal seas: more room, but the sediment sulfide is soon used up",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6
+    },
+    {
+      "id": "n4-open",
+      "name": "Open ocean",
+      "text": "Endless water, thin on nutrients",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5,
+      "needsFlag": "oxygenic"
+    }
+  ],
+  "chores": [
+    {
+      "id": "daynight",
+      "name": "Day and night",
+      "text": "Switch between photosynthesis by day and a low-cost night mode that ferments stored sugar.",
+      "automatedBy": "a4-kai",
+      "control": "toggle",
+      "needsFlag": "u.daynight",
+      "options": [
+        {
+          "id": "day",
+          "label": "Day mode",
+          "effects": [
+            {
+              "type": "E",
+              "rxn": "ferm",
+              "mul": 0.4
+            }
+          ]
+        },
+        {
+          "id": "night",
+          "label": "Night mode",
+          "effects": [
+            {
+              "type": "E",
+              "rxn": "psa",
+              "mul": 0.15
+            },
+            {
+              "type": "E",
+              "rxn": "pso",
+              "mul": 0.15
+            },
+            {
+              "type": "E",
+              "rxn": "calvin",
+              "mul": 0.15
+            },
+            {
+              "type": "param",
+              "key": "maint",
+              "mul": 0.35
+            },
+            {
+              "type": "E",
+              "rxn": "cef",
+              "mul": 0.15
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "u.light",
+      "title": "Light",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 1
+      },
+      "card": "photosynthesis",
+      "tutorial": "A reaction centre uses light to pull electrons off sulfide and pump protons. In the dim middle water the light is weak but steady; Sunlit surface waters (Grow) give more, with day and night."
+    },
+    {
+      "id": "u.daynight",
+      "title": "Day and night",
+      "when": {
+        "flag": "surface"
+      },
+      "card": "kaiabc",
+      "tutorial": "Up at the surface, light comes and goes with the day. At night photosynthesis stops and upkeep drains ATP. Switch modes at dusk and dawn, or evolve a clock that does it for you.",
+      "reveals": [
+        "chores"
+      ]
+    },
+    {
+      "id": "u.oxygenic",
+      "title": "Water as an electron donor",
+      "when": {
+        "any": [
+          {
+            "stat": "env.H2S",
+            "op": "<",
+            "value": 0.4
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 900
+          }
+        ]
+      },
+      "card": "psii",
+      "tutorial": "Sulfide is running out. Water is everywhere, but splitting it needs a stronger oxidant: a second photosystem. Its waste is oxygen."
+    },
+    {
+      "id": "u.sod",
+      "title": "Oxygen appears",
+      "when": {
+        "stat": "env.O2",
+        "op": ">",
+        "value": 0.01
+      },
+      "card": "ros",
+      "tutorial": "Oxygen and its radicals damage iron–sulfur enzymes. Defence came before use: look for superoxide dismutase in Evolve.",
+      "highlight": "ROS"
+    },
+    {
+      "id": "u.resp",
+      "title": "Breathing oxygen",
+      "when": {
+        "all": [
+          {
+            "stat": "env.O2",
+            "op": ">",
+            "value": 0.25
+          },
+          {
+            "has": "a4-sod"
+          }
+        ]
+      },
+      "card": "respiration",
+      "tutorial": "Oxygen-reducing enzymes may first have been detoxifiers. Coupled to proton pumping, they turn oxygen from poison into the richest fuel."
+    },
+    {
+      "id": "u.ironsink",
+      "title": "Oxygen is coming",
+      "when": {
+        "flag": "oxygenic"
+      },
+      "card": "goe",
+      "tutorial": "Your new waste, oxygen, first rusts the iron dissolved in the sea: watch the iron sink on the World screen. When it is used up, oxygen builds up and kills strict anaerobes outside the sediment. Move your archaea down in time."
+    }
+  ],
+  "events": [
+    {
+      "id": "e.sulfide",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 600
+      },
+      "title": "Sulfide is running low",
+      "text": "Volcanic sulfide is being used up faster than it is replaced. Watch the sulfide gauge fall: cells that can split water instead will take over.",
+      "env": {
+        "H2S": 0.3
+      },
+      "flags": [
+        "sulfidelow"
+      ],
+      "ramp": 420
+    },
+    {
+      "id": "e.goe",
+      "when": {
+        "stat": "env.O2",
+        "op": ">",
+        "value": 0.12
+      },
+      "title": "The Great Oxidation Event",
+      "text": "The oceans' dissolved iron is used up. Oxygen accumulates; iron rusts out of the seas in red bands.",
+      "flags": [
+        "goe"
+      ]
+    },
+    {
+      "id": "e.archaeaLost",
+      "when": {
+        "flag": "archaeaLost"
+      },
+      "title": "Archaea lost",
+      "flags": [
+        "archaeaGone"
+      ],
+      "text": "Oxygen reached your archaea and they died out. The merger in the next act will have to use a wild archaeon, and the finale will miss them."
+    }
+  ],
+  "gate": {
+    "flux": 15.8,
+    "when": {
+      "all": [
+        {
+          "stat": "energyRatio",
+          "op": ">=",
+          "value": 0.95
+        },
+        {
+          "flag": "goe"
+        },
+        {
+          "flag": "surface",
+          "label": "Cyanobacteria at the sunlit surface"
+        },
+        {
+          "stat": "world.resp",
+          "op": ">",
+          "value": 0.1,
+          "label": "Oxygen breathers established"
+        },
+        {
+          "any": [
+            {
+              "stat": "world.archaeaSafe",
+              "op": ">=",
+              "value": 1,
+              "label": "Your archaea safe in the sediment"
+            },
+            {
+              "flag": "archaeaGone"
+            }
+          ]
+        }
+      ]
+    },
+    "text": "Carry the community through the oxygen you made: cyanobacteria at the surface, oxygen breathers in the middle, archaea in the sediment. Fill the genome until energy per gene is the limit, with ATP flux above 10^15.8 per second.",
+    "wall": "Energy per gene caps how many genes a prokaryote can run"
+  }
+}

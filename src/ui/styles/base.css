@@ -1,0 +1,49 @@
+/* Element defaults, type roles, shared keyframes and motion preferences. */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg); color: var(--text); font-family: var(--font); font-size: 13px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow: hidden; user-select: none;
+}
+button { font: inherit; color: inherit; }
+kbd { font-family: var(--mono); font-size: 10.5px; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line-2); color: var(--text-2); }
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* type roles */
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.muted { color: var(--text-2); }
+.faint { color: var(--text-3); }
+/* tracked mono micro-labels */
+.label, .stat .label, .tutorial .kick, .coin .n {
+  font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;
+}
+.label { font-size: 11px; color: var(--text-3); }
+/* headings in the display face */
+.micro, .screen-title, .modal h2, .tutorial h3, .cinematic-title, .dhead h4, .legend h5, .site-h, .goalbar .gt {
+  font-family: var(--display); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+}
+
+/* shared motion */
+@keyframes drift {
+  0% { transform: translate(-10%, -8%) scale(1); }
+  50% { transform: translate(12%, 6%) scale(1.15); }
+  100% { transform: translate(-4%, 12%) scale(0.95); }
+}
+@keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.95; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes popin { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes floatup {
+  0% { opacity: 0; transform: translate(-50%, 6px); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50px); }
+}
+@keyframes sweep { from { transform: translateY(0); opacity: 0.6; } to { transform: translateY(100vh); opacity: 0; } }
+.breathe { animation: breathe 2.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
+/* the in-game "reduced motion" setting */
+.reduced *, .reduced *::before, .reduced *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }

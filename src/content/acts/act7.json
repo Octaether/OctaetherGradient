@@ -1,0 +1,1009 @@
+{
+  "id": "act7",
+  "index": 7,
+  "title": "Many become one",
+  "era": "Clonal groups, cell types, germ and soma, cheating cells",
+  "unit": [
+    "organism",
+    "organisms"
+  ],
+  "screen": "body",
+  "blockName": "Oxygen supply",
+  "blockPool": "oxygen",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.5,
+    "how": "Genes spread through the species by sex and recombination."
+  },
+  "intro": "To escape ever-bigger hunters, cells stick together. Which of your branches builds a body first: your algae, or your hunters?",
+  "quote": "Bodies and scale.",
+  "food": "food",
+  "foodIn": 1.0,
+  "env": {
+    "food": 1.0,
+    "O2": 1.0,
+    "lactate": 0
+  },
+  "damage": [
+    {
+      "param": "predation",
+      "k": 0.45,
+      "label": "Predation"
+    },
+    {
+      "param": "cheat",
+      "k": 0.8,
+      "label": "Cheating cells"
+    }
+  ],
+  "pacing": {
+    "g": 0.16,
+    "k": 1.1,
+    "delta0": 0.25,
+    "U": 0.1,
+    "cellsPerSite": 2000000.0,
+    "blockRate": 0.1,
+    "biomassBase": 4,
+    "bgMutRate": 1.0,
+    "carrierScale": 60000000
+  },
+  "genome": {
+    "copyCap": 200,
+    "energyCap": 200
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "grow",
+    "uptake": "feed",
+    "carrier": [
+      "resp",
+      "ferm"
+    ],
+    "ec": {
+      "atp": "ATP",
+      "adp": "ADP"
+    },
+    "species": [
+      {
+        "id": "Food",
+        "name": "Food",
+        "plain": "Light or prey, depending on your line",
+        "pool": "carbon",
+        "init": 1,
+        "kind": "boundary",
+        "env": "food",
+        "x": 60,
+        "y": 200,
+        "card": "body-plan"
+      },
+      {
+        "id": "O2",
+        "name": "O₂",
+        "plain": "Oxygen in the water",
+        "pool": "oxygen",
+        "init": 1,
+        "kind": "boundary",
+        "env": "O2",
+        "x": 60,
+        "y": 460,
+        "card": "size-oxygen"
+      },
+      {
+        "id": "LacOut",
+        "name": "Lactate (out)",
+        "plain": "Waste washed away",
+        "pool": "carbon",
+        "init": 0,
+        "kind": "boundary",
+        "env": "lactate",
+        "x": 940,
+        "y": 520
+      },
+      {
+        "id": "Sug",
+        "name": "Sugar",
+        "plain": "Sugar shared through the body",
+        "pool": "carbon",
+        "init": 0.4,
+        "kind": "main",
+        "x": 400,
+        "y": 200,
+        "label": "above",
+        "card": "body-plan"
+      },
+      {
+        "id": "O2i",
+        "name": "Inner O₂",
+        "plain": "Oxygen that reaches the inner cells",
+        "pool": "oxygen",
+        "init": 0.3,
+        "kind": "main",
+        "x": 400,
+        "y": 460,
+        "label": "below",
+        "card": "size-oxygen"
+      },
+      {
+        "id": "Lac",
+        "name": "Lactate",
+        "plain": "Made by starving inner cells",
+        "pool": "carbon",
+        "init": 0.1,
+        "kind": "main",
+        "x": 760,
+        "y": 470,
+        "label": "below",
+        "card": "fermentation"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP",
+        "plain": "Spendable energy (ATP)",
+        "pool": "atp",
+        "init": 2,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "plain": "Spent energy (ADP)",
+        "pool": "atp",
+        "init": 1,
+        "kind": "cofactor",
+        "card": "atp"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "ATP / ADP",
+        "plain": "Spendable energy",
+        "pool": "atp",
+        "charged": "ATP",
+        "species": [
+          "ATP",
+          "ADP"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "feed",
+        "name": "Feeding cells",
+        "short": "Feed",
+        "plain": "Surface cells capture food for the body",
+        "gene": true,
+        "sub": {
+          "Food": 1
+        },
+        "prod": {
+          "Sug": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "Food": 0.3
+          },
+          "scale": [
+            "feeders",
+            "coord"
+          ]
+        },
+        "x": 220,
+        "y": 200,
+        "card": "cell-types"
+      },
+      {
+        "id": "o2d",
+        "name": "Oxygen supply",
+        "short": "O₂ in",
+        "plain": "Oxygen diffuses inward; bigger bodies get less per cell",
+        "gene": true,
+        "sub": {
+          "O2": 1
+        },
+        "prod": {
+          "O2i": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.6,
+          "a": "O2",
+          "b": "O2i",
+          "scale": [
+            "diffusion"
+          ]
+        },
+        "x": 220,
+        "y": 460,
+        "card": "size-oxygen"
+      },
+      {
+        "id": "resp",
+        "name": "Respiration",
+        "short": "Resp",
+        "plain": "Oxygenated cells burn sugar for many ATP",
+        "gene": true,
+        "sub": {
+          "Sug": 1,
+          "O2i": 1,
+          "ADP": 6
+        },
+        "prod": {
+          "ATP": 6
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.4,
+          "Km": {
+            "Sug": 0.2,
+            "O2i": 0.08,
+            "ADP": 0.3
+          }
+        },
+        "x": 560,
+        "y": 330,
+        "card": "respiration"
+      },
+      {
+        "id": "ferm",
+        "name": "Fermentation",
+        "short": "Ferm",
+        "plain": "Inner cells without oxygen ferment",
+        "gene": true,
+        "sub": {
+          "Sug": 1,
+          "ADP": 2
+        },
+        "prod": {
+          "ATP": 2,
+          "Lac": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.15,
+          "Km": {
+            "Sug": 0.2,
+            "ADP": 0.3
+          }
+        },
+        "mods": [
+          {
+            "species": "Lac",
+            "type": "inh",
+            "K": 1.0
+          }
+        ],
+        "x": 600,
+        "y": 470,
+        "card": "fermentation"
+      },
+      {
+        "id": "lacx",
+        "name": "Lactate washout",
+        "short": "Out",
+        "plain": "Waste diffuses out",
+        "sub": {
+          "Lac": 1
+        },
+        "prod": {
+          "LacOut": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.3,
+          "a": "Lac",
+          "b": "LacOut",
+          "scale": [
+            "diffusion"
+          ]
+        },
+        "x": 860,
+        "y": 500,
+        "hide": true,
+        "card": "fermentation"
+      },
+      {
+        "id": "grow",
+        "name": "Reproduction",
+        "short": "Grow",
+        "plain": "Germ cells build the next organism",
+        "sub": {
+          "Sug": 1,
+          "ATP": 4
+        },
+        "prod": {
+          "ADP": 4
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "Sug": 0.2,
+            "ATP": 0.3
+          },
+          "scale": [
+            "germ"
+          ]
+        },
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          }
+        ],
+        "x": 760,
+        "y": 200,
+        "card": "germ-soma"
+      },
+      {
+        "id": "maint",
+        "name": "Body upkeep",
+        "short": "Upkeep",
+        "plain": "Somatic cells cost ATP to keep",
+        "sub": {
+          "ATP": 1
+        },
+        "prod": {
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.012,
+          "Km": {
+            "ATP": 0.1
+          },
+          "scale": [
+            "soma"
+          ]
+        },
+        "x": 860,
+        "y": 330,
+        "card": "germ-soma"
+      }
+    ],
+    "params": {
+      "size": 4,
+      "o2carry": 1,
+      "coordBase": 1,
+      "germBonus": 1,
+      "aging": 1,
+      "cheatMul": 1,
+      "grn": 0
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a7-snow",
+      "name": "Snowflake clusters",
+      "kind": "stage",
+      "molecular": "Mother and daughter cell walls stay joined after division, as in lab-evolved snowflake yeast",
+      "local": "Body size ×2. Bigger clusters settle and escape predators",
+      "effects": [
+        {
+          "type": "param",
+          "key": "size",
+          "mul": 2
+        }
+      ],
+      "cost": 20,
+      "card": "snowflake",
+      "needsFlag": "multi",
+      "hint": "First choose which branch goes multicellular (Evolve, Community)",
+      "alt": {
+        "seaweed": {
+          "name": "Sticky daughter cells",
+          "molecular": "Daughter cells stay inside a shared wall after division, as in Volvox colonies",
+          "local": "Clusters ×2 in size"
+        }
+      }
+    },
+    {
+      "id": "a7-bond",
+      "name": "Tougher cell bonds",
+      "kind": "point",
+      "molecular": "Elongated cells pack and entangle, so clusters break less",
+      "local": "Body size ×2 (less predation, less O₂ per cell)",
+      "effects": [
+        {
+          "type": "param",
+          "key": "size",
+          "mul": 2
+        }
+      ],
+      "cost": 30,
+      "levels": 5,
+      "costGrowth": 2.2,
+      "requires": [
+        "a7-snow"
+      ],
+      "card": "size-oxygen",
+      "alt": {
+        "seaweed": {
+          "name": "Tougher cell walls",
+          "molecular": "Cross-linked cell walls hold fronds together against the waves",
+          "local": "Size ×2"
+        }
+      }
+    },
+    {
+      "id": "a7-globin",
+      "name": "Oxygen-binding proteins",
+      "kind": "point",
+      "molecular": "Haem globins store and ferry O₂ inward",
+      "local": "Oxygen supply ×1.6",
+      "target": "o2d",
+      "effects": [
+        {
+          "type": "param",
+          "key": "o2carry",
+          "mul": 1.6
+        }
+      ],
+      "cost": 35,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "card": "globin",
+      "alt": {
+        "seaweed": {
+          "name": "Gas floats",
+          "molecular": "Gas-filled bladders (pneumatocysts) lift fronds toward the light, as in kelp",
+          "local": "Supply to inner cells ×1.6"
+        }
+      }
+    },
+    {
+      "id": "a7-resp",
+      "name": "Mitochondrial density",
+      "kind": "point",
+      "molecular": "More mitochondria per cell in tissues that work hardest",
+      "local": "Respiration kcat ×1.5",
+      "target": "resp",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "resp",
+          "mul": 1.5
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "respiration",
+      "alt": {
+        "seaweed": {
+          "name": "Chloroplast density",
+          "molecular": "More chloroplasts per cell in the sunlit outer layer",
+          "local": "Energy production ×1.5"
+        }
+      }
+    },
+    {
+      "id": "a7-feed",
+      "name": "Feeding surface",
+      "kind": "point",
+      "molecular": "Folds, fronds or cilia multiply the surface that captures food",
+      "local": "Feeding kcat ×1.5",
+      "target": "feed",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "feed",
+          "mul": 1.5
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.2,
+      "card": "cell-types",
+      "alt": {
+        "seaweed": {
+          "name": "Broader fronds",
+          "molecular": "Flattened blades catch more light per cell",
+          "local": "Uptake ×1.5"
+        }
+      }
+    },
+    {
+      "id": "a7-types",
+      "name": "Cell types",
+      "kind": "stage",
+      "molecular": "The same genome, different expression profiles: cells specialise",
+      "local": "Unlocks the body plan: assign cells to jobs",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "types"
+        },
+        {
+          "type": "param",
+          "key": "coordBase",
+          "mul": 1.15
+        }
+      ],
+      "cost": 60,
+      "block": 30,
+      "requires": [
+        "a7-snow"
+      ],
+      "card": "cell-types"
+    },
+    {
+      "id": "a7-germ",
+      "name": "Germ and soma",
+      "kind": "stage",
+      "molecular": "Reproductive cells are set apart early; body cells no longer reproduce",
+      "local": "Reproduction ×1.35, but the body now ages",
+      "target": "grow",
+      "effects": [
+        {
+          "type": "param",
+          "key": "germBonus",
+          "mul": 1.35
+        },
+        {
+          "type": "param",
+          "key": "aging",
+          "mul": 1.15
+        }
+      ],
+      "cost": 90,
+      "block": 40,
+      "requires": [
+        "a7-types"
+      ],
+      "card": "germ-soma",
+      "alt": {
+        "seaweed": {
+          "name": "Set-aside reproductive cells",
+          "molecular": "A few cells only reproduce; the rest swim and photosynthesise (Volvox gonidia)",
+          "local": "Germ cells protected: ×1.35"
+        }
+      }
+    },
+    {
+      "id": "a7-bottle",
+      "name": "Single-cell bottleneck",
+      "kind": "defence",
+      "molecular": "Every organism starts from one cell, so cheaters cannot hitch a ride between generations",
+      "local": "Cheater load ×0.4",
+      "effects": [
+        {
+          "type": "param",
+          "key": "cheatMul",
+          "mul": 0.4
+        }
+      ],
+      "cost": 50,
+      "needsFlag": "cheaters",
+      "card": "cheaters",
+      "hint": "Appears when cheating cells do"
+    },
+    {
+      "id": "a7-apopt",
+      "name": "Programmed cell death",
+      "kind": "defence",
+      "molecular": "Damaged or rogue cells trigger caspases and dismantle themselves",
+      "local": "Cheater load ×0.4",
+      "effects": [
+        {
+          "type": "param",
+          "key": "cheatMul",
+          "mul": 0.4
+        }
+      ],
+      "cost": 70,
+      "needsFlag": "cheaters",
+      "card": "cheaters",
+      "hint": "Appears when cheating cells do"
+    },
+    {
+      "id": "a7-police",
+      "name": "Policing",
+      "kind": "defence",
+      "molecular": "Neighbours and immune cells recognise and remove cells that divide for themselves",
+      "local": "Cheater load ×0.5",
+      "effects": [
+        {
+          "type": "param",
+          "key": "cheatMul",
+          "mul": 0.5
+        }
+      ],
+      "cost": 90,
+      "requires": [
+        "a7-apopt"
+      ],
+      "card": "cheaters"
+    },
+    {
+      "id": "a7-adh",
+      "name": "Cadherins and integrins",
+      "kind": "gene",
+      "molecular": "Adhesion protein families that animals' single-celled relatives already carry",
+      "local": "Body size ×1.5, coordination ×1.15",
+      "effects": [
+        {
+          "type": "param",
+          "key": "size",
+          "mul": 1.5
+        },
+        {
+          "type": "param",
+          "key": "coordBase",
+          "mul": 1.15
+        }
+      ],
+      "cost": 80,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "slots": 2,
+      "requires": [
+        "a7-types"
+      ],
+      "card": "adhesion",
+      "alt": {
+        "seaweed": {
+          "name": "Plasmodesmata",
+          "molecular": "Channels through the cell walls join neighbouring cells’ cytoplasm",
+          "local": "Size ×1.5, coordination ×1.15"
+        }
+      }
+    },
+    {
+      "id": "a7-vasc",
+      "name": "Transport system",
+      "kind": "gene",
+      "molecular": "Vessels or canals carry oxygen and sugar to inner cells",
+      "local": "Oxygen supply ×2",
+      "target": "o2d",
+      "effects": [
+        {
+          "type": "param",
+          "key": "o2carry",
+          "mul": 2
+        }
+      ],
+      "cost": 120,
+      "slots": 3,
+      "requires": [
+        "a7-types",
+        "a7-globin"
+      ],
+      "card": "transport",
+      "alt": {
+        "seaweed": {
+          "name": "Sieve tubes",
+          "molecular": "Elongated cells carry sugar from the sunlit blade to the holdfast, as in giant kelp",
+          "local": "Supply to inner cells ×2"
+        }
+      }
+    },
+    {
+      "id": "a7-signal",
+      "name": "Signalling networks",
+      "kind": "gene",
+      "molecular": "Wnt, Notch and kinase cascades let cells tell each other what to become",
+      "local": "Coordination ×1.2",
+      "effects": [
+        {
+          "type": "param",
+          "key": "coordBase",
+          "mul": 1.2
+        }
+      ],
+      "cost": 100,
+      "slots": 2,
+      "requires": [
+        "a7-adh"
+      ],
+      "card": "signalling",
+      "alt": {
+        "seaweed": {
+          "name": "Cell-to-cell signalling",
+          "molecular": "Hormone-like signals pass through plasmodesmata and coordinate growth",
+          "local": "Coordination ×1.2"
+        }
+      }
+    },
+    {
+      "id": "a7-grn",
+      "name": "Developmental gene network",
+      "kind": "regulator",
+      "molecular": "A cascade of transcription factors builds the body the same way every generation",
+      "local": "The body plan allocates its own cells as size changes",
+      "effects": [
+        {
+          "type": "param",
+          "key": "grn",
+          "set": 1
+        }
+      ],
+      "cost": 140,
+      "slots": 2,
+      "requires": [
+        "a7-signal"
+      ],
+      "automates": "plan",
+      "card": "grn"
+    },
+    {
+      "id": "a7-immune",
+      "name": "Innate immunity",
+      "kind": "defence",
+      "molecular": "Pattern-recognition receptors detect viral RNA and sound the alarm",
+      "local": "Retrovirus pressure ×0.35",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "immune"
+        }
+      ],
+      "cost": 70,
+      "slots": 1,
+      "needsFlag": "virus",
+      "card": "innate-immunity",
+      "hint": "Appears when retroviruses do"
+    },
+    {
+      "id": "a7-syncytin",
+      "name": "Syncytin",
+      "kind": "gene",
+      "molecular": "A retroviral envelope gene, domesticated: mammals use it to build the placenta",
+      "local": "Reproduction ×1.2: a virus's gene turned to your use",
+      "target": "grow",
+      "effects": [
+        {
+          "type": "param",
+          "key": "germBonus",
+          "mul": 1.2
+        }
+      ],
+      "cost": 90,
+      "slots": 1,
+      "needsFlag": "virus",
+      "card": "syncytin",
+      "hint": "Appears when retroviruses do"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n7-shallow",
+      "name": "Shallow seafloor",
+      "text": "Room to settle and grow",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55
+    },
+    {
+      "id": "n7-reef",
+      "name": "Reefs and kelp",
+      "text": "Three-dimensional homes for larger bodies",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6,
+      "needsFlag": "types"
+    },
+    {
+      "id": "n7-deep",
+      "name": "The water column",
+      "text": "Swimmers and drifters fill the open sea",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5
+    }
+  ],
+  "chores": [
+    {
+      "id": "plan",
+      "name": "Body plan",
+      "text": "Assign your cells to jobs. Small bodies need feeders; big bodies starve inside without transport.",
+      "automatedBy": "a7-grn",
+      "control": "toggle",
+      "needsFlag": "types",
+      "options": [
+        {
+          "id": "gen",
+          "label": "Generalists",
+          "effects": [
+            {
+              "type": "param",
+              "key": "aFeed",
+              "set": 0.5
+            },
+            {
+              "type": "param",
+              "key": "aTrans",
+              "set": 0.0
+            },
+            {
+              "type": "param",
+              "key": "aGerm",
+              "set": 0.5
+            }
+          ]
+        },
+        {
+          "id": "feed",
+          "label": "Feeders first",
+          "effects": [
+            {
+              "type": "param",
+              "key": "aFeed",
+              "set": 0.62
+            },
+            {
+              "type": "param",
+              "key": "aTrans",
+              "set": 0.08
+            },
+            {
+              "type": "param",
+              "key": "aGerm",
+              "set": 0.3
+            }
+          ]
+        },
+        {
+          "id": "trans",
+          "label": "Oxygen transport",
+          "effects": [
+            {
+              "type": "param",
+              "key": "aFeed",
+              "set": 0.45
+            },
+            {
+              "type": "param",
+              "key": "aTrans",
+              "set": 0.3
+            },
+            {
+              "type": "param",
+              "key": "aGerm",
+              "set": 0.25
+            }
+          ]
+        },
+        {
+          "id": "germ",
+          "label": "Reproduction first",
+          "effects": [
+            {
+              "type": "param",
+              "key": "aFeed",
+              "set": 0.4
+            },
+            {
+              "type": "param",
+              "key": "aTrans",
+              "set": 0.1
+            },
+            {
+              "type": "param",
+              "key": "aGerm",
+              "set": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "u.choose",
+      "title": "Who goes first?",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 1
+      },
+      "card": "multicellularity",
+      "tutorial": "Choose in Evolve, Community: your algae become seaweed, or your hunters become animals. The other branch can follow later, as an act challenge."
+    },
+    {
+      "id": "u.unit",
+      "title": "A new individual",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 1
+      },
+      "card": "snowflake",
+      "tutorial": "Clusters reproduce as units: the big number is organisms now. Bigger bodies escape predators but their inner cells starve of oxygen."
+    },
+    {
+      "id": "u.oxygen",
+      "title": "Size versus oxygen",
+      "when": {
+        "stat": "species.O2i",
+        "op": "<",
+        "value": 0.12
+      },
+      "card": "size-oxygen",
+      "tutorial": "Oxygen only diffuses a short way into tissue. The inner cells are fermenting: give them globins or a transport system.",
+      "highlight": "O2i"
+    }
+  ],
+  "events": [
+    {
+      "id": "e.types",
+      "when": {
+        "has": "a7-types"
+      },
+      "title": "Division of labour",
+      "text": "Your cells now take on different jobs. Assign them in the body plan.",
+      "flags": [
+        "types"
+      ]
+    },
+    {
+      "id": "e.cheaters",
+      "when": {
+        "any": [
+          {
+            "has": "a7-germ"
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 1200
+          }
+        ]
+      },
+      "title": "Cheating cells",
+      "text": "Mutant cells that divide for themselves appear inside your organisms. Cancer is a breakdown of exactly this cooperation.",
+      "flags": [
+        "cheaters"
+      ]
+    }
+  ],
+  "virus": {
+    "name": "Retroviruses",
+    "text": "Viruses that write themselves into the host genome. Some of their genes will end up working for you.",
+    "startsWhen": {
+      "all": [
+        {
+          "has": "a7-types"
+        },
+        {
+          "stat": "time",
+          "op": ">",
+          "value": 1500
+        }
+      ]
+    },
+    "strength": 0.9,
+    "defences": [
+      "a7-immune"
+    ]
+  },
+  "gate": {
+    "flux": 16.0,
+    "when": {
+      "all": [
+        {
+          "has": "a7-germ"
+        },
+        {
+          "has": "a7-grn"
+        }
+      ]
+    },
+    "text": "Separate germ from soma and evolve a developmental network, with ATP flux above 10^16 per second. Then the biosphere can close its loop.",
+    "wall": "Leads into the finale"
+  },
+  "altBlock": {
+    "seaweed": "CO₂ supply"
+  }
+}

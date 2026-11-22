@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+.vite/
+coverage/
+.env
+.env.*
+*.tsbuildinfo
+public/rdkit/

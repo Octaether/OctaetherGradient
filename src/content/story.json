@@ -1,0 +1,59 @@
+{
+  "timeline": [
+    {
+      "act": 0,
+      "ga": 4.2,
+      "label": "Chemistry"
+    },
+    {
+      "act": 1,
+      "ga": 4.0,
+      "label": "RNA world"
+    },
+    {
+      "act": 2,
+      "ga": 3.9,
+      "label": "LUCA"
+    },
+    {
+      "act": 3,
+      "ga": 3.5,
+      "label": "Two domains"
+    },
+    {
+      "act": 4,
+      "ga": 2.7,
+      "label": "Oxygen"
+    },
+    {
+      "act": 5,
+      "ga": 1.9,
+      "label": "Eukaryotes"
+    },
+    {
+      "act": 6,
+      "ga": 1.5,
+      "label": "Algae"
+    },
+    {
+      "act": 7,
+      "ga": 0.9,
+      "label": "Bodies"
+    },
+    {
+      "act": 8,
+      "ga": 0.6,
+      "label": "Biosphere"
+    }
+  ],
+  "links": {
+    "1": "A single strand learned to copy itself inside a fatty-acid bubble. From here on, copies make copies, mistakes are inherited, and selection can begin.",
+    "2": "Your protocells built a proto-ribosome. RNA can now string amino acids together, and sloppy little proteins start to take over jobs that ribozymes did slowly.",
+    "3": "LUCA left the vents. Its descendants are about to split into two great lines, bacteria and archaea, and your bacteria are about to discover sugar. What they throw away will feed the next species you raise.",
+    "4": "Your community made it through the sugar crash: fermenters, archaea living on their hydrogen, and the specialists you founded. Now one branch of your bacteria finds a food that never runs out: light. Its waste will change the planet.",
+    "5": "Your cyanobacteria filled the sky with oxygen. In the dark mud below, your archaea held on, and at the boundary they met your oxygen breathers. Two of your species are about to become one.",
+    "6": "Your eukaryotes swim in surface water full of your cyanobacteria. They eat them. Not every cyanobacterium they swallow is digested.",
+    "7": "Your hunters grew ever bigger, and your algae ever harder to catch. Sticking together became a way to survive.",
+    "8": "Every species you raised is part of one living world now. Close its loop: carbon, oxygen and nitrogen, powered by light alone. Whoever you lost along the way is missing."
+  }
+}

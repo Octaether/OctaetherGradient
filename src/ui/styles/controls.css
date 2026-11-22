@@ -1,0 +1,99 @@
+/* Controls: flat and sharp. Buttons, chips and badges, drawer tabs, gauges,
+   inputs and toggles. The primary button is a solid accent with one notch. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 32px; padding: 0 14px;
+  position: relative; overflow: hidden; border-radius: 0; border: 1px solid var(--line-2); background: transparent; color: var(--text);
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap; transition: background-color 0.15s, color 0.15s, border-color 0.15s, transform 0.08s;
+}
+.btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.btn:active:not(:disabled) { filter: brightness(0.92); }
+.btn:disabled { opacity: 0.4; cursor: default; }
+.btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.btn.primary {
+  background: var(--accent); color: #050607; border-color: var(--accent);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+.btn.primary::before { content: ''; width: 5px; height: 5px; background: currentColor; flex: none; }
+.btn.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #050607; filter: brightness(1.15); }
+.btn.primary:disabled { background: rgb(var(--acc) / 0.14); color: rgb(var(--acc) / 0.6); border-color: transparent; filter: none; opacity: 1; }
+.btn.ghost { border-color: transparent; color: var(--text-2); }
+.btn.ghost:hover:not(:disabled) { border-color: var(--line-2); color: var(--text); }
+.btn.sm { height: 28px; padding: 0 11px; }
+.btn.lg { height: 46px; padding: 0 26px; font-size: 13px; letter-spacing: 0.16em; }
+.icon-btn {
+  width: 34px; height: 34px; display: grid; place-items: center; border-radius: 2px; border: 1px solid transparent;
+  background: transparent; color: var(--text-3); cursor: pointer; transition: all 0.15s;
+}
+.icon-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+.lnk { background: none; border: none; color: var(--dna); cursor: pointer; font-size: 11px; padding: 0; white-space: nowrap; }
+.lnk:hover { text-decoration: underline; }
+
+/* chips and badges: outlined, colour = meaning */
+.chip, .badge {
+  display: inline-flex; align-items: center; border-radius: 0; background: transparent; color: var(--text-2);
+  box-shadow: inset 0 0 0 1px currentColor; font-size: 10px; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+}
+.chip { gap: 5px; height: 21px; padding: 0 8px; }
+.chip.good { color: var(--green); }
+.chip.warn { color: var(--amber); }
+.chip.bad { color: var(--danger); }
+.chip.new { color: var(--accent); }
+.badge { height: 18px; padding: 0 7px; }
+.badge.ev-Established { color: var(--green); }
+.badge.ev-Likely { color: #c3bdff; }
+.badge.ev-Contested { color: var(--amber); }
+.badge.ev-Convenience { color: var(--text-3); }
+
+/* drawer tabs: text plus a 2px line */
+.dtabs { display: flex; padding: 0 10px; border-bottom: 1px solid var(--line-2); }
+.dtab {
+  flex: 1; height: 42px; position: relative; border: none; border-radius: 0; background: transparent; color: var(--text-3); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s;
+  font-size: 11px; font-weight: 650; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.dtab:hover { color: var(--text-2); background: rgba(255, 255, 255, 0.02); }
+.dtab.on { color: var(--text); background: transparent; }
+.dtab.on::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); }
+.dtab:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.dtab .count {
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 1px; background: var(--accent); color: #050607;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0; display: grid; place-items: center;
+}
+
+/* gauges: thin and solid */
+.bar { position: relative; height: 3px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.bar > i { position: absolute; left: 0; top: 0; bottom: 0; transition: width 0.6s var(--ease), background 0.6s; }
+.levels { display: inline-flex; gap: 3px; margin-left: auto; }
+.levels i { width: 9px; height: 3px; background: var(--line-2); }
+.levels i.on { background: var(--accent); }
+
+/* prices take the currency colour */
+.price { display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--cc, var(--text)); }
+.price.short { color: var(--text-4); }
+
+/* inputs */
+input[type='range'] { -webkit-appearance: none; appearance: none; width: 100%; height: 20px; background: transparent; cursor: pointer; }
+input[type='range']::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--accent) var(--fill, 50%), rgba(255, 255, 255, 0.1) var(--fill, 50%));
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border-radius: 50%; background: var(--white); border: 3px solid var(--bg);
+}
+textarea, input[type='text'] {
+  width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--line-2); border-radius: 9px; color: var(--text);
+  font-family: var(--mono); font-size: 11.5px; padding: 8px 10px; outline: none;
+}
+.toggle { position: relative; width: 34px; height: 20px; border-radius: 1px; background: rgba(255, 255, 255, 0.1); border: none; cursor: pointer; flex: none; }
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; background: var(--text-2);
+  transition: transform 0.15s var(--ease);
+}
+.toggle.on { background: rgb(var(--acc) / 0.35); }
+.toggle.on::after { transform: translateX(14px); background: var(--accent); }
+.seg { display: inline-flex; padding: 3px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(0, 0, 0, 0.3); gap: 2px; }
+.seg button {
+  border: none; background: transparent; padding: 5px 11px; cursor: pointer; color: var(--text-2);
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.seg button.on { background: rgba(255, 255, 255, 0.09); color: var(--text); }

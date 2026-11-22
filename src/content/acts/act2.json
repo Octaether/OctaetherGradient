@@ -1,0 +1,1285 @@
+{
+  "id": "act2",
+  "index": 2,
+  "title": "LUCA",
+  "era": "Translation, proteins, DNA, ATP synthase, Wood–Ljungdahl",
+  "unit": [
+    "cell",
+    "cells"
+  ],
+  "screen": "map",
+  "blockName": "Amino acids",
+  "blockPool": "nitrogen",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.8,
+    "receivers": [
+      {
+        "has": "a2-mmr",
+        "mul": 0.5,
+        "why": "Mismatch repair rejects incoming DNA that differs from your own"
+      }
+    ],
+    "how": "Before the Darwinian threshold, early cells still traded genes freely. Big gene sets travel slowly.",
+    "card": "darwinian-threshold"
+  },
+  "intro": "Your proto-ribosome now builds proteins. Sloppy enzymes start to replace ribozymes and the metabolic map opens. This act has two stages: first assemble the kit of LUCA, the last universal common ancestor (DNA, proofreading, ATP synthase and carbon fixation); then keep it alive as the vent’s hydrogen runs out.",
+  "quote": "Proteins take over, and the first true cell is assembled.",
+  "food": "H2",
+  "foodIn": 2.0,
+  "env": {
+    "H2": 2.0,
+    "CO2": 10,
+    "vent": 1.0,
+    "acetate": 0
+  },
+  "pacing": {
+    "g": 0.3,
+    "k": 0.45,
+    "delta0": 0.3,
+    "U": 0.6,
+    "cellsPerSite": 2000000.0,
+    "blockRate": 0.08,
+    "biomassBase": 25,
+    "bgMutRate": 1.2,
+    "carrierScale": 600000
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "grow",
+    "uptake": "abio",
+    "carrier": [
+      "ack",
+      "atps"
+    ],
+    "ec": {
+      "atp": "ATP",
+      "adp": "ADP"
+    },
+    "species": [
+      {
+        "id": "H2",
+        "name": "H₂",
+        "plain": "Hydrogen",
+        "pool": "nad",
+        "init": 2,
+        "kind": "boundary",
+        "env": "H2",
+        "x": 70,
+        "y": 150,
+        "card": "h2"
+      },
+      {
+        "id": "CO2",
+        "name": "CO₂",
+        "plain": "Carbon dioxide",
+        "pool": "carbon",
+        "init": 10,
+        "kind": "boundary",
+        "env": "CO2",
+        "x": 70,
+        "y": 330,
+        "card": "co2"
+      },
+      {
+        "id": "Vent",
+        "name": "Vent",
+        "plain": "Alkaline vent gradient",
+        "pool": "proton",
+        "init": 1,
+        "kind": "boundary",
+        "env": "vent",
+        "x": 300,
+        "y": 575,
+        "card": "vent-gradient"
+      },
+      {
+        "id": "Acetate",
+        "name": "Acetate",
+        "plain": "Acetate (waste)",
+        "pool": "carbon",
+        "init": 0,
+        "kind": "boundary",
+        "env": "acetate",
+        "x": 940,
+        "y": 420
+      },
+      {
+        "id": "Hout",
+        "name": "H⁺ gradient",
+        "plain": "Stored potential (H⁺ gradient)",
+        "pool": "proton",
+        "init": 0.3,
+        "kind": "main",
+        "x": 520,
+        "y": 520,
+        "label": "below",
+        "card": "pmf"
+      },
+      {
+        "id": "Methyl",
+        "name": "CH₃–Co",
+        "plain": "Methyl group",
+        "pool": "carbon",
+        "init": 0.05,
+        "kind": "main",
+        "x": 400,
+        "y": 250,
+        "label": "above",
+        "card": "wl"
+      },
+      {
+        "id": "AcCoA",
+        "name": "Acetyl-CoA",
+        "plain": "Two-carbon building block (acetyl-CoA)",
+        "pool": "carbon",
+        "init": 0.5,
+        "kind": "main",
+        "x": 620,
+        "y": 250,
+        "label": "above",
+        "card": "acetyl-coa",
+        "smiles": "CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)([O-])OP(=O)([O-])OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)([O-])[O-]"
+      },
+      {
+        "id": "AcP",
+        "name": "Acetyl-P",
+        "plain": "Energy-rich phosphate (acetyl phosphate)",
+        "pool": "atp",
+        "init": 0.1,
+        "kind": "main",
+        "x": 820,
+        "y": 250,
+        "label": "above",
+        "card": "acetyl-phosphate",
+        "smiles": "CC(=O)OP(=O)([O-])[O-]"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP",
+        "plain": "Spendable energy (ATP)",
+        "pool": "atp",
+        "init": 1.5,
+        "kind": "cofactor",
+        "card": "atp",
+        "smiles": "Nc1ncnc2c1ncn2C1OC(COP(=O)([O-])OP(=O)([O-])OP(=O)([O-])[O-])C(O)C1O"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "plain": "Spent energy (ADP)",
+        "pool": "atp",
+        "init": 1.5,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "Fdr",
+        "name": "Fd(red)",
+        "plain": "Carries electrons (reduced ferredoxin)",
+        "pool": "nad",
+        "init": 0.2,
+        "kind": "cofactor",
+        "card": "ferredoxin"
+      },
+      {
+        "id": "Fdo",
+        "name": "Fd(ox)",
+        "plain": "Empty electron carrier (ferredoxin)",
+        "pool": "nad",
+        "init": 0.8,
+        "kind": "cofactor",
+        "card": "ferredoxin"
+      },
+      {
+        "id": "CoA",
+        "name": "CoA",
+        "plain": "Carbon carrier (coenzyme A)",
+        "pool": "carbon",
+        "init": 0.5,
+        "kind": "cofactor",
+        "card": "acetyl-coa"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "ATP / ADP",
+        "plain": "Spendable energy",
+        "pool": "atp",
+        "charged": "ATP",
+        "species": [
+          "ATP",
+          "ADP"
+        ]
+      },
+      {
+        "id": "fd",
+        "name": "Fd(red) / Fd(ox)",
+        "plain": "Electrons in transit",
+        "pool": "nad",
+        "charged": "Fdr",
+        "species": [
+          "Fdr",
+          "Fdo"
+        ]
+      },
+      {
+        "id": "coa",
+        "name": "Acetyl-CoA / CoA",
+        "plain": "Carbon carrier",
+        "pool": "carbon",
+        "charged": "AcCoA",
+        "species": [
+          "AcCoA",
+          "CoA"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "abio",
+        "name": "Mineral thioester capture",
+        "short": "FeS",
+        "plain": "Mineral walls make acetyl groups",
+        "sub": {
+          "H2": 1,
+          "CO2": 1,
+          "CoA": 1
+        },
+        "prod": {
+          "AcCoA": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.14,
+          "Km": {
+            "H2": 0.6,
+            "CO2": 2,
+            "CoA": 0.1
+          }
+        },
+        "x": 400,
+        "y": 400,
+        "steps": 3,
+        "card": "fes-surface",
+        "gene": true
+      },
+      {
+        "id": "hyd",
+        "name": "Hydrogenase",
+        "short": "Hyd",
+        "plain": "Pulls electrons off H₂",
+        "gene": true,
+        "requires": "wl",
+        "sub": {
+          "H2": 1,
+          "Fdo": 1
+        },
+        "prod": {
+          "Fdr": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "H2": 0.8,
+            "Fdo": 0.15
+          }
+        },
+        "x": 190,
+        "y": 150,
+        "slots": 1,
+        "card": "hydrogenase"
+      },
+      {
+        "id": "mbr",
+        "name": "Methyl branch",
+        "short": "Methyl",
+        "plain": "Reduces CO₂ to a methyl group",
+        "gene": true,
+        "requires": "wl",
+        "sub": {
+          "CO2": 1,
+          "Fdr": 2,
+          "ATP": 1
+        },
+        "prod": {
+          "Methyl": 1,
+          "Fdo": 2,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.25,
+          "Km": {
+            "CO2": 2,
+            "Fdr": 0.15,
+            "ATP": 0.4
+          }
+        },
+        "x": 290,
+        "y": 250,
+        "steps": 6,
+        "slots": 2,
+        "card": "wl"
+      },
+      {
+        "id": "acs",
+        "name": "CODH/acetyl-CoA synthase",
+        "short": "CODH/ACS",
+        "plain": "Joins methyl and CO into acetyl-CoA",
+        "gene": true,
+        "requires": "wl",
+        "sub": {
+          "Methyl": 1,
+          "CO2": 1,
+          "Fdr": 1,
+          "CoA": 1
+        },
+        "prod": {
+          "AcCoA": 1,
+          "Fdo": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "Methyl": 0.1,
+            "CO2": 2,
+            "Fdr": 0.15,
+            "CoA": 0.1
+          }
+        },
+        "x": 510,
+        "y": 250,
+        "steps": 2,
+        "slots": 1,
+        "card": "codh-acs"
+      },
+      {
+        "id": "pta",
+        "name": "Phosphotransacetylase",
+        "short": "Pta",
+        "plain": "Swaps CoA for phosphate",
+        "gene": true,
+        "sub": {
+          "AcCoA": 1
+        },
+        "prod": {
+          "AcP": 1,
+          "CoA": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.25,
+          "Km": {
+            "AcCoA": 0.6
+          },
+          "Keq": 40
+        },
+        "mods": [
+          {
+            "species": "ATP",
+            "type": "inh",
+            "K": 2.5,
+            "n": 2
+          }
+        ],
+        "x": 720,
+        "y": 250,
+        "slots": 1,
+        "card": "acetyl-phosphate"
+      },
+      {
+        "id": "ack",
+        "name": "Acetate kinase",
+        "short": "Ack",
+        "plain": "Hands phosphate to ADP",
+        "gene": true,
+        "sub": {
+          "AcP": 1,
+          "ADP": 1
+        },
+        "prod": {
+          "ATP": 1,
+          "Acetate": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.4,
+          "Km": {
+            "AcP": 0.3,
+            "ADP": 0.3
+          }
+        },
+        "x": 890,
+        "y": 330,
+        "slots": 1,
+        "card": "acetyl-phosphate"
+      },
+      {
+        "id": "vent",
+        "name": "Natural gradient",
+        "short": "Vent",
+        "plain": "The vent's pH gradient",
+        "sub": {
+          "Vent": 1
+        },
+        "prod": {
+          "Hout": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.5,
+          "a": "Vent",
+          "b": "Hout"
+        },
+        "x": 400,
+        "y": 560,
+        "card": "vent-gradient"
+      },
+      {
+        "id": "leak",
+        "name": "Membrane leak",
+        "short": "Leak",
+        "plain": "Protons slip back",
+        "sub": {
+          "Hout": 1
+        },
+        "prod": {},
+        "law": {
+          "type": "ma",
+          "k": 0.08
+        },
+        "x": 640,
+        "y": 575,
+        "card": "pmf",
+        "hide": true
+      },
+      {
+        "id": "atps",
+        "name": "ATP synthase",
+        "short": "ATPase",
+        "plain": "Turns the gradient into ATP",
+        "gene": true,
+        "requires": "atps",
+        "sub": {
+          "Hout": 3,
+          "ADP": 1
+        },
+        "prod": {
+          "ATP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "Hout": 0.35,
+            "ADP": 0.3
+          }
+        },
+        "x": 620,
+        "y": 470,
+        "slots": 3,
+        "card": "atp-synthase"
+      },
+      {
+        "id": "ech",
+        "name": "Ech hydrogenase",
+        "short": "Ech",
+        "plain": "Pumps protons with electrons",
+        "gene": true,
+        "requires": "ech",
+        "sub": {
+          "Fdr": 1
+        },
+        "prod": {
+          "Fdo": 1,
+          "Hout": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.3,
+          "Km": {
+            "Fdr": 0.15
+          }
+        },
+        "x": 250,
+        "y": 470,
+        "slots": 2,
+        "card": "ech"
+      },
+      {
+        "id": "grow",
+        "name": "Biosynthesis",
+        "short": "Grow",
+        "plain": "Builds new cells",
+        "sub": {
+          "AcCoA": 1,
+          "ATP": 2
+        },
+        "prod": {
+          "CoA": 1,
+          "ADP": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "AcCoA": 0.4,
+            "ATP": 0.3
+          }
+        },
+        "x": 620,
+        "y": 110,
+        "card": "growth",
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          }
+        ]
+      },
+      {
+        "id": "maint",
+        "name": "Maintenance",
+        "short": "Maint",
+        "plain": "Upkeep",
+        "sub": {
+          "ATP": 1
+        },
+        "prod": {
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.006,
+          "Km": {
+            "ATP": 0.1
+          },
+          "scale": [
+            "maint"
+          ]
+        },
+        "x": 760,
+        "y": 470,
+        "hide": true,
+        "card": "maintenance"
+      }
+    ],
+    "params": {
+      "maint": 1
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a2-atps",
+      "name": "ATP synthase",
+      "kind": "gene",
+      "molecular": "Fuse a membrane rotor (the c-ring) to an ancient nucleotide-binding head",
+      "local": "New reaction: 3 H⁺ out → in drives ADP → ATP",
+      "target": "atps",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "atps"
+        }
+      ],
+      "cost": 30,
+      "slots": 3,
+      "needsFlag": "u.atps",
+      "card": "atp-synthase",
+      "hint": "Appears once the gradient is steady but unused"
+    },
+    {
+      "id": "a2-atps-k",
+      "name": "Rotor bearing",
+      "kind": "point",
+      "molecular": "Smoother stator–rotor contact in the F₁ head",
+      "local": "ATP synthase kcat ×1.6",
+      "target": "atps",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "atps",
+          "mul": 1.6
+        }
+      ],
+      "cost": 40,
+      "levels": 3,
+      "costGrowth": 2.1,
+      "requires": [
+        "a2-atps"
+      ]
+    },
+    {
+      "id": "a2-cring",
+      "name": "Tighter c-ring",
+      "kind": "point",
+      "molecular": "Glu in the c-subunit binds H⁺ more readily",
+      "local": "ATP synthase Km(H⁺) ×0.65",
+      "target": "atps",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "atps",
+          "species": "Hout",
+          "mul": 0.65
+        }
+      ],
+      "cost": 55,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a2-atps"
+      ],
+      "card": "atp-synthase"
+    },
+    {
+      "id": "a2-ptaK",
+      "name": "Phosphate-loop pocket",
+      "kind": "point",
+      "molecular": "Gly-rich loop reshaped around acetyl phosphate",
+      "local": "Acetate kinase kcat ×1.7",
+      "target": "ack",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "ack",
+          "mul": 1.7
+        }
+      ],
+      "cost": 14,
+      "levels": 2,
+      "costGrowth": 2.2
+    },
+    {
+      "id": "a2-pta",
+      "name": "CoA-binding cleft",
+      "kind": "point",
+      "molecular": "Arg pair clamps CoA's pyrophosphate",
+      "local": "Pta kcat ×1.6, Km ×0.7",
+      "target": "pta",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pta",
+          "mul": 1.6
+        },
+        {
+          "type": "Km",
+          "rxn": "pta",
+          "mul": 0.7
+        }
+      ],
+      "cost": 12,
+      "levels": 2,
+      "costGrowth": 2.2
+    },
+    {
+      "id": "a2-fes",
+      "name": "Ferredoxin fold on the mineral",
+      "kind": "point",
+      "molecular": "A peptide wraps an Fe₄S₄ cluster, copying the vent's mineral catalyst",
+      "local": "Thioester capture kcat ×1.8",
+      "target": "abio",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "abio",
+          "mul": 1.8
+        }
+      ],
+      "cost": 10,
+      "levels": 2,
+      "costGrowth": 2.5,
+      "card": "fes-surface"
+    },
+    {
+      "id": "a2-wl",
+      "name": "Wood–Ljungdahl pathway",
+      "kind": "gene",
+      "molecular": "A sloppy generalist enzyme set fixing CO₂ with H₂ (patchwork origin)",
+      "local": "New pathway: H₂ + 2 CO₂ → acetyl-CoA",
+      "target": "acs",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "wl"
+        }
+      ],
+      "cost": 90,
+      "block": 30,
+      "slots": 4,
+      "needsFlag": "u.wl",
+      "card": "wl",
+      "hint": "Appears when mineral carbon capture can no longer keep up"
+    },
+    {
+      "id": "a2-hyd",
+      "name": "Hydrogenase: H₂ channel",
+      "kind": "point",
+      "molecular": "Hydrophobic gas tunnel narrowed to H₂",
+      "local": "Hydrogenase Km(H₂) ×0.55",
+      "target": "hyd",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "hyd",
+          "species": "H2",
+          "mul": 0.55
+        }
+      ],
+      "cost": 70,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "requires": [
+        "a2-wl"
+      ],
+      "card": "hydrogenase"
+    },
+    {
+      "id": "a2-hydk",
+      "name": "Hydrogenase: proton relay",
+      "kind": "point",
+      "molecular": "Glu–His relay moves protons off the NiFe site",
+      "local": "Hydrogenase kcat ×1.7",
+      "target": "hyd",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "hyd",
+          "mul": 1.7
+        }
+      ],
+      "cost": 80,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a2-wl"
+      ]
+    },
+    {
+      "id": "a2-mbr",
+      "name": "Duplicate and specialise: methyl branch",
+      "kind": "dup",
+      "molecular": "Gene duplication; one copy keeps the old job, the other specialises on formyl-THF",
+      "local": "Methyl branch kcat ×2.2",
+      "target": "mbr",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "mbr",
+          "mul": 2.2
+        }
+      ],
+      "cost": 110,
+      "steps": 2,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a2-wl"
+      ],
+      "slots": 1,
+      "card": "patchwork"
+    },
+    {
+      "id": "a2-acs",
+      "name": "Duplicate and specialise: CODH/ACS",
+      "kind": "dup",
+      "molecular": "Duplicated CODH fuses to the acetyl-CoA synthase subunit; CO travels a 70 Å tunnel",
+      "local": "CODH/ACS kcat ×2.2",
+      "target": "acs",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "acs",
+          "mul": 2.2
+        }
+      ],
+      "cost": 120,
+      "steps": 2,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a2-wl"
+      ],
+      "slots": 1,
+      "card": "codh-acs"
+    },
+    {
+      "id": "a2-ech",
+      "name": "Ech: pump your own protons",
+      "kind": "gene",
+      "molecular": "A membrane hydrogenase couples ferredoxin oxidation to proton pumping",
+      "local": "New reaction: Fd(red) → Fd(ox) + 2 H⁺ out",
+      "target": "ech",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "ech"
+        }
+      ],
+      "cost": 150,
+      "slots": 2,
+      "requires": [
+        "a2-wl",
+        "a2-atps"
+      ],
+      "card": "ech"
+    },
+    {
+      "id": "a2-leak",
+      "name": "Isoprenoid membrane",
+      "kind": "point",
+      "molecular": "Branched lipid tails pack tighter",
+      "local": "Proton leak ×0.6",
+      "target": "leak",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "leak",
+          "mul": 0.6
+        }
+      ],
+      "cost": 45,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "requires": [
+        "a2-atps"
+      ],
+      "card": "membranes"
+    },
+    {
+      "id": "a2-dna",
+      "name": "DNA genome",
+      "kind": "tier",
+      "molecular": "Ribonucleotide reductase and thymidylate synthase make DNA letters from RNA letters",
+      "local": "Genome tier: DNA. Mutation rate ×0.6, capacity +6 slots",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "dna"
+        },
+        {
+          "type": "param",
+          "key": "U",
+          "mul": 0.6
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 6
+        }
+      ],
+      "cost": 60,
+      "block": 50,
+      "card": "dna-genome"
+    },
+    {
+      "id": "a2-proof",
+      "name": "Proofreading exonuclease",
+      "kind": "tier",
+      "molecular": "A 3′→5′ exonuclease domain re-checks each new base",
+      "local": "Mutation rate ×0.5, capacity +10 slots",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "proof"
+        },
+        {
+          "type": "param",
+          "key": "U",
+          "mul": 0.5
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 10
+        }
+      ],
+      "cost": 140,
+      "block": 90,
+      "requires": [
+        "a2-dna"
+      ],
+      "card": "proofreading"
+    },
+    {
+      "id": "a2-mmr",
+      "name": "Mismatch repair",
+      "kind": "tier",
+      "molecular": "MutS spots mispaired bases behind the fork",
+      "local": "Mutation rate ×0.7, capacity +8 slots",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "mmr"
+        },
+        {
+          "type": "param",
+          "key": "U",
+          "mul": 0.7
+        },
+        {
+          "type": "param",
+          "key": "copyCap",
+          "add": 8
+        }
+      ],
+      "cost": 200,
+      "block": 120,
+      "requires": [
+        "a2-proof"
+      ],
+      "card": "proofreading"
+    },
+    {
+      "id": "a2-aars",
+      "name": "Translation established",
+      "kind": "regulator",
+      "molecular": "A full set of aminoacyl-tRNA synthetases loads every tRNA",
+      "local": "Proteins take over every remaining ribozyme job on their own (needs a stockpile of amino acids)",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "translation"
+        }
+      ],
+      "cost": 120,
+      "automates": "takeover",
+      "card": "translation",
+      "block": 150
+    }
+  ],
+  "niches": [
+    {
+      "id": "n2-pores",
+      "name": "Chimney pores",
+      "text": "Colonise more of the vent's mineral honeycomb",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55
+    },
+    {
+      "id": "n2-sed",
+      "name": "Warm sediment",
+      "text": "Spread into the sediment around the vent",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6,
+      "needsFlag": "atps"
+    },
+    {
+      "id": "n2-serp",
+      "name": "Serpentinite seep",
+      "text": "Move closer to where rock releases H₂",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5,
+      "supply": {
+        "H2": 0.25
+      },
+      "needsFlag": "wl"
+    }
+  ],
+  "chores": [
+    {
+      "id": "takeover",
+      "name": "Protein takeover",
+      "text": "Choose which ribozyme job the next protein enzyme takes over. Proteins are far faster than ribozymes, but each costs amino acids to make.",
+      "automatedBy": "a2-aars",
+      "control": "choice",
+      "options": [
+        {
+          "id": "t-ack",
+          "label": "Phosphate transfer (Pta, Ack)",
+          "cost": 40,
+          "effects": [
+            {
+              "type": "kcat",
+              "rxn": "pta",
+              "mul": 2.5
+            },
+            {
+              "type": "kcat",
+              "rxn": "ack",
+              "mul": 2.5
+            }
+          ]
+        },
+        {
+          "id": "t-abio",
+          "label": "Thioester capture",
+          "cost": 60,
+          "effects": [
+            {
+              "type": "kcat",
+              "rxn": "abio",
+              "mul": 2.2
+            }
+          ]
+        },
+        {
+          "id": "t-grow",
+          "label": "Biosynthesis",
+          "cost": 100,
+          "effects": [
+            {
+              "type": "kcat",
+              "rxn": "grow",
+              "mul": 1.5
+            },
+            {
+              "type": "param",
+              "key": "maint",
+              "mul": 0.6
+            }
+          ]
+        },
+        {
+          "id": "t-mem",
+          "label": "Membrane sealing",
+          "cost": 160,
+          "effects": [
+            {
+              "type": "kcat",
+              "rxn": "leak",
+              "mul": 0.6
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "u.map",
+      "title": "The metabolic map",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 0.5
+      },
+      "card": "map-grammar",
+      "tutorial": "Pathway shows the cell's chemistry. Circles are molecules (bigger means more), pills are enzymes, and lines thicken where more flows. Click anything to inspect it.",
+      "reveals": [
+        "map"
+      ]
+    },
+    {
+      "id": "u.mca",
+      "title": "The bottleneck",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 12
+      },
+      "card": "mca",
+      "tutorial": "The red step limits growth the most, so improving it helps the most; speeding up other steps barely matters. Evolve tags it 'Bottleneck'.",
+      "highlight": "bottleneck",
+      "reveals": [
+        "inspector"
+      ]
+    },
+    {
+      "id": "u.takeover",
+      "title": "Proteins arrive",
+      "when": {
+        "all": [
+          {
+            "stat": "block",
+            "op": ">",
+            "value": 40
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 90
+          }
+        ]
+      },
+      "card": "translation",
+      "tutorial": "Your proto-ribosome can now string amino acids into short proteins. Choose which ribozyme job the first protein takes over: it costs amino acids, and works far faster than the ribozyme it replaces.",
+      "reveals": [
+        "chores"
+      ]
+    },
+    {
+      "id": "u.atps",
+      "title": "A gradient with nowhere to go",
+      "when": {
+        "all": [
+          {
+            "stat": "species.Hout",
+            "op": ">",
+            "value": 0.7
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 40
+          }
+        ]
+      },
+      "card": "atp-synthase",
+      "tutorial": "The vent's proton gradient is steady, but nothing carries its energy into the cell. ATP synthase can: find it in Evolve.",
+      "highlight": "Hout"
+    },
+    {
+      "id": "u.wl",
+      "title": "Carbon runs short",
+      "when": {
+        "all": [
+          {
+            "has": "a2-atps"
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 200
+          }
+        ]
+      },
+      "card": "wl",
+      "tutorial": "Mineral walls can't make acetyl groups fast enough. A sloppy set of enzymes could fix CO₂ with H₂ directly: the Wood–Ljungdahl pathway.",
+      "highlight": "abio"
+    },
+    {
+      "id": "u.genome",
+      "title": "The genome",
+      "when": {
+        "stat": "adaptations",
+        "op": ">=",
+        "value": 4
+      },
+      "card": "genome-capacity",
+      "tutorial": "Every enzyme takes space in the genome. RNA copies are sloppy, so DNA and proofreading raise how much you can carry.",
+      "reveals": [
+        "genome"
+      ]
+    },
+    {
+      "id": "u.luca",
+      "title": "LUCA assembled",
+      "when": {
+        "all": [
+          {
+            "has": "a2-dna"
+          },
+          {
+            "has": "a2-proof"
+          },
+          {
+            "has": "a2-atps"
+          },
+          {
+            "has": "a2-wl"
+          },
+          {
+            "has": "a2-aars"
+          }
+        ]
+      },
+      "flags": [
+        "luca"
+      ],
+      "card": "luca",
+      "tutorial": "DNA, proofreading, ATP synthase and carbon fixation: this is roughly the last universal common ancestor, an anaerobic acetogen living off H₂ and CO₂. Stage 2 begins: the vent’s hydrogen is running out, so keep ATP flowing."
+    }
+  ],
+  "events": [
+    {
+      "id": "e.ventfade",
+      "when": {
+        "all": [
+          {
+            "has": "a2-wl"
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 420
+          }
+        ]
+      },
+      "title": "The vent cools",
+      "text": "The natural pH gradient weakens. Cells that pump their own protons (Ech) keep their ATP synthase turning.",
+      "env": {
+        "vent": 0.35
+      },
+      "flags": [
+        "ventfade"
+      ],
+      "ramp": 180
+    },
+    {
+      "id": "e.h2low",
+      "when": {
+        "all": [
+          {
+            "flag": "luca"
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 300
+          }
+        ]
+      },
+      "title": "Geochemical H₂ is running low",
+      "text": "The rock is giving up less hydrogen every minute. Watch the H₂ gauge fall: cells that scavenge H₂ best will be the ones left.",
+      "env": {
+        "H2": 0.18
+      },
+      "flags": [
+        "h2low"
+      ],
+      "ramp": 300
+    }
+  ],
+  "gate": {
+    "flux": 12.8,
+    "when": {
+      "all": [
+        {
+          "flag": "luca"
+        },
+        {
+          "flag": "h2low"
+        },
+        {
+          "stat": "env.H2",
+          "op": "<",
+          "value": 0.6,
+          "for": 180,
+          "label": "Outlast the H₂ crash: three minutes on little H₂"
+        }
+      ]
+    },
+    "text": "Stage 1: assemble LUCA (translation, DNA, proofreading, ATP synthase, carbon fixation). Stage 2: outlast the H₂ crash with total ATP flux above 10^12.8 per second.",
+    "wall": "Depletion: geochemical H₂ runs low"
+  },
+  "genome": {
+    "copyCap": 9
+  },
+  "fixes": {
+    "fd": [
+      "a2-ech",
+      "a2-hydk"
+    ],
+    "coa": [
+      "a2-pta",
+      "a2-acs"
+    ]
+  }
+}

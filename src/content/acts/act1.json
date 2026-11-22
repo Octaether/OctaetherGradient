@@ -1,0 +1,798 @@
+{
+  "id": "act1",
+  "index": 1,
+  "title": "Protocells",
+  "era": "RNA world: replicating ribozymes in fatty-acid vesicles",
+  "unit": [
+    "protocell",
+    "protocells"
+  ],
+  "screen": "sea",
+  "blockName": "Fatty acids",
+  "blockPool": "lipid",
+  "reserveValue": 0.05,
+  "transfer": {
+    "lambda": 40,
+    "rate": 1,
+    "receivers": [
+      {
+        "has": "a1-lipid",
+        "mul": 0.4,
+        "why": "Phospholipid membranes fuse and swap contents less than fatty-acid ones"
+      }
+    ],
+    "how": "Protocells fuse and split, swapping their RNA, so a released gene can reach any cell. Short genes travel best.",
+    "card": "vesicle-exchange"
+  },
+  "intro": "Copies of the first replicator pass to daughter vesicles. Copying errors begin to pile up variation, and selection starts to sort it.",
+  "quote": "Heredity begins: a fragile first light.",
+  "food": "nucleotides",
+  "foodIn": 1.0,
+  "env": {
+    "nucleotides": 1.0,
+    "fattyAcids": 1.0
+  },
+  "pacing": {
+    "g": 0.18,
+    "k": 0.06,
+    "delta0": 0.3,
+    "U": 1.35,
+    "cellsPerSite": 50000,
+    "blockRate": 0.12,
+    "biomassBase": 3,
+    "bgMutRate": 1.5,
+    "carrierScale": 600000
+  },
+  "genome": {
+    "copyCap": 0,
+    "baseLen": 45,
+    "epsMin": 0.03
+  },
+  "network": {
+    "width": 1000,
+    "height": 740,
+    "Ccell": 1,
+    "dilution": true,
+    "growth": "grow",
+    "uptake": "perm",
+    "carrier": [
+      "rep"
+    ],
+    "species": [
+      {
+        "id": "NuOut",
+        "name": "Nucleotides",
+        "plain": "Activated nucleotides (outside)",
+        "pool": "rna",
+        "init": 1,
+        "kind": "boundary",
+        "env": "nucleotides",
+        "x": 90,
+        "y": 260,
+        "card": "nucleotides"
+      },
+      {
+        "id": "FAout",
+        "name": "Fatty acids",
+        "plain": "Fatty acids (outside)",
+        "pool": "lipid",
+        "init": 1,
+        "kind": "boundary",
+        "env": "fattyAcids",
+        "x": 90,
+        "y": 570,
+        "card": "vesicles"
+      },
+      {
+        "id": "Nu",
+        "name": "Nucleotides in",
+        "plain": "Nucleotides inside",
+        "pool": "rna",
+        "init": 0.5,
+        "kind": "main",
+        "x": 330,
+        "y": 260,
+        "label": "above",
+        "card": "nucleotides"
+      },
+      {
+        "id": "RNA",
+        "name": "Replicase RNA",
+        "plain": "The self-copying ribozyme",
+        "pool": "rna",
+        "init": 0.3,
+        "kind": "main",
+        "x": 590,
+        "y": 400,
+        "label": "below",
+        "card": "polymerase-ribozyme"
+      },
+      {
+        "id": "Par",
+        "name": "Parasite RNA",
+        "plain": "Short parasites that copy but do not help",
+        "pool": "oxygen",
+        "init": 0.02,
+        "kind": "main",
+        "x": 590,
+        "y": 120,
+        "label": "above",
+        "card": "parasites"
+      },
+      {
+        "id": "PL",
+        "name": "Phospholipid",
+        "plain": "Phospholipid made by a ribozyme",
+        "pool": "lipid",
+        "init": 0.0,
+        "kind": "main",
+        "x": 470,
+        "y": 670,
+        "label": "below",
+        "card": "phospholipid"
+      },
+      {
+        "id": "Mem",
+        "name": "Membrane",
+        "plain": "The vesicle's membrane",
+        "pool": "lipid",
+        "init": 1,
+        "kind": "main",
+        "x": 850,
+        "y": 570,
+        "label": "right",
+        "card": "vesicles"
+      }
+    ],
+    "pools": [],
+    "reactions": [
+      {
+        "id": "perm",
+        "name": "Permeation",
+        "short": "Perm",
+        "plain": "Nucleotides seep through the fatty-acid membrane",
+        "gene": true,
+        "sub": {
+          "NuOut": 1
+        },
+        "prod": {
+          "Nu": 1
+        },
+        "law": {
+          "type": "diff",
+          "k": 0.35,
+          "a": "NuOut",
+          "b": "Nu",
+          "scale": [
+            "perm"
+          ]
+        },
+        "x": 210,
+        "y": 260,
+        "card": "permeability"
+      },
+      {
+        "id": "rep",
+        "name": "Replicase ribozyme",
+        "short": "Replicase",
+        "plain": "The ribozyme copies RNA, itself included",
+        "gene": true,
+        "sub": {
+          "Nu": 1
+        },
+        "prod": {
+          "RNA": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.8,
+          "Km": {
+            "Nu": 0.4
+          },
+          "cat": "RNA",
+          "scale": [
+            "functional"
+          ]
+        },
+        "x": 460,
+        "y": 330,
+        "card": "polymerase-ribozyme"
+      },
+      {
+        "id": "dec",
+        "name": "Hydrolysis",
+        "short": "Decay",
+        "plain": "RNA breaks apart in water",
+        "sub": {
+          "RNA": 1
+        },
+        "prod": {
+          "Nu": 1
+        },
+        "law": {
+          "type": "ma",
+          "k": 0.05
+        },
+        "x": 460,
+        "y": 330,
+        "card": "rna-stability",
+        "bend": 0.4
+      },
+      {
+        "id": "par",
+        "name": "Parasite copying",
+        "short": "Parasite",
+        "plain": "The replicase copies short parasites, faster",
+        "requires": "parasites",
+        "sub": {
+          "Nu": 1
+        },
+        "prod": {
+          "Par": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.6,
+          "Km": {
+            "Nu": 0.4
+          },
+          "cat": "RNA",
+          "scale": [
+            "functional"
+          ]
+        },
+        "mods": [
+          {
+            "species": "Par",
+            "type": "act",
+            "K": 0.25
+          }
+        ],
+        "x": 460,
+        "y": 190,
+        "card": "parasites"
+      },
+      {
+        "id": "purge",
+        "name": "Vesicle bottlenecks",
+        "short": "Purge",
+        "plain": "Vesicles packed with parasites fail and are lost",
+        "requires": "parasites",
+        "sub": {
+          "Par": 1
+        },
+        "prod": {
+          "Nu": 1
+        },
+        "law": {
+          "type": "ma",
+          "k": 0.06,
+          "scale": [
+            "purge"
+          ]
+        },
+        "x": 460,
+        "y": 190,
+        "card": "stochastic-correction",
+        "bend": -0.3
+      },
+      {
+        "id": "pls",
+        "name": "Lipid ribozyme",
+        "short": "Lipid-zyme",
+        "plain": "A ribozyme that makes phospholipid",
+        "gene": true,
+        "requires": "lipidzyme",
+        "sub": {
+          "FAout": 1
+        },
+        "prod": {
+          "PL": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "FAout": 0.5
+          },
+          "cat": "RNA",
+          "scale": [
+            "functional"
+          ]
+        },
+        "x": 280,
+        "y": 620,
+        "card": "phospholipid"
+      },
+      {
+        "id": "grow",
+        "name": "Membrane growth",
+        "short": "Growth",
+        "plain": "Swollen vesicles steal membrane from their neighbours",
+        "gene": true,
+        "sub": {
+          "FAout": 1
+        },
+        "prod": {
+          "Mem": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 1.8,
+          "Km": {
+            "FAout": 0.5
+          }
+        },
+        "mods": [
+          {
+            "species": "RNA",
+            "type": "act",
+            "K": 0.6,
+            "basal": 0.06
+          },
+          {
+            "species": "PL",
+            "type": "act",
+            "K": 0.15,
+            "basal": 0.55
+          }
+        ],
+        "x": 470,
+        "y": 570,
+        "card": "osmotic-growth"
+      }
+    ],
+    "params": {
+      "perm": 1,
+      "purge": 1,
+      "functional": 1
+    }
+  },
+  "adaptations": [
+    {
+      "id": "a1-kcat",
+      "name": "Tighter primer grip",
+      "kind": "point",
+      "molecular": "A G→A change in the ribozyme's catalytic core holds the primer end in place",
+      "local": "Replicase speed ×1.5",
+      "target": "rep",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "rep",
+          "mul": 1.5
+        }
+      ],
+      "cost": 6,
+      "levels": 4,
+      "costGrowth": 2.1,
+      "card": "polymerase-ribozyme"
+    },
+    {
+      "id": "a1-km",
+      "name": "Nucleotide pocket",
+      "kind": "point",
+      "molecular": "A reshaped helix positions the incoming nucleotide",
+      "local": "Replicase Km ×0.6",
+      "target": "rep",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "rep",
+          "mul": 0.6
+        }
+      ],
+      "cost": 9,
+      "levels": 3,
+      "costGrowth": 2.2
+    },
+    {
+      "id": "a1-fid",
+      "name": "Wobble discrimination",
+      "kind": "tier",
+      "molecular": "Tighter base-pair geometry rejects G·U wobble pairs",
+      "local": "Per-base error rate ×0.72 (raises the error threshold)",
+      "target": "rep",
+      "effects": [
+        {
+          "type": "param",
+          "key": "eps",
+          "mul": 0.72
+        }
+      ],
+      "cost": 12,
+      "levels": 5,
+      "costGrowth": 1.8,
+      "card": "fidelity"
+    },
+    {
+      "id": "a1-dec",
+      "name": "Citrate–Mg²⁺ shield",
+      "kind": "point",
+      "molecular": "Citrate chelates Mg²⁺ so it still helps copying but no longer cuts RNA or bursts membranes",
+      "local": "RNA hydrolysis ×0.55",
+      "target": "dec",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "dec",
+          "mul": 0.55
+        }
+      ],
+      "cost": 10,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "card": "rna-stability"
+    },
+    {
+      "id": "a1-perm",
+      "name": "Mixed-chain membrane",
+      "kind": "point",
+      "molecular": "Shorter and branched fatty acids make the bilayer leakier to nucleotides",
+      "local": "Nucleotide permeability ×1.5",
+      "target": "perm",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "perm",
+          "mul": 1.5
+        }
+      ],
+      "cost": 8,
+      "block": 4,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "card": "permeability"
+    },
+    {
+      "id": "a1-osm",
+      "name": "Osmotic coupling",
+      "kind": "point",
+      "molecular": "More charged RNA per volume pulls in water harder",
+      "local": "Growth responds to RNA at half the concentration",
+      "target": "grow",
+      "effects": [
+        {
+          "type": "K",
+          "rxn": "grow",
+          "species": "RNA",
+          "mul": 0.6
+        }
+      ],
+      "cost": 14,
+      "levels": 2,
+      "costGrowth": 2.4,
+      "card": "osmotic-growth"
+    },
+    {
+      "id": "a1-lipid",
+      "name": "Lipid-making ribozyme",
+      "kind": "gene",
+      "molecular": "A new 60-nucleotide ribozyme acylates fatty acids into phospholipid",
+      "local": "New reaction: fatty acid → phospholipid; membranes grow faster but leak less. Genome +30 nt",
+      "target": "pls",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "lipidzyme"
+        },
+        {
+          "type": "param",
+          "key": "L",
+          "add": 30
+        },
+        {
+          "type": "kcat",
+          "rxn": "perm",
+          "mul": 0.85
+        },
+        {
+          "type": "kcat",
+          "rxn": "grow",
+          "mul": 1.35
+        }
+      ],
+      "cost": 35,
+      "block": 15,
+      "card": "phospholipid"
+    },
+    {
+      "id": "a1-pls",
+      "name": "Acyl-transfer pocket",
+      "kind": "point",
+      "molecular": "A loop that binds the fatty acid's carboxylate",
+      "local": "Lipid ribozyme speed ×1.8",
+      "target": "pls",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pls",
+          "mul": 1.8
+        }
+      ],
+      "cost": 30,
+      "levels": 2,
+      "costGrowth": 2.3,
+      "requires": [
+        "a1-lipid"
+      ]
+    },
+    {
+      "id": "a1-fila",
+      "name": "Filamentous division",
+      "kind": "point",
+      "molecular": "Phospholipid-rich vesicles grow into long filaments that split under gentle shear",
+      "local": "Membrane growth ×1.4",
+      "target": "grow",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "grow",
+          "mul": 1.4
+        }
+      ],
+      "cost": 45,
+      "block": 25,
+      "levels": 2,
+      "costGrowth": 2.5,
+      "requires": [
+        "a1-lipid"
+      ],
+      "card": "filament-division"
+    },
+    {
+      "id": "a1-purge",
+      "name": "Stochastic correction",
+      "kind": "defence",
+      "molecular": "Smaller vesicles split their contents more unevenly, so parasite-clogged daughters fail",
+      "local": "Parasite loss ×3",
+      "target": "purge",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "purge",
+          "mul": 3
+        }
+      ],
+      "cost": 20,
+      "levels": 2,
+      "costGrowth": 2.5,
+      "needsFlag": "parasites",
+      "card": "stochastic-correction",
+      "hint": "Appears when parasites do"
+    },
+    {
+      "id": "a1-discrim",
+      "name": "Template discrimination",
+      "kind": "defence",
+      "molecular": "The replicase binds its own promoter-like motif and ignores short templates",
+      "local": "Parasites need 3× more template to be copied",
+      "target": "par",
+      "effects": [
+        {
+          "type": "K",
+          "rxn": "par",
+          "species": "Par",
+          "mul": 3
+        }
+      ],
+      "cost": 28,
+      "needsFlag": "parasites",
+      "card": "parasites",
+      "hint": "Appears when parasites do"
+    },
+    {
+      "id": "a1-aa",
+      "name": "Aminoacylating ribozyme",
+      "kind": "gene",
+      "molecular": "A small ribozyme loads amino acids onto RNA adaptors, like today's flexizymes",
+      "local": "Genome +30 nt. Amino acids bound to RNA stabilise its folds: replicase ×1.7",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "aminoacyl"
+        },
+        {
+          "type": "param",
+          "key": "L",
+          "add": 30
+        },
+        {
+          "type": "kcat",
+          "rxn": "rep",
+          "mul": 1.7
+        }
+      ],
+      "cost": 60,
+      "block": 30,
+      "needsFlag": "u.translation",
+      "card": "flexizyme",
+      "hint": "Appears once the RNA world is established"
+    },
+    {
+      "id": "a1-ptc",
+      "name": "Proto-ribosome",
+      "kind": "gene",
+      "molecular": "A symmetric RNA pocket joins amino acids into peptides: the peptidyl transferase centre",
+      "local": "Genome +40 nt. Short peptides help ribozymes fold and bind membranes: replicase ×1.8, growth ×1.2",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "ptc"
+        },
+        {
+          "type": "param",
+          "key": "L",
+          "add": 40
+        },
+        {
+          "type": "kcat",
+          "rxn": "rep",
+          "mul": 1.8
+        },
+        {
+          "type": "kcat",
+          "rxn": "grow",
+          "mul": 1.2
+        }
+      ],
+      "cost": 110,
+      "block": 50,
+      "requires": [
+        "a1-aa"
+      ],
+      "card": "translation"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n1-tide",
+      "name": "Tidal pools",
+      "text": "Spread into more rock pools along the shore",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55
+    },
+    {
+      "id": "n1-pumice",
+      "name": "Pumice rafts",
+      "text": "Floating volcanic rock full of tiny pores",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 9,
+      "capacity": 1.6,
+      "supply": {
+        "nucleotides": 0.15
+      }
+    },
+    {
+      "id": "n1-geyser",
+      "name": "Geyser-fed pools",
+      "text": "Pools refilled with fresh nucleotides each eruption",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 7,
+      "capacity": 1.5,
+      "supply": {
+        "nucleotides": 0.2,
+        "fattyAcids": 0.2
+      },
+      "needsFlag": "lipidzyme"
+    }
+  ],
+  "chores": [],
+  "unlocks": [
+    {
+      "id": "u.pop",
+      "title": "Your population",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 0.5
+      },
+      "card": "muller",
+      "tutorial": "Each cell on screen stands for your protocells, coloured by variant. A new variant gets its own colour so you can watch it spread or vanish. Lineages shows the family tree.",
+      "reveals": [
+        "population"
+      ]
+    },
+    {
+      "id": "u.variation",
+      "title": "Variation",
+      "when": {
+        "stat": "variation",
+        "op": ">",
+        "value": 5.5
+      },
+      "card": "variation",
+      "tutorial": "Copying errors make rare variants. Spend Variation in Evolve to favour one: a few cells carrying it appear, and they spread only if the change really helps them grow.",
+      "reveals": [
+        "shop"
+      ]
+    },
+    {
+      "id": "u.fidelity",
+      "title": "Copying fidelity",
+      "when": {
+        "stat": "adaptations",
+        "op": ">=",
+        "value": 2
+      },
+      "card": "fidelity",
+      "tutorial": "Copying errors make variation but also break replicases. Better copying (Wobble discrimination) lets the genome grow longer.",
+      "reveals": []
+    },
+    {
+      "id": "u.error",
+      "title": "The error threshold",
+      "when": {
+        "stat": "errorRatio",
+        "op": ">",
+        "value": 0.55
+      },
+      "card": "error-threshold",
+      "tutorial": "A genome cannot grow much past one over its copying error rate, or its information decays. New ribozymes need better copying first.",
+      "highlight": "genome"
+    },
+    {
+      "id": "u.translation",
+      "title": "Toward translation",
+      "when": {
+        "all": [
+          {
+            "stat": "adaptations",
+            "op": ">=",
+            "value": 6
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 600
+          }
+        ]
+      },
+      "card": "flexizyme",
+      "tutorial": "Ribozymes are slow and sloppy. RNA that loads amino acids onto adaptors could one day build proteins."
+    }
+  ],
+  "events": [
+    {
+      "id": "e.parasites",
+      "when": {
+        "all": [
+          {
+            "stat": "P",
+            "op": ">",
+            "value": 6.3
+          },
+          {
+            "stat": "time",
+            "op": ">",
+            "value": 300
+          }
+        ]
+      },
+      "title": "The first parasites",
+      "text": "Short deletion mutants appear that use the replicase without making it. They copy faster because they are shorter. Compartments are what let hosts survive them.",
+      "flags": [
+        "parasites"
+      ]
+    }
+  ],
+  "gate": {
+    "flux": 13.0,
+    "when": {
+      "all": [
+        {
+          "has": "a1-ptc"
+        },
+        {
+          "has": "a1-lipid"
+        }
+      ]
+    },
+    "text": "Build a lipid ribozyme and a proto-ribosome, pushing the genome against its error threshold, with replication flux above the threshold.",
+    "wall": "Ribozymes are slow and sloppy; the error threshold caps the genome"
+  }
+}

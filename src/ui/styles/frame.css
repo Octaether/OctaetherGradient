@@ -1,0 +1,123 @@
+/* The app frame: top bar, goal bar, nav rail, hero and drawer, plus the
+   act-tinted backdrop and the lab grid behind the hero. */
+.app {
+  position: fixed; inset: 0; display: grid; background: var(--bg);
+  grid-template-columns: var(--nav) minmax(0, 1fr) var(--drawer);
+  grid-template-rows: var(--top) var(--goalbar) minmax(0, 1fr);
+  grid-template-areas: 'top top top' 'nav goal drawer' 'nav hero drawer';
+}
+.app.wide { grid-template-columns: var(--nav) minmax(0, 1fr) 0; }
+
+.backdrop { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; transition: background 3s var(--ease); }
+.backdrop .blob {
+  position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; opacity: 0.32; will-change: transform;
+  transition: background 4s var(--ease); animation: drift 60s ease-in-out infinite alternate;
+}
+.backdrop .blob.b2 { animation-duration: 80s; animation-direction: alternate-reverse; }
+
+.hero { grid-area: hero; position: relative; overflow: hidden; z-index: 2; }
+.hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 48px 48px;
+}
+.drawer {
+  grid-area: drawer; position: relative; z-index: 8; display: flex; flex-direction: column; min-height: 0;
+  border-left: 1px solid var(--line); background: rgba(8, 11, 14, 0.96);
+}
+
+/* ---------- top bar ---------- */
+.top {
+  grid-area: top; position: relative; z-index: 10; display: flex; align-items: center; gap: 18px;
+  padding: 0 14px; border-bottom: 1px solid var(--line); background: rgba(7, 10, 13, 0.94);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand .actname { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.brand .actname b {
+  font-family: var(--display); text-transform: uppercase; font-size: 16px; font-weight: 650; letter-spacing: 0.08em; white-space: nowrap;
+}
+.brand .actname span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+.journey { margin: 0 auto; display: flex; gap: 3px; align-items: flex-end; }
+.jseg { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 34px; }
+.jseg i { width: 100%; height: 3px; background: var(--line-2); }
+.jseg b { font-family: var(--mono); font-size: 9.5px; font-weight: 600; color: var(--text-4); letter-spacing: 0.06em; }
+.jseg.done i, .jseg.now i { background: var(--accent); }
+.jseg.done b { color: var(--text-3); }
+.jseg.now b { color: var(--text); }
+
+/* currency coins with hover tips */
+.wallet { display: flex; align-items: center; gap: 6px; }
+.coin {
+  display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px 0 9px; position: relative;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, 0.025);
+}
+.coin .v { font-family: var(--mono); font-size: 14px; font-weight: 600; letter-spacing: -0.02em; color: var(--cc, var(--text)); }
+.coin .n { font-size: 8.5px; letter-spacing: 0.1em; color: var(--text-3); line-height: 1; }
+.coin .stack { display: flex; flex-direction: column; line-height: 1.15; }
+.tip {
+  position: absolute; top: calc(100% + 8px); right: 0; width: 250px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--line-2); background: rgba(13, 17, 21, 0.98); font-size: 12px; color: var(--text-2);
+  line-height: 1.5; opacity: 0; pointer-events: none; transform: translateY(-4px);
+  transition: opacity 0.15s, transform 0.15s; z-index: 50; white-space: normal;
+}
+.has-tip:hover .tip { opacity: 1; transform: none; }
+.tip b { color: var(--text); font-weight: 600; }
+
+/* ---------- goal bar ---------- */
+.goalbar {
+  grid-area: goal; position: relative; z-index: 9; display: flex; align-items: center; gap: 12px; padding: 0 14px;
+  border-bottom: 1px solid var(--line); background: rgba(7, 10, 13, 0.82); min-width: 0;
+}
+.goalbar .gk {
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); font-weight: 650; white-space: nowrap;
+}
+.goalbar .gk .num { color: var(--text-3); letter-spacing: 0; }
+.goalbar .gt { font-weight: 650; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 22%; flex: none; }
+.gchips { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.gchips::-webkit-scrollbar { display: none; }
+.gchip {
+  flex: none; display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 9px 0 6px; border-radius: 1px;
+  border: 1px solid var(--line-2); font-size: 11.5px; color: var(--text-2); white-space: nowrap;
+}
+.gchip .gtx { font-variant-numeric: tabular-nums; }
+.gchip .box { width: 13px; height: 13px; border: 1.5px solid var(--line-3); display: grid; place-items: center; font-size: 9px; border-radius: 1px; }
+.gchip.ok { color: var(--text-3); border-color: rgba(61, 255, 154, 0.32); }
+.gchip.ok .box { border-color: var(--green); color: var(--green); }
+.gbar { width: 42px; height: 3px; background: rgba(255, 255, 255, 0.1); position: relative; }
+.gbar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); transition: width 0.9s var(--ease); }
+.goal-drop {
+  position: absolute; top: 44px; right: 10px; width: min(520px, 90vw); padding: 14px 16px; z-index: 40;
+  border: 1px solid var(--line-2); background: #0d0f13; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 13px; }
+.check .box {
+  flex: none; width: 16px; height: 16px; margin-top: 2px; border-radius: 1px; border: 1.5px solid var(--line-3);
+  display: grid; place-items: center; font-size: 11px;
+}
+.check.ok .box { border-color: var(--green); background: rgba(61, 255, 154, 0.2); color: var(--green); }
+.check.ok .t { color: var(--text-3); }
+
+/* ---------- nav rail ---------- */
+.nav {
+  grid-area: nav; position: relative; z-index: 9; display: flex; flex-direction: column; align-items: center;
+  gap: 4px; padding: 12px 0; border-right: 1px solid var(--line); background: rgba(7, 10, 13, 0.6);
+}
+.nav-btn {
+  width: 62px; padding: 9px 0 7px; border-radius: 2px; border: none; background: transparent; color: var(--text-3);
+  cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; position: relative;
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.15s, background 0.15s;
+}
+.nav-btn:hover { color: var(--text); background: rgba(255, 255, 255, 0.04); }
+.nav-btn.on { color: var(--text); background: rgb(var(--acc) / 0.08); }
+.nav-btn.on::before { content: ''; position: absolute; left: -7px; top: 12px; bottom: 12px; width: 2px; background: var(--accent); }
+.nav-btn .dot { position: absolute; top: 6px; right: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--pink); }
+.nav-btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+.nav-spacer { flex: 1; }
+
+@media (max-width: 1180px) {
+  .coin .n, .brand .actname span { display: none; }
+}
+.coin.clickable { cursor: pointer; }
+.coin.clickable:hover { border-color: var(--line-2); }

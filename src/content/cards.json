@@ -1,0 +1,1357 @@
+[
+ {
+  "id": "origin-sites",
+  "title": "Vent or pond?",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "Some researchers place life's origin at alkaline hydrothermal vents, with natural gradients and mineral catalysts; others favour shallow pools on land, where wet–dry cycles drive polymerisation. Both have experimental support and real problems, so the game runs both sites side by side.",
+  "number": "Lost City vent field: chimneys up to 60 m tall",
+  "source": "Kelley et al. 2005, Science; Damer & Deamer 2020, Astrobiology"
+ },
+ {
+  "id": "wet-dry",
+  "title": "Wet–dry cycles",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "Drying a pool concentrates monomers and removes water, which favours the condensation reactions that join nucleotides into chains. Rehydration releases the chains and lets vesicles re-form around them.",
+  "number": "RNA-like polymers tens of nucleotides long from lipid-assisted wet–dry cycles",
+  "source": "Rajamani et al. 2008, Origins of Life and Evolution of Biospheres"
+ },
+ {
+  "id": "flory",
+  "title": "The Flory distribution",
+  "evidence": "Established",
+  "category": "Origins",
+  "body": "If each joining step succeeds with probability p, chain lengths follow a geometric distribution: mean length 1/(1−p), and the share of chains at least L long is p^(L−1). Long chains are exponentially rare unless p is close to 1.",
+  "number": "With p = 0.9, only 1 strand in 100 reaches 45 nucleotides",
+  "source": "Flory 1936, Journal of the American Chemical Society"
+ },
+ {
+  "id": "fes-surface",
+  "title": "Iron–sulfur catalysts",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "In the alkaline-vent and iron–sulfur-world hypotheses, minerals such as greigite and awaruite catalysed carbon fixation before enzymes existed. In the lab, H₂ and CO₂ over these minerals yield formate, acetate and pyruvate in water without any enzyme.",
+  "number": "Three vent minerals (greigite, magnetite, awaruite) fixed CO₂ with H₂",
+  "source": "Preiner et al. 2020, Nature Ecology & Evolution",
+  "simplification": "The game lets this mineral chemistry run inside early cells, as the vent-pore model proposes."
+ },
+ {
+  "id": "ftt",
+  "title": "Fischer–Tropsch-type synthesis",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "Under hydrothermal heat and pressure, CO or CO₂ and H₂ can build long carbon chains on mineral surfaces, including fatty acids and alcohols. Whether enough lipid formed this way on the early Earth is debated.",
+  "number": "Lipid chains of 2 to over 30 carbons in hydrothermal experiments",
+  "source": "McCollom, Ritter & Simoneit 1999, Origins of Life and Evolution of the Biosphere"
+ },
+ {
+  "id": "cyanosulfidic",
+  "title": "Cyanosulfidic chemistry",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "UV light acting on hydrogen cyanide and hydrogen sulfide can produce precursors of nucleotides, amino acids and lipids in one interlinked network. It needs a sunlit surface setting, which is one reason the origin site is still argued over.",
+  "number": "One reaction network yields precursors of all three building-block classes",
+  "source": "Patel, Percivalle, Ritson, Duffy & Sutherland 2015, Nature Chemistry"
+ },
+ {
+  "id": "schreibersite",
+  "title": "Schreibersite",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "Schreibersite, an iron–nickel phosphide common in meteorites, corrodes in water to release reactive reduced phosphorus. That phosphorus can phosphorylate organic molecules, easing the \"phosphate problem\" of prebiotic chemistry.",
+  "number": "Formula (Fe,Ni)₃P",
+  "source": "Pasek & Lauretta 2005, Astrobiology"
+ },
+ {
+  "id": "borate",
+  "title": "Borate and ribose",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "Ribose, the sugar in RNA, breaks down quickly in water. Borate minerals form complexes with ribose that slow its decomposition, which could have let it accumulate.",
+  "number": "Free ribose half-life: about 73 minutes at pH 7 and 100 °C",
+  "source": "Larralde, Robertson & Miller 1995, PNAS; Ricardo et al. 2004, Science"
+ },
+ {
+  "id": "clay",
+  "title": "Clay surfaces",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "Montmorillonite clay adsorbs activated nucleotides and catalyses their joining into RNA chains. The same clay speeds up the assembly of fatty-acid vesicles, and vesicles can capture clay particles with RNA bound to them.",
+  "number": "Oligomers up to about 50 nucleotides on montmorillonite",
+  "source": "Huang & Ferris 2006, JACS; Hanczyc, Fujikawa & Szostak 2003, Science"
+ },
+ {
+  "id": "activation",
+  "title": "Activated nucleotides",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "Nucleotides need an energetic leaving group to join without enzymes. Nucleotides activated with 2-aminoimidazole copy RNA templates far better than earlier chemistries, through an imidazolium-bridged intermediate.",
+  "number": "Leaving group: 2-aminoimidazole",
+  "source": "Li, Prywes, Zhang & Szostak 2017, JACS"
+ },
+ {
+  "id": "freeze-thaw",
+  "title": "Freeze–thaw cycles",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "When water freezes, solutes are squeezed into thin veins of brine between ice crystals, concentrating them. A polymerase ribozyme works better in ice than in liquid water, and freezing cycles help separate RNA strands.",
+  "number": "Ribozyme polymerase activity in ice at −7 °C",
+  "source": "Attwater, Wochner & Holliger 2013, Nature Chemistry; see also Attwater et al. 2025"
+ },
+ {
+  "id": "sites",
+  "title": "More sites",
+  "evidence": "Convenience",
+  "category": "Origins",
+  "body": "Game convenience: each pool or pore stands for many square metres of chemistry. Spreading to more sites multiplies production without changing any rate law.",
+  "number": "—",
+  "source": "Game design note"
+ },
+ {
+  "id": "hot-springs",
+  "title": "Hot-spring fields",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "The terrestrial hot-spring hypothesis proposes that geysers and fluctuating pools supplied natural wet–dry cycles, concentrating and polymerising organics with no one to press a button. It competes with the vent hypothesis.",
+  "number": "Wet–dry cycles every few hours to days at geyser-fed pools",
+  "source": "Damer & Deamer 2020, Astrobiology"
+ },
+ {
+  "id": "vesicles",
+  "title": "Fatty-acid vesicles",
+  "evidence": "Established",
+  "category": "Origins",
+  "body": "Fatty acids above a critical concentration close into bilayer vesicles. They grow by absorbing micelles and split under gentle shear, but they divide their contents at random: without a replicator inside, nothing is inherited.",
+  "number": "Vesicle-forming fatty acids have chains of about 10 or more carbons",
+  "source": "Hanczyc, Fujikawa & Szostak 2003, Science"
+ },
+ {
+  "id": "polymerase-ribozyme",
+  "title": "Polymerase ribozymes",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "RNA can catalyse its own copying: lab-evolved polymerase ribozymes extend primers on RNA templates. A small polymerase ribozyme can synthesise both itself and its complementary strand, and pH and freeze–thaw cycles enable exponential RNA replication.",
+  "number": "QT45: a polymerase ribozyme 45 nucleotides long",
+  "source": "Gianni et al.; Attwater et al. 2025"
+ },
+ {
+  "id": "spark-compression",
+  "title": "Compressing the spark",
+  "evidence": "Convenience",
+  "category": "Origins",
+  "body": "A working replicator forming by chance is an extremely unlikely event. The game raises the chance the longer the spark is overdue, so it lands inside a target window instead of after geological time.",
+  "number": "Real waiting time: unknown, possibly millions of years",
+  "source": "Game design note"
+ },
+ {
+  "id": "nucleotides",
+  "title": "Nucleotides",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "RNA's building blocks: a base (A, C, G or U), a ribose sugar and a phosphate. Activated nucleotides carry an extra energetic group so that joining them is downhill.",
+  "number": "4 bases in RNA",
+  "source": "Berg, Tymoczko, Gatto & Stryer, Biochemistry, ch. 4",
+  "smiles": "Nc1ncnc2c1ncn2C1OC(COP(=O)([O-])[O-])C(O)C1O"
+ },
+ {
+  "id": "muller",
+  "title": "Muller plots",
+  "evidence": "Convenience",
+  "category": "Evolution",
+  "body": "A Muller plot shows how lineage frequencies change over time, with each new lineage drawn inside its parent. It is the standard picture of evolution experiments, named after H. J. Muller.",
+  "number": "Introduced by Muller 1932",
+  "source": "Muller 1932, American Naturalist"
+ },
+ {
+  "id": "variation",
+  "title": "Why Variation is real",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Selection can only act on variation that exists. Fisher's fundamental theorem ties the rate of adaptation to the variance in fitness. In this game Variation stands for rare variants already present; spending it means selection amplifying one of them. That you choose which is the game's one liberty.",
+  "number": "Variation income ∝ U · g · ln(1 + N)",
+  "source": "Fisher 1930, The Genetical Theory of Natural Selection"
+ },
+ {
+  "id": "drift-2s",
+  "title": "Lost to drift",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "A new beneficial mutation is usually lost by chance while it is rare. Its chance of escaping drift is about twice its selective advantage, so even a 10% advantage is lost four times in five. The game only simulates mutants that escape.",
+  "number": "Establishment probability ≈ 2s",
+  "source": "Haldane 1927; Patwa & Wahl 2008, Journal of the Royal Society Interface"
+ },
+ {
+  "id": "fidelity",
+  "title": "Copying fidelity",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Fidelity sets how much information a replicator can carry. Lab polymerase ribozymes below a fidelity threshold let functional RNAs drift into non-function; higher-fidelity variants let new functions evolve.",
+  "number": "Maximum genome ≈ ln(σ)/ε bases",
+  "source": "Papastavrou, Horning & Joyce 2024, PNAS"
+ },
+ {
+  "id": "error-threshold",
+  "title": "The error threshold",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "With a per-base copying error rate ε, a replicator can maintain at most about ln(σ)/ε bases, where σ is its fitness advantage over error copies. Beyond that, information decays every generation. In the game this is a soft cap: exceeding it adds error load.",
+  "number": "At 3% error per base, about 77 bases (σ = 10)",
+  "source": "Eigen 1971, Naturwissenschaften"
+ },
+ {
+  "id": "osmotic-growth",
+  "title": "Osmotic growth",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Vesicles holding more RNA are osmotically swollen and grow by taking membrane from relaxed neighbours. Faster replication therefore means faster growth: physical selection before any metabolism.",
+  "number": "Shown with fatty-acid vesicles in 2004",
+  "source": "Chen, Roberts & Szostak 2004, Science"
+ },
+ {
+  "id": "permeability",
+  "title": "Leaky membranes",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Simple fatty-acid membranes, unlike modern phospholipid ones, let nucleotides and magnesium ions through. Protocells could feed without any transport proteins.",
+  "number": "Model protocells copied DNA templates using nucleotides from outside",
+  "source": "Mansy et al. 2008, Nature"
+ },
+ {
+  "id": "rna-stability",
+  "title": "Keeping RNA intact",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "RNA breaks down in water, faster with Mg²⁺, which copying chemistry needs. Citrate chelates Mg²⁺ so it still helps copying but no longer cleaves RNA or bursts fatty-acid membranes.",
+  "number": "Citrate–Mg²⁺ allowed copying inside fatty-acid vesicles",
+  "source": "Adamala & Szostak 2013, Science"
+ },
+ {
+  "id": "parasites",
+  "title": "Parasitic replicators",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "Whenever replicators share a replicase, short sequences arise that get copied without helping. They copy faster because they are shorter. Compartments are what let hosts survive them.",
+  "number": "Spiegelman's Qβ RNA shrank from about 4,500 to about 220 nucleotides",
+  "source": "Bansho et al. 2016, PNAS; Mills, Peterson & Spiegelman 1967, PNAS"
+ },
+ {
+  "id": "stochastic-correction",
+  "title": "Stochastic correction",
+  "evidence": "Likely",
+  "category": "Evolution",
+  "body": "When protocells divide, their contents split unevenly. Some daughters get mostly parasites and fail; others get mostly helpers and thrive. That variation between compartments lets selection purge parasites.",
+  "number": "Stochastic corrector model, 1987",
+  "source": "Szathmáry & Demeter 1987, Journal of Theoretical Biology"
+ },
+ {
+  "id": "phospholipid",
+  "title": "Phospholipid-driven growth",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "A small fraction of phospholipid in a fatty-acid vesicle makes it grow by pulling fatty acids from its neighbours. A ribozyme that made phospholipid would give its protocell an edge, while making the membrane less leaky.",
+  "number": "Phospholipids have two tails; fatty acids one",
+  "source": "Budin & Szostak 2011, PNAS"
+ },
+ {
+  "id": "filament-division",
+  "title": "Filamentous division",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Growing vesicles stretch into long filaments that break into daughters under gentle shear, a division mechanism that needs no proteins at all.",
+  "number": "Division by mild shear forces",
+  "source": "Zhu & Szostak 2009, JACS; Budin & Szostak 2011, PNAS"
+ },
+ {
+  "id": "flexizyme",
+  "title": "Flexizymes",
+  "evidence": "Established",
+  "category": "Origins",
+  "body": "Flexizymes are small lab-evolved ribozymes that load amino acids onto tRNAs. They show that RNA alone can perform the chemistry that links nucleic acids to proteins.",
+  "number": "About 45 nucleotides long",
+  "source": "Murakami, Ohta, Ashigai & Suga 2006, Nature Methods"
+ },
+ {
+  "id": "policies",
+  "title": "Auto-spend policies",
+  "evidence": "Convenience",
+  "category": "Game",
+  "body": "Auto-spend policies are a convenience, not biology: nothing in a cell writes purchasing rules. They play the same role as autobuyers in other idle games.",
+  "number": "—",
+  "source": "Game design note"
+ },
+ {
+  "id": "map-grammar",
+  "title": "Reading the map",
+  "evidence": "Convenience",
+  "category": "Game",
+  "body": "The map follows SBGN, the field's standard notation: molecules are nodes sized by concentration on a log scale, reactions are edges whose width tracks flux, activation is an arrow and inhibition a flat bar. Dashed edges are several steps collapsed into one.",
+  "number": "SBGN standard published 2009",
+  "source": "Le Novère et al. 2009, Nature Biotechnology"
+ },
+ {
+  "id": "mca",
+  "title": "Metabolic control analysis",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "A flux control coefficient is the fractional change in pathway flux for a fractional change in one enzyme's activity. Coefficients sum to one, so control is shared and moves as the pathway changes. The enzyme with the largest coefficient is literally what to improve next.",
+  "number": "Summation theorem: Σ C = 1",
+  "source": "Kacser & Burns 1973, Symposia of the Society for Experimental Biology; Heinrich & Rapoport 1974"
+ },
+ {
+  "id": "translation",
+  "title": "The ribosome is a ribozyme",
+  "evidence": "Established",
+  "category": "Origins",
+  "body": "The peptidyl transferase centre, where amino acids are joined into protein, is made of RNA. The RNA world built the machine that would replace most of its ribozymes.",
+  "number": "No protein side chain within about 18 Å of the active site",
+  "source": "Nissen, Hansen, Ban, Moore & Steitz 2000, Science"
+ },
+ {
+  "id": "speed-binding",
+  "title": "Speed versus binding",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Enzymes trade turnover speed (kcat) against substrate binding (Km). Their efficiency kcat/Km cannot exceed the rate at which molecules diffuse together, and the typical enzyme sits well below that ceiling.",
+  "number": "Median enzyme: kcat ≈ 10 s⁻¹, kcat/Km ≈ 10⁵ M⁻¹s⁻¹; diffusion limit ≈ 10⁸–10⁹",
+  "source": "Bar-Even et al. 2011, Biochemistry"
+ },
+ {
+  "id": "pmf",
+  "title": "The proton gradient",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "A proton gradient across a membrane stores energy as both a concentration difference and a voltage: the proton-motive force. Almost all life uses it to make ATP.",
+  "number": "Typical proton-motive force: 150–200 mV",
+  "source": "Mitchell 1961, Nature"
+ },
+ {
+  "id": "vent-gradient",
+  "title": "A natural gradient",
+  "evidence": "Contested",
+  "category": "Origins",
+  "body": "Alkaline hydrothermal fluid meeting acidic ancient seawater across thin mineral walls makes a natural pH gradient. It has been proposed as the first proton-motive force, used before cells could pump their own.",
+  "number": "About 3 pH units across the vent wall",
+  "source": "Lane & Martin 2012, Cell"
+ },
+ {
+  "id": "atp-synthase",
+  "title": "ATP synthase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "A rotary motor: protons flowing through the membrane c-ring turn a central stalk, which forces shape changes in the F₁ head that make ATP. Its subunits are among the gene duplications that predate LUCA.",
+  "number": "3 ATP per full turn; c-rings have 8 to 15 subunits",
+  "source": "Boyer 1997, Annual Review of Biochemistry; Moody et al. 2024, Nature Ecology & Evolution",
+  "pdb": "1BMF"
+ },
+ {
+  "id": "wl",
+  "title": "Wood–Ljungdahl pathway",
+  "evidence": "Likely",
+  "category": "Pathways",
+  "body": "Fixes two CO₂ into acetyl-CoA with H₂: a methyl branch reduces one CO₂ step by step, and CODH/ACS turns the other into CO and joins them. It is the cheapest carbon fixation route known and probably the oldest.",
+  "number": "About 1 ATP invested per acetyl-CoA",
+  "source": "Ragsdale & Pierce 2008, Biochimica et Biophysica Acta; Fuchs 2011, Annual Review of Microbiology",
+  "simplification": "The methyl branch's six steps are one edge on the map."
+ },
+ {
+  "id": "codh-acs",
+  "title": "CODH/acetyl-CoA synthase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "This nickel enzyme reduces CO₂ to CO and passes it through a long internal gas tunnel to a second nickel site, where it joins a methyl group and CoA to make acetyl-CoA.",
+  "number": "A 70 Å tunnel connects the two active sites",
+  "source": "Doukov et al. 2002, Science"
+ },
+ {
+  "id": "hydrogenase",
+  "title": "Hydrogenases",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Hydrogenases split H₂ at nickel–iron or iron–iron metal clusters buried in the protein; H₂ reaches them through hydrophobic gas tunnels. A lower Km lets cells live on less hydrogen.",
+  "number": "Two main families: [NiFe] and [FeFe]",
+  "source": "Vignais & Billoud 2007, Chemical Reviews"
+ },
+ {
+  "id": "ech",
+  "title": "Pumping your own protons",
+  "evidence": "Likely",
+  "category": "Enzymes",
+  "body": "Energy-converting hydrogenases (Ech) and the Rnf complex couple ferredoxin oxidation to ion pumping across the membrane. They let acetogens and methanogens make their own gradient, belonging to the same family as complex I.",
+  "number": "Part of the complex I superfamily",
+  "source": "Buckel & Thauer 2013, Biochimica et Biophysica Acta"
+ },
+ {
+  "id": "acetyl-coa",
+  "title": "Acetyl-CoA",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "A two-carbon acetyl group held on coenzyme A by a high-energy thioester bond. It sits where carbon fixation, sugar breakdown and fat synthesis meet. CoA itself is recycled: a conserved pool.",
+  "number": "Thioester hydrolysis: ΔG°′ ≈ −31 kJ/mol",
+  "source": "Berg et al., Biochemistry, ch. 17",
+  "smiles": "CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)([O-])OP(=O)([O-])OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)([O-])[O-]"
+ },
+ {
+  "id": "acetyl-phosphate",
+  "title": "Acetyl phosphate",
+  "evidence": "Likely",
+  "category": "Molecules",
+  "body": "Acetyl phosphate can hand its phosphate to ADP and forms from thioesters and phosphate even without enzymes. It has been proposed as an energy currency older than ATP; acetogens still make ATP this way.",
+  "number": "Hydrolysis: ΔG°′ ≈ −43 kJ/mol",
+  "source": "Whicher, Camprubi, Pinna, Herschy & Lane 2018, Origins of Life and Evolution of Biospheres",
+  "smiles": "CC(=O)OP(=O)([O-])[O-]"
+ },
+ {
+  "id": "atp",
+  "title": "ATP",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "The cell's spendable energy: moving its terminal phosphate drives otherwise uphill reactions. The adenylate pool is conserved, so cells recharge the same molecules thousands of times a day.",
+  "number": "Hydrolysis: ΔG°′ ≈ −30.5 kJ/mol; about −50 kJ/mol in cells",
+  "source": "Berg et al., Biochemistry, ch. 15",
+  "smiles": "Nc1ncnc2c1ncn2C1OC(COP(=O)([O-])OP(=O)([O-])OP(=O)([O-])[O-])C(O)C1O",
+  "simplification": "AMP is folded into ADP, so energy charge reads ATP / (ATP + ADP)."
+ },
+ {
+  "id": "energy-charge",
+  "title": "Energy charge",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Atkinson's energy charge, (ATP + ½ADP)/(ATP + ADP + AMP), summarises how full the cell's battery is. Healthy cells hold it high and throttle biosynthesis when it falls.",
+  "number": "Healthy cells: 0.8–0.95",
+  "source": "Atkinson 1968, Biochemistry"
+ },
+ {
+  "id": "ferredoxin",
+  "title": "Ferredoxin",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Small iron–sulfur proteins that carry low-potential electrons, lower in energy than NADH can reach. Ferredoxins are ancient and simple, perhaps echoing the mineral catalysts before them.",
+  "number": "E°′ ≈ −0.4 V (NADH: −0.32 V)",
+  "source": "Buckel & Thauer 2013, Biochimica et Biophysica Acta"
+ },
+ {
+  "id": "h2",
+  "title": "Hydrogen",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Molecular hydrogen is a rich electron donor, made where seawater reacts with iron-rich rock (serpentinisation). Many of the oldest metabolisms live on it.",
+  "number": "Lost City vent fluids carry up to about 15 mM H₂",
+  "source": "Kelley et al. 2005, Science",
+  "smiles": "[H][H]"
+ },
+ {
+  "id": "co2",
+  "title": "Carbon dioxide",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Every carbon atom in living matter was once CO₂ fixed by an autotroph. Life has invented several ways to do it.",
+  "number": "Six natural CO₂-fixation pathways are known",
+  "source": "Fuchs 2011, Annual Review of Microbiology",
+  "smiles": "O=C=O"
+ },
+ {
+  "id": "growth",
+  "title": "Growth",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "In this game, a lineage's growth rate is the ATP flux into biosynthesis divided by the ATP cost of a new cell. Fast-growing bacteria can double in about twenty minutes.",
+  "number": "E. coli: about 20 minutes per division in rich medium",
+  "source": "Monod 1949, Annual Review of Microbiology",
+  "simplification": "Biosynthesis is one lumped reaction consuming precursors and ATP."
+ },
+ {
+  "id": "maintenance",
+  "title": "Maintenance energy",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Cells spend ATP just to stay alive: repair, protein turnover, keeping ions balanced. When supply drops below this, energy charge collapses.",
+  "number": "Maintenance coefficient introduced by Pirt in 1965",
+  "source": "Pirt 1965, Proceedings of the Royal Society B"
+ },
+ {
+  "id": "patchwork",
+  "title": "The patchwork model",
+  "evidence": "Likely",
+  "category": "Evolution",
+  "body": "Early enzymes were probably sloppy generalists acting on several similar substrates. Gene duplication let one copy keep the old job while the other specialised: pathways assembled from borrowed parts.",
+  "number": "Proposed by Jensen in 1976",
+  "source": "Jensen 1976, Annual Review of Microbiology"
+ },
+ {
+  "id": "dna-genome",
+  "title": "DNA genome",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "All cells make DNA building blocks from RNA building blocks (ribonucleotide reductase) and thymine from uracil, which suggests RNA came first. DNA lacks the 2′-OH that makes RNA fragile, so it is a more stable archive.",
+  "number": "DNA lacks one oxygen atom per nucleotide",
+  "source": "Joyce 2002, Nature"
+ },
+ {
+  "id": "proofreading",
+  "title": "Proofreading and repair",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "DNA polymerases recheck each new base with a 3′→5′ exonuclease, cutting errors about a hundredfold; mismatch repair removes most of the rest. Today's DNA microbes sit near 0.003 mutations per genome per copy.",
+  "number": "Final error rate ≈ 10⁻⁹–10⁻¹⁰ per base",
+  "source": "Kunkel 2004, Journal of Biological Chemistry; Drake 1991, PNAS"
+ },
+ {
+  "id": "genome-capacity",
+  "title": "Genome capacity",
+  "evidence": "Convenience",
+  "category": "Game",
+  "body": "One genome slot is a functional module, not one gene. Real numbers: LUCA had about 2,600 proteins, E. coli about 4,300 genes, humans about 20,000. Copying fidelity and energy per gene set the two ceilings.",
+  "number": "LUCA: about 2,600 proteins",
+  "source": "Moody et al. 2024, Nature Ecology & Evolution"
+ },
+ {
+  "id": "membranes",
+  "title": "The lipid divide",
+  "evidence": "Contested",
+  "category": "Cells",
+  "body": "Archaea build membranes from ether-linked isoprenoid lipids on glycerol-1-phosphate; bacteria use ester-linked fatty acids on glycerol-3-phosphate. What LUCA's membrane was like is still argued.",
+  "number": "Two mirror-image glycerol backbones",
+  "source": "Lombard, López-García & Moreira 2012, Nature Reviews Microbiology"
+ },
+ {
+  "id": "luca",
+  "title": "LUCA",
+  "evidence": "Likely",
+  "category": "Origins",
+  "body": "The last universal common ancestor was probably an anaerobic acetogen fixing CO₂ with H₂, with ATP synthase, a DNA genome and even an early immune system. It already lived in an ecosystem, not alone.",
+  "number": "About 2,600 proteins and at least 2.5 Mb, roughly 4.2 billion years ago",
+  "source": "Moody et al. 2024, Nature Ecology & Evolution"
+ },
+ {
+  "id": "rtca",
+  "title": "The reductive TCA cycle",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "The Krebs cycle run backwards with ferredoxin fixes CO₂. Its intermediates regenerate each turn, so they form a conserved pool: drain them for building blocks and the cycle slows. Found in green sulfur bacteria and Aquificae.",
+  "number": "Discovered in 1966",
+  "source": "Evans, Buchanan & Arnon 1966, PNAS",
+  "simplification": "Five reductive steps are one edge; ATP-citrate lyase closes the loop."
+ },
+ {
+  "id": "pfor",
+  "title": "Pyruvate synthase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Pyruvate:ferredoxin oxidoreductase adds CO₂ to acetyl-CoA using low-potential ferredoxin, or runs the reverse. It is ancient and oxygen-sensitive.",
+  "number": "Three Fe₄S₄ clusters and a thiamine cofactor",
+  "source": "Ragsdale 2003, Chemical Reviews"
+ },
+ {
+  "id": "gluconeogenesis",
+  "title": "Gluconeogenesis",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Builds sugar from pyruvate, bypassing glycolysis's irreversible steps with different enzymes. It is expensive: sugar made from scratch costs far more ATP than glycolysis returns.",
+  "number": "4 ATP + 2 GTP + 2 NADH per glucose",
+  "source": "Berg et al., Biochemistry, ch. 16"
+ },
+ {
+  "id": "glucose",
+  "title": "Glucose",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "The commonest sugar in living things, made by autotrophs and released when cells die. Eating it only pays once someone else has made it.",
+  "number": "C₆H₁₂O₆, 180 g/mol",
+  "source": "Berg et al., Biochemistry, ch. 11",
+  "smiles": "OCC1OC(O)C(O)C(O)C1O"
+ },
+ {
+  "id": "glycolysis",
+  "title": "Glycolysis",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Splits glucose into two pyruvate, netting 2 ATP and 2 NADH. It is nearly universal, though many archaea run modified versions.",
+  "number": "10 enzymatic steps",
+  "source": "Berg et al., Biochemistry, ch. 16",
+  "simplification": "The five steps from F1,6BP to PEP are one edge until expanded."
+ },
+ {
+  "id": "pfk",
+  "title": "Phosphofructokinase (PFK)",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "PFK commits sugar to glycolysis by moving a phosphate from ATP onto fructose 6-phosphate. In bacteria it is switched on by ADP and off by PEP, which compete for the same regulatory pocket, so one site reads both the energy state and the backlog downstream. Animals regulate it differently, with fructose 2,6-bisphosphate as the strongest activator.",
+  "number": "Catalytic base: Asp127 in E. coli PFK",
+  "source": "Fenton & Reinhart 2009, Biochemistry; Hellinga & Evans 1987, Nature"
+ },
+ {
+  "id": "gapdh",
+  "title": "GAPDH and lower glycolysis",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Glyceraldehyde-3-phosphate dehydrogenase oxidises its substrate and captures the energy in a high-energy phosphate, reducing NAD⁺. It ties glycolysis to the NAD pool: no NAD⁺, no flux.",
+  "number": "2 NADH per glucose",
+  "source": "Berg et al., Biochemistry, ch. 16",
+  "simplification": "Aldolase, TPI, GAPDH, PGK, PGM and enolase are collapsed into one edge."
+ },
+ {
+  "id": "pep",
+  "title": "PEP",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Phosphoenolpyruvate has the highest phosphoryl-transfer potential of common metabolites. In bacteria it also signals a backlog downstream by inhibiting PFK.",
+  "number": "Hydrolysis: ΔG°′ ≈ −62 kJ/mol",
+  "source": "Berg et al., Biochemistry, ch. 16",
+  "smiles": "C=C(OP(=O)([O-])[O-])C(=O)[O-]"
+ },
+ {
+  "id": "pyruvate",
+  "title": "Pyruvate",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Pyruvate is metabolism's three-carbon hub: end of glycolysis, start of fermentation, respiration and many building blocks.",
+  "number": "C₃H₃O₃⁻",
+  "source": "Berg et al., Biochemistry, ch. 16",
+  "smiles": "CC(=O)C(=O)[O-]"
+ },
+ {
+  "id": "pyruvate-kinase",
+  "title": "Pyruvate kinase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Transfers PEP's phosphate to ADP, making ATP. It is activated feed-forward by fructose 1,6-bisphosphate, so a surge at PFK pre-opens the exit.",
+  "number": "Needs K⁺ and Mg²⁺",
+  "source": "Berg et al., Biochemistry, ch. 16"
+ },
+ {
+  "id": "ldh",
+  "title": "Lactate dehydrogenase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "LDH reduces pyruvate to lactate with NADH, regenerating the NAD⁺ glycolysis needs. In its active site His195 shuttles a proton while Arg171 grips the carboxylate. A single residue at position 102 decides between pyruvate and malate.",
+  "number": "Active site: His195, Arg171, Asp168",
+  "source": "Wilks et al. 1988, Science"
+ },
+ {
+  "id": "fermentation",
+  "title": "Fermentation",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Fermentation regenerates NAD⁺ by dumping electrons onto an organic molecule. It works without oxygen but yields little.",
+  "number": "About 2 ATP per glucose (respiration: about 30)",
+  "source": "Berg et al., Biochemistry, ch. 16"
+ },
+ {
+  "id": "methylglyoxal",
+  "title": "Methylglyoxal",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Triose phosphates piled up behind a jam spontaneously break down into methylglyoxal, a reactive toxin that damages proteins and DNA. Glyoxalases turn it into harmless lactate.",
+  "number": "About 0.1–0.4% of glycolytic triose flux becomes methylglyoxal",
+  "source": "Thornalley 1996, General Pharmacology",
+  "smiles": "CC(=O)C=O"
+ },
+ {
+  "id": "nad",
+  "title": "NAD⁺ and NADH",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "NAD⁺ accepts two electrons and a proton to become NADH. The total pool is conserved: only the charged fraction changes, and a pool stranded in one form stops every reaction that needs the other.",
+  "number": "E°′ (NAD⁺/NADH) = −0.32 V",
+  "source": "Berg et al., Biochemistry, ch. 15",
+  "smiles": "NC(=O)c1ccc[n+](C2OC(COP(=O)([O-])OP(=O)([O-])OCC3OC(n4cnc5c(N)ncnc54)C(O)C3O)C(O)C2O)c1"
+ },
+ {
+  "id": "catabolite-repression",
+  "title": "Catabolite repression",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "When glucose is plentiful, E. coli keeps genes for other foods switched off: low cAMP leaves the CRP activator idle, and the lac repressor blocks lactose genes unless lactose is present. Automation in cells is regulation.",
+  "number": "Diauxic growth described by Monod in 1941",
+  "source": "Jacob & Monod 1961, Journal of Molecular Biology",
+  "simplification": "In game, sugar phosphates repress carbon-fixing enzymes."
+ },
+ {
+  "id": "clonal-interference",
+  "title": "Clonal interference",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "In large asexual populations, beneficial mutations in different lineages compete instead of combining, slowing adaptation. Several branches thickening at once in the family tree are exactly this.",
+  "number": "Long-Term Evolution Experiment: 12 populations since 1988",
+  "source": "Maddamsetti, Lenski & Barrick 2015, Genetics"
+ },
+ {
+  "id": "mutators",
+  "title": "Mutator lineages",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Lineages with broken repair mutate faster: more variation, but more harmful load. Mutators arose in several populations of the Long-Term Evolution Experiment.",
+  "number": "Over 50,000 generations of whole-genome data",
+  "source": "Tenaillon et al. 2016, Nature"
+ },
+ {
+  "id": "restriction",
+  "title": "Restriction–modification",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "A methyltransferase marks the cell's own DNA at a short sequence; a restriction enzyme cuts that sequence wherever it is unmarked, as on incoming phage DNA.",
+  "number": "EcoRI cuts GAATTC",
+  "source": "Arber & Linn 1969, Annual Review of Biochemistry"
+ },
+ {
+  "id": "crispr",
+  "title": "CRISPR–Cas",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "CRISPR arrays store short spacers copied from past infections; Cas nucleases use them to find and cut matching phage DNA. It is an adaptive immune system in microbes.",
+  "number": "Found in about 40% of bacteria and most archaea",
+  "source": "Barrangou et al. 2007, Science; Makarova et al. 2020, Nature Reviews Microbiology"
+ },
+ {
+  "id": "kill-the-winner",
+  "title": "Kill the winner",
+  "evidence": "Likely",
+  "category": "Ecology",
+  "body": "Viruses spread best through the most abundant host, so they cut down whichever lineage is winning and keep diversity high.",
+  "number": "About 10³⁰ viruses in the oceans",
+  "source": "Thingstad 2000, Limnology and Oceanography; Suttle 2005, Nature"
+ },
+ {
+  "id": "photosynthesis",
+  "title": "Photosynthesis",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Reaction centres use a photon to lift an electron to a strongly reducing state, then pass it along a chain that pumps protons. Light is the one food that never runs out.",
+  "number": "About 173,000 TW of sunlight reaches Earth",
+  "source": "Blankenship 2014, Molecular Mechanisms of Photosynthesis"
+ },
+ {
+  "id": "anoxygenic",
+  "title": "Anoxygenic photosynthesis",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "One type of reaction centre with electron donors such as H₂S, H₂ or Fe²⁺. It releases sulfur, not oxygen, and probably predates oxygenic photosynthesis.",
+  "number": "H₂S gives up electrons at −0.24 V; water at +0.82 V",
+  "source": "Blankenship 2014, Molecular Mechanisms of Photosynthesis"
+ },
+ {
+  "id": "cyclic-flow",
+  "title": "Cyclic electron flow",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Linear electron flow makes too little ATP for each NADPH the Calvin cycle uses. Cycling electrons around photosystem I pumps protons without making NADPH, topping up ATP.",
+  "number": "Calvin cycle needs ATP : NADPH = 3 : 2",
+  "source": "Blankenship 2014, Molecular Mechanisms of Photosynthesis"
+ },
+ {
+  "id": "psii",
+  "title": "Photosystem II",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "The Mn₄CaO₅ cluster of photosystem II strips four electrons from two water molecules, releasing O₂. It is the only biological catalyst that oxidises water, and it changed the planet.",
+  "number": "4 photons absorbed per O₂ released at PSII",
+  "source": "Umena, Kawakami, Shen & Kamiya 2011, Nature"
+ },
+ {
+  "id": "calvin",
+  "title": "The Calvin cycle",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Fixes CO₂ onto ribulose bisphosphate, spends ATP and NADPH to make sugar, then regenerates its acceptor.",
+  "number": "3 ATP + 2 NADPH per CO₂",
+  "source": "Berg et al., Biochemistry, ch. 20",
+  "simplification": "Thirteen enzymatic steps are one edge."
+ },
+ {
+  "id": "rubisco",
+  "title": "RuBisCO",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "The most abundant protein on Earth and one of the slowest enzymes. It mistakes O₂ for CO₂, wasting energy in photorespiration. Lys201 must be carbamylated and bind Mg²⁺ before it works.",
+  "number": "kcat ≈ 3 s⁻¹ in plants",
+  "source": "Andersson & Backlund 2008, Plant Physiology and Biochemistry"
+ },
+ {
+  "id": "ros",
+  "title": "Reactive oxygen",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "O₂ grabs stray electrons to become superoxide, then peroxide and hydroxyl radical. They attack iron–sulfur clusters, lipids and DNA.",
+  "number": "About 0.1–2% of respiratory electrons leak to O₂",
+  "source": "Murphy 2009, Biochemical Journal"
+ },
+ {
+  "id": "sod",
+  "title": "Superoxide dismutase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Converts superoxide into hydrogen peroxide and oxygen almost as fast as the molecules can meet. Different families use copper and zinc, manganese, iron or nickel.",
+  "number": "kcat/Km ≈ 10⁹ M⁻¹s⁻¹",
+  "source": "Fridovich 1995, Annual Review of Biochemistry"
+ },
+ {
+  "id": "catalase",
+  "title": "Catalase",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Splits hydrogen peroxide into water and oxygen. Its turnover is among the fastest of any enzyme.",
+  "number": "kcat ≈ 4 × 10⁷ s⁻¹",
+  "source": "Berg et al., Biochemistry, ch. 8"
+ },
+ {
+  "id": "goe",
+  "title": "The Great Oxidation Event",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "About 2.4 billion years ago oxygen first accumulated in the air. For hundreds of millions of years before, dissolved iron and other reductants soaked it up; banded iron formations record the oceans rusting.",
+  "number": "About 2.4–2.3 billion years ago",
+  "source": "Lyons, Reinhard & Planavsky 2014, Nature"
+ },
+ {
+  "id": "respiration",
+  "title": "Aerobic respiration",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Electrons from NADH fall down the respiratory chain to O₂, pumping protons for ATP synthase. Oxygen-reducing enzymes may first have served as detoxifiers before being coupled to ATP synthesis.",
+  "number": "About 30–32 ATP per glucose",
+  "source": "Berg et al., Biochemistry, ch. 18"
+ },
+ {
+  "id": "krebs",
+  "title": "The Krebs cycle",
+  "evidence": "Established",
+  "category": "Pathways",
+  "body": "Oxidises acetyl groups to CO₂, loading NADH and FADH₂ for the respiratory chain. In citrate synthase, His274, His320 and Asp375 position the substrates.",
+  "number": "Per acetyl: 3 NADH, 1 FADH₂, 1 GTP",
+  "source": "Berg et al., Biochemistry, ch. 17",
+  "simplification": "Glycolysis, pyruvate dehydrogenase and the cycle are one edge."
+ },
+ {
+  "id": "kaiabc",
+  "title": "The KaiABC clock",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Cyanobacteria keep time with three proteins: KaiC phosphorylates and dephosphorylates itself in a roughly 24-hour cycle, and the oscillation runs in a test tube with just KaiA, KaiB, KaiC and ATP.",
+  "number": "A 24-hour clock rebuilt in vitro in 2005",
+  "source": "Nakajima et al. 2005, Science"
+ },
+ {
+  "id": "energy-per-gene",
+  "title": "Energy per gene",
+  "evidence": "Contested",
+  "category": "Cells",
+  "body": "Every gene costs ATP to express. Lane and Martin argued that mitochondria raise the energy available per gene by orders of magnitude, letting eukaryotes run far larger genomes; Lynch and Marinov dispute that this was the limit.",
+  "number": "Claimed: about 200,000× more energy per gene in eukaryotes",
+  "source": "Lane & Martin 2010, Nature; Lynch & Marinov 2015, PNAS"
+ },
+ {
+  "id": "syntrophy",
+  "title": "Syntrophy",
+  "evidence": "Likely",
+  "category": "Ecology",
+  "body": "Partners live on each other's products. Hydrogen piling up makes fermentation thermodynamically impossible, so a partner that eats H₂ lets the fermenter keep going. The only cultured Asgard archaeon lives exactly like this.",
+  "number": "Prometheoarchaeum doubles every 14–25 days",
+  "source": "Imachi et al. 2020, Nature; Martin & Müller 1998, Nature (the hydrogen hypothesis runs the exchange the other way)"
+ },
+ {
+  "id": "entanglement",
+  "title": "Entangle, engulf, endogenise",
+  "evidence": "Contested",
+  "category": "Cells",
+  "body": "The cultured Asgard archaeon grows long branching protrusions but no internal membranes. One model has such protrusions wrapping a partner ever more tightly; Asgard archaea are probably not phagocytic.",
+  "number": "Cells about half a micrometre across",
+  "source": "Imachi et al. 2020, Nature"
+ },
+ {
+  "id": "endosymbiosis",
+  "title": "Endosymbiosis",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Mitochondria and plastids descend from engulfed bacteria. They keep small genomes of their own and divide by fission.",
+  "number": "Human mitochondrial DNA: 16,569 bp, 37 genes",
+  "source": "Sagan 1967, Journal of Theoretical Biology; Anderson et al. 1981, Nature"
+ },
+ {
+  "id": "gene-transfer",
+  "title": "Gene transfer to the nucleus",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Most of the symbiont's genes moved to the host nucleus; their proteins are now made outside and imported back. That freed the organelle from running a full genome.",
+  "number": "Human mitochondria encode 13 proteins; about 1,000 more are imported",
+  "source": "Timmis, Ayliffe, Huang & Martin 2004, Nature Reviews Genetics"
+ },
+ {
+  "id": "aac",
+  "title": "The ADP/ATP carrier",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Swaps ATP made inside mitochondria for ADP from the cytosol, one for one. It has no counterpart in the free-living relatives of mitochondria: it marks the step at which the symbiont began to serve its host.",
+  "number": "1 ATP out for each ADP in",
+  "source": "Klingenberg 2008, Biochimica et Biophysica Acta"
+ },
+ {
+  "id": "nucleus",
+  "title": "The nucleus",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "The nuclear envelope separates transcription from translation, so RNA can be spliced before ribosomes see it. One idea is that introns spreading from the symbiont made a nucleus necessary.",
+  "number": "Each nuclear pore is built from about 30 kinds of nucleoporin",
+  "source": "Martin & Koonin 2006, Nature"
+ },
+ {
+  "id": "endomembranes",
+  "title": "Endomembranes",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "The ER, Golgi and vesicles form one system for folding, modifying and shipping proteins. When it arose relative to mitochondria is debated.",
+  "number": "About a third of eukaryotic proteins enter the secretory pathway",
+  "source": "Alberts et al., Molecular Biology of the Cell, ch. 12"
+ },
+ {
+  "id": "cytoskeleton",
+  "title": "The cytoskeleton",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Asgard archaea carry actin and actin-regulating proteins once thought unique to eukaryotes, so the host brought part of the cytoskeleton to the merger.",
+  "number": "Lokiarchaeota first found near Loki's Castle vent, about 2,350 m deep",
+  "source": "Spang et al. 2015, Nature; Zaremba-Niedzwiedzka et al. 2017, Nature"
+ },
+ {
+  "id": "sex",
+  "title": "Meiosis and sex",
+  "evidence": "Likely",
+  "category": "Evolution",
+  "body": "The last eukaryotic common ancestor most likely already had meiosis. Recombination lets beneficial mutations from different lineages combine instead of competing, ending clonal interference.",
+  "number": "Meiosis genes are found in every major eukaryote group",
+  "source": "Speijer, Lukeš & Eliáš 2015, PNAS"
+ },
+ {
+  "id": "rnai",
+  "title": "RNA interference",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "Dicer chops double-stranded viral RNA into short pieces; Argonaute uses them as guides to destroy matching RNA. An ancient eukaryotic antiviral system.",
+  "number": "Guide RNAs of 21–23 nucleotides",
+  "source": "Fire et al. 1998, Nature"
+ },
+ {
+  "id": "phagocytosis",
+  "title": "Phagocytosis",
+  "evidence": "Contested",
+  "category": "Cells",
+  "body": "Engulfing particles in actin-driven membrane is a eukaryotic hallmark. Whether it came before or after mitochondria is one of the field's big arguments.",
+  "number": "Food vacuoles acidify to pH 4.5–5",
+  "source": "Martin, Tielens, Mentel, Garg & Gould 2017, Microbiology and Molecular Biology Reviews"
+ },
+ {
+  "id": "chloroplast",
+  "title": "The chloroplast",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Chloroplasts descend from a cyanobacterium engulfed by a eukaryote. Most of its genes moved to the nucleus; the protein import machinery (TOC and TIC) brings host-made proteins back in.",
+  "number": "Plastid genomes keep about 100–200 genes; cyanobacteria have thousands",
+  "source": "Keeling 2010, Philosophical Transactions of the Royal Society B"
+ },
+ {
+  "id": "tpt",
+  "title": "The triose-phosphate translocator",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Swaps triose phosphate from the chloroplast for phosphate from the cytosol, one for one. It is the main route by which photosynthetic sugar leaves the plastid.",
+  "number": "Strict 1:1 antiport",
+  "source": "Flügge 1999, Annual Review of Plant Physiology and Plant Molecular Biology"
+ },
+ {
+  "id": "branch",
+  "title": "Algae or hunters",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "The primary plastid arose once, founding green algae and plants, red algae and glaucophytes. Animals and fungi descend from eukaryotes that stayed heterotrophic.",
+  "number": "Primary plastid origin roughly 1.5 billion years ago (estimates vary)",
+  "source": "Keeling 2010, Philosophical Transactions of the Royal Society B"
+ },
+ {
+  "id": "secondary-endosymbiosis",
+  "title": "Secondary endosymbiosis",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Some algae, such as diatoms and brown algae, got plastids by engulfing a eukaryotic alga. Their plastids are wrapped in three or four membranes, and some keep a remnant nucleus.",
+  "number": "3–4 plastid membranes",
+  "source": "Keeling 2010, Philosophical Transactions of the Royal Society B"
+ },
+ {
+  "id": "nitrogen-budget",
+  "title": "Nitrogen",
+  "evidence": "Established",
+  "category": "Molecules",
+  "body": "Nitrogen limits growth in much of the ocean. Fixing N₂ is costly, and nitrogenase is destroyed by oxygen.",
+  "number": "N₂ + 8 e⁻ + 16 ATP → 2 NH₃ + H₂",
+  "source": "Berg et al., Biochemistry, ch. 24",
+  "simplification": "The game charges 8 ATP per fixed nitrogen."
+ },
+ {
+  "id": "nitroplast",
+  "title": "The nitroplast",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "UCYN-A, a nitrogen-fixing cyanobacterium inside the alga Braarudosphaera bigelowii, imports host-made proteins and divides in step with its host: an organelle. Organelles can still evolve.",
+  "number": "The partnership began about 100 million years ago",
+  "source": "Coale et al. 2024, Science"
+ },
+ {
+  "id": "snowflake",
+  "title": "Snowflake yeast",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Selecting yeast to settle quickly in a test tube evolved \"snowflake\" clusters whose daughter cells stay attached and reproduce as a unit.",
+  "number": "Clusters evolved within about 60 days of selection",
+  "source": "Ratcliff, Denison, Borrello & Travisano 2012, PNAS"
+ },
+ {
+  "id": "size-oxygen",
+  "title": "Size versus oxygen",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Oxygen only diffuses a short way into respiring tissue, so big bodies starve inside. Snowflake yeast became macroscopic over about 3,000 generations, but only when oxygen was absent.",
+  "number": "About 3,000 generations to macroscopic size",
+  "source": "Bozdag et al. 2023, Nature; Bingham & Ratcliff 2023"
+ },
+ {
+  "id": "cell-types",
+  "title": "Cell types",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Cells in one body share a genome but express different genes. Simple multicellular organisms have a handful of types; humans have hundreds.",
+  "number": "About 200 classical cell types in humans",
+  "source": "Arendt et al. 2016, Nature Reviews Genetics"
+ },
+ {
+  "id": "germ-soma",
+  "title": "Germ and soma",
+  "evidence": "Likely",
+  "category": "Cells",
+  "body": "Setting reproductive cells apart makes the body disposable. The disposable soma theory explains ageing as the body being under-maintained once only the germline matters.",
+  "number": "Disposable soma theory, 1977",
+  "source": "Kirkwood 1977, Nature"
+ },
+ {
+  "id": "cheaters",
+  "title": "Cheating cells",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Cells that divide for themselves at the body's expense are a constant threat; cancer is the best-known case. Defences include starting each organism from one cell, programmed cell death and policing.",
+  "number": "Cancer-like phenomena occur across multicellular life",
+  "source": "Aktipis et al. 2015, Philosophical Transactions of the Royal Society B"
+ },
+ {
+  "id": "globin",
+  "title": "Globins",
+  "evidence": "Established",
+  "category": "Enzymes",
+  "body": "Globins bind O₂ at a haem iron. They are ancient, found in bacteria, plants and animals, and let tissues store and carry oxygen.",
+  "number": "Haemoglobin carries 4 O₂",
+  "source": "Berg et al., Biochemistry, ch. 7"
+ },
+ {
+  "id": "adhesion",
+  "title": "Adhesion proteins",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Choanoflagellates, the closest living single-celled relatives of animals, already carry cadherins and other adhesion and signalling protein families that animals later used to build bodies.",
+  "number": "Monosiga brevicollis encodes 23 cadherins",
+  "source": "King et al. 2008, Nature"
+ },
+ {
+  "id": "transport",
+  "title": "Transport systems",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Beyond about a millimetre, diffusion alone cannot feed inner cells. Animals evolved circulation; plants, vascular tissue.",
+  "number": "Diffusion limit for respiring tissue ≈ 1 mm",
+  "source": "Alberts et al., Molecular Biology of the Cell, ch. 22"
+ },
+ {
+  "id": "signalling",
+  "title": "Signalling networks",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "A small kit of pathways (Wnt, Notch, Hedgehog, TGF-β and receptor kinases) lets cells tell their neighbours what to become, across all animals.",
+  "number": "About seven major developmental pathways",
+  "source": "Pires-daSilva & Sommer 2003, Nature Reviews Genetics"
+ },
+ {
+  "id": "grn",
+  "title": "Developmental gene networks",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Cascades of transcription factors and signals build bodies the same way every generation. Automation in bodies, again, is regulation.",
+  "number": "Humans have 39 Hox genes in four clusters",
+  "source": "Davidson & Erwin 2006, Science"
+ },
+ {
+  "id": "body-plan",
+  "title": "Body plans",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Complex multicellularity evolved only about five times, all in eukaryotes: animals, land plants, fungi, red algae and brown algae.",
+  "number": "About 5 independent origins of complex multicellularity",
+  "source": "Bingham & Ratcliff 2023"
+ },
+ {
+  "id": "innate-immunity",
+  "title": "Innate immunity",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "Pattern-recognition receptors detect molecules typical of pathogens, such as double-stranded RNA, and trigger antiviral responses.",
+  "number": "Humans have 10 Toll-like receptors",
+  "source": "Akira, Uematsu & Takeuchi 2006, Cell"
+ },
+ {
+  "id": "syncytin",
+  "title": "Syncytin",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "Syncytins are envelope genes from ancient retroviruses that mammals co-opted to fuse cells in the placenta. Viruses are a source of genes as well as a threat.",
+  "number": "About 8% of the human genome is endogenous retrovirus",
+  "source": "Mi et al. 2000, Nature"
+ },
+ {
+  "id": "biosphere",
+  "title": "A closed biosphere",
+  "evidence": "Likely",
+  "category": "Ecology",
+  "body": "Earth's life runs on sunlight, with carbon, nitrogen and oxygen cycled between producers, consumers, decomposers and viruses. Sealed artificial biospheres have proved remarkably hard to keep in balance.",
+  "number": "Earth's biomass: about 550 billion tonnes of carbon",
+  "source": "Bar-On, Phillips & Milo 2018, PNAS"
+ },
+ {
+  "id": "stomata",
+  "title": "Stomata",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Leaf pores open and close to trade CO₂ uptake against water loss; guard cells respond to CO₂, light and drought.",
+  "number": "Typically 100–300 stomata per mm² of leaf",
+  "source": "Hetherington & Woodward 2003, Nature"
+ },
+ {
+  "id": "ccm",
+  "title": "Carbon-concentrating mechanisms",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Cyanobacteria and algae pump bicarbonate and convert it to CO₂ inside carboxysomes or pyrenoids, flooding RuBisCO with CO₂.",
+  "number": "CO₂ raised up to about 1,000-fold around RuBisCO",
+  "source": "Badger & Price 2003, Journal of Experimental Botany"
+ },
+ {
+  "id": "mycorrhiza",
+  "title": "Mycorrhizae",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Most land plants partner with fungi whose threads reach far into the soil, trading nitrogen and phosphorus for sugar.",
+  "number": "About 80% of land plant species",
+  "source": "Smith & Read 2008, Mycorrhizal Symbiosis"
+ },
+ {
+  "id": "functional-response",
+  "title": "Saturating predators",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Predators' intake saturates as prey grows abundant. Saturating predators can destabilise their prey into boom and bust: the paradox of enrichment. Feeding that saturates sooner damps the swings.",
+  "number": "Paradox of enrichment, 1971",
+  "source": "Holling 1959, Canadian Entomologist; Rosenzweig 1971, Science"
+ },
+ {
+  "id": "refuges",
+  "title": "Prey refuges",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Prey that can hide where predators cannot reach stabilise predator–prey dynamics. In Gause's protozoan experiments, prey survived only when given refuges.",
+  "number": "Gause's experiments, 1934",
+  "source": "Gause 1934, The Struggle for Existence"
+ },
+ {
+  "id": "self-limitation",
+  "title": "Self-limitation",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Density-dependent mortality from crowding, territoriality or disease damps population cycles, a standard stabilising term in ecological models.",
+  "number": "Logistic growth, 1838",
+  "source": "Verhulst 1838; May 1973, Stability and Complexity in Model Ecosystems"
+ },
+ {
+  "id": "heterocysts",
+  "title": "Nitrogenase regulation",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Filamentous cyanobacteria fix nitrogen in heterocysts, thick-walled cells that shut down photosystem II. Ammonium represses nitrogenase genes, so fixation stops when fixed nitrogen is plentiful.",
+  "number": "Heterocysts form about every 10–15 cells along a filament",
+  "source": "Kumar, Mella-Herrera & Golden 2010, Cold Spring Harbor Perspectives in Biology"
+ },
+ {
+  "id": "decomposers",
+  "title": "Decomposers",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Fungi and bacteria return carbon and nutrients from dead matter. White-rot fungi are the main organisms that can break down lignin.",
+  "number": "Lignin is roughly 20–30% of wood",
+  "source": "Floudas et al. 2012, Science"
+ },
+ {
+  "id": "nitrogen-cycle",
+  "title": "The nitrogen cycle",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Fixation adds nitrogen; denitrification and anammox return it to N₂. Anammox, discovered only in the 1990s, accounts for much of the ocean's nitrogen loss.",
+  "number": "Anammox: up to about half of marine N₂ production",
+  "source": "Kuypers et al. 2003, Nature"
+ },
+ {
+  "id": "lysogeny",
+  "title": "Lysogeny",
+  "evidence": "Established",
+  "category": "Viruses",
+  "body": "Temperate phages can integrate into their host's genome and wait, choosing between bursting the cell and hiding. Phage λ's decision is the classic genetic switch.",
+  "number": "λ genome: 48,502 bp",
+  "source": "Ptashne 2004, A Genetic Switch"
+ },
+ {
+  "id": "viral-shunt",
+  "title": "The viral shunt",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "When viruses burst cells, the contents become dissolved organic matter that other microbes recycle, keeping nutrients near the surface instead of sinking.",
+  "number": "Viruses kill roughly 20% of ocean microbial biomass each day",
+  "source": "Suttle 2007, Nature Reviews Microbiology"
+ },
+ {
+  "id": "dormancy",
+  "title": "Dormancy",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Starving bacteria enter stationary phase or dormancy, cutting maintenance to almost nothing. In this game a crashed cell goes dormant instead of dying, so the worst outcome is lost growth.",
+  "number": "Dormant bacteria can survive for years",
+  "source": "Lennon & Jones 2011, Nature Reviews Microbiology"
+ },
+ {
+  "id": "evolvability",
+  "title": "Evolvability",
+  "evidence": "Contested",
+  "category": "Evolution",
+  "body": "Lineages may evolve to evolve better, through modular genomes and tuned mutation rates. In game, unspent Variation becomes a permanent multiplier on future Variation income; the real idea is debated.",
+  "number": "—",
+  "source": "Wagner & Altenberg 1996, Evolution; Pigliucci 2008, Nature Reviews Genetics"
+ },
+ {
+  "id": "major-transitions",
+  "title": "Major transitions",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Each act follows a major transition in evolution, in which what counts as an individual changes: molecules, replicators, cells, merged cells, organisms, ecosystems.",
+  "number": "8 transitions in the original list",
+  "source": "Maynard Smith & Szathmáry 1995, The Major Transitions in Evolution"
+ },
+ {
+  "id": "new-functions",
+  "title": "Selection amplifies new functions",
+  "evidence": "Convenience",
+  "category": "Game",
+  "body": "When you select for a new gene, stage, tier, regulator or defence, selection drives it to fixation over a visible sweep, even if the cell model scores it as neutral or costly at first. Its real biochemical effect then applies, and tuning the new enzymes pays the cost back. Point mutations get no such help: they spread only if the cell model says they help.",
+  "number": "Driven sweep: +15% advantage until 97% of the population carries it",
+  "source": "Game design note"
+ },
+ {
+  "id": "darwinian-threshold",
+  "title": "Before the Darwinian threshold",
+  "evidence": "Likely",
+  "category": "Early life",
+  "body": "Carl Woese argued that the earliest cells were loose, simple and swapped genes so freely that the whole community evolved together, like one shared gene pool. As cells grew more complex, swapping became risky and rarer, and lineages started to keep their own genes: a 'Darwinian threshold' after which vertical inheritance dominates. The game's gene pool follows this: in Acts I and II genes spread through everyone; later the routes narrow.",
+  "number": "Gene transfer is still common in bacteria: roughly 80% of E. coli genes show signs of past transfer",
+  "source": "Woese 2002, PNAS 99:8742; Vetsigian, Woese & Goldenfeld 2006, PNAS 103:10696; Dagan et al. 2008, PNAS"
+ },
+ {
+  "id": "vesicle-exchange",
+  "title": "Protocells that swap contents",
+  "evidence": "Likely",
+  "category": "Early life",
+  "body": "Fatty-acid vesicles fuse, split and exchange their contents easily, so RNA inside them can move from one protocell to another. Phospholipid membranes are tighter: they hold contents better and fuse less, so the same change that protects a cell also slows gene sharing. In Act I, species that make phospholipids pick up pooled genes more slowly.",
+  "number": "Fatty-acid vesicles grow and divide under gentle shear in minutes",
+  "source": "Zhu & Szostak 2009, JACS 131:5705; Budin & Szostak 2011, PNAS 108:5249; Chen, Roberts & Szostak 2004, Science 305:1474"
+ },
+ {
+  "id": "methanogens",
+  "title": "Methanogens",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Archaea that make methane from H₂ and CO₂ (some from acetate). They are strict anaerobes and live where hydrogen is made: sediments, wetlands, rice paddies, animal guts. Their last enzyme, methyl-coenzyme M reductase, carries a nickel cofactor found nowhere else.",
+  "number": "4 H₂ + CO₂ → CH₄ + 2 H₂O releases about 131 kJ per mol under standard conditions: a thin living",
+  "source": "Thauer et al. 2008, Nature Reviews Microbiology 6:579"
+ },
+ {
+  "id": "lactate-oxidisers",
+  "title": "Lactate eaters",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Bacteria such as Desulfovibrio oxidise lactate to acetate and CO₂. With sulfate they breathe it; without sulfate they release H₂ instead, and can only grow if a partner keeps the H₂ low. In co-culture with a methanogen they thrive on lactate alone.",
+  "number": "Lactate → acetate + CO₂ + 2 H₂ releases only about 4 kJ per mol under standard conditions",
+  "source": "Bryant et al. 1977, Applied and Environmental Microbiology 33:1162"
+ },
+ {
+  "id": "exoenzymes",
+  "title": "Digesting outside the cell",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Bacteria cannot swallow proteins, DNA or cell walls. They secrete enzymes that cut these polymers into pieces small enough to take up. Extracellular enzymes set the pace at which dead organic matter is recycled in sediments and oceans.",
+  "number": "Bacteria take up molecules smaller than about 600 daltons; anything bigger must be cut outside first",
+  "source": "Arnosti 2011, Annual Review of Marine Science 3:401"
+ },
+ {
+  "id": "eukaryogenesis",
+  "title": "How eukaryotes began",
+  "evidence": "Likely",
+  "category": "Evolution",
+  "body": "Eukaryotes arose when an archaeon, related to today’s Asgard archaea, merged with an alphaproteobacterium that became the mitochondrion. What the partners first traded is debated: hydrogen in the hydrogen hypothesis, other metabolites in later models. The only cultured Asgard archaeon lives tangled with hydrogen-eating partners.",
+  "number": "All known eukaryotes have, or once had, mitochondria",
+  "source": "Martin & Müller 1998, Nature 392:37; Eme et al. 2017, Nature Reviews Microbiology; Imachi et al. 2020, Nature 577:519"
+ },
+ {
+  "id": "multicellularity",
+  "title": "Many origins of bodies",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Multicellularity evolved many times independently. Complex bodies with many cell types arose in only a few lines: animals, land plants, fungi, red algae and brown algae (the kelps).",
+  "number": "At least 25 independent origins of multicellularity",
+  "source": "Grosberg & Strathmann 2007, Annual Review of Ecology, Evolution, and Systematics 38:621"
+ },
+ {
+  "id": "anoxic-refuges",
+  "title": "Hiding from oxygen",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Oxygen killed or drove back strict anaerobes, but never everywhere: organic-rich sediments use up oxygen within millimetres, and below them anaerobes carry on. Methanogens, sulfate reducers and fermenters still thrive there, and in guts.",
+  "number": "Oxygen reaches only millimetres to a few centimetres into most coastal sediments",
+  "source": "Glud 2008, Marine Biology Research 4:243"
+ },
+ {
+  "id": "lysosomes",
+  "title": "Lysosomes",
+  "evidence": "Established",
+  "category": "Cells",
+  "body": "Acidic compartments full of digestive enzymes. Prey engulfed by a eukaryote is delivered to them and broken down into building blocks, which is what makes hunting other cells pay.",
+  "number": "Lysosomal pH is about 4.5 to 5",
+  "source": "Alberts et al., Molecular Biology of the Cell (6th ed.), chapter 13"
+ },
+ {
+  "id": "size-arms-race",
+  "title": "Predators make prey bigger",
+  "evidence": "Established",
+  "category": "Evolution",
+  "body": "Predation selects for size. When the single-celled alga Chlorella was kept with a flagellate predator, it evolved small colonies that the predator could not swallow, and kept them.",
+  "number": "Colonies appeared within about 100 generations",
+  "source": "Boraas, Seale & Boxhorn 1998, Evolutionary Ecology 12:153"
+ },
+ {
+  "id": "prey-switching",
+  "title": "Prey switching",
+  "evidence": "Established",
+  "category": "Ecology",
+  "body": "Predators that turn to whichever prey is common, and leave rare prey alone, stabilise communities: no prey is hunted down to nothing, and the predator always has food.",
+  "number": "Shown in snails, fish and insects",
+  "source": "Murdoch 1969, Ecological Monographs 39:335; Murdoch & Oaten 1975, Advances in Ecological Research 9:1"
+ }
+]

@@ -1,0 +1,1573 @@
+{
+  "id": "act3",
+  "index": 3,
+  "title": "Waste is food",
+  "era": "Reductive TCA cycle, gluconeogenesis, glycolysis, fermentation; phages",
+  "unit": [
+    "cell",
+    "cells"
+  ],
+  "screen": "map",
+  "blockName": "Fixed carbon",
+  "blockPool": "carbon",
+  "reserveValue": 0.3,
+  "transfer": {
+    "lambda": 3,
+    "rate": 0.6,
+    "how": "Bacteria take up DNA from their surroundings (transformation).",
+    "receivers": [
+      {
+        "has": "a3-rm",
+        "mul": 0.6,
+        "why": "Restriction enzymes cut foreign DNA, useful genes included"
+      },
+      {
+        "has": "a3-crispr",
+        "mul": 0.35,
+        "why": "CRISPR remembers and cuts foreign DNA: fewer phages, and fewer new genes"
+      }
+    ]
+  },
+  "intro": "The vent’s hydrogen is nearly spent. Your bacteria will learn to eat sugar, and their waste will feed others. From here on you raise a community: it lives on the World screen.",
+  "quote": "Machinery humming.",
+  "food": "H2",
+  "foodIn": 0.5,
+  "foodSwitch": [
+    {
+      "flag": "heterotrophy",
+      "food": "glucose",
+      "foodIn": 1.0
+    }
+  ],
+  "env": {
+    "H2": 0.5,
+    "CO2": 10,
+    "glucose": 1.0,
+    "lactate": 0,
+    "mg": 0
+  },
+  "envDyn": {
+    "glucose": {
+      "cycle": {
+        "period": 420,
+        "min": 0.12,
+        "max": 1.6
+      }
+    }
+  },
+  "damage": [
+    {
+      "rxn": "mgs",
+      "k": 6,
+      "label": "Methylglyoxal"
+    }
+  ],
+  "pacing": {
+    "g": 0.32,
+    "k": 0.9,
+    "delta0": 0.3,
+    "U": 0.12,
+    "cellsPerSite": 100000000.0,
+    "blockRate": 0.1,
+    "biomassBase": 4,
+    "bgMutRate": 1.4,
+    "carrierScale": 600000
+  },
+  "genome": {
+    "copyCap": 30
+  },
+  "fixes": {
+    "nad": [
+      "a3-ldh",
+      "a3-ldhk",
+      "a3-gng"
+    ],
+    "fd": [
+      "a3-rtca",
+      "a3-pfor"
+    ],
+    "cycle": [
+      "a3-acl",
+      "a3-rtca"
+    ]
+  },
+  "network": {
+    "width": 1000,
+    "height": 620,
+    "Ccell": 1,
+    "growth": "grow",
+    "uptake": "glk",
+    "carrier": [
+      "low",
+      "pyk",
+      "chemi"
+    ],
+    "ec": {
+      "atp": "ATP",
+      "adp": "ADP"
+    },
+    "species": [
+      {
+        "id": "Glc",
+        "name": "Glucose",
+        "plain": "Sugar from dead cells",
+        "pool": "carbon",
+        "init": 1,
+        "kind": "boundary",
+        "env": "glucose",
+        "x": 60,
+        "y": 100,
+        "card": "glucose",
+        "smiles": "OCC1OC(O)C(O)C(O)C1O",
+        "label": "below"
+      },
+      {
+        "id": "H2",
+        "name": "H₂",
+        "plain": "Hydrogen (scarce now)",
+        "pool": "nad",
+        "init": 0.5,
+        "kind": "boundary",
+        "env": "H2",
+        "x": 60,
+        "y": 330,
+        "card": "h2",
+        "label": "below"
+      },
+      {
+        "id": "CO2",
+        "name": "CO₂",
+        "plain": "Carbon dioxide",
+        "pool": "carbon",
+        "init": 10,
+        "kind": "boundary",
+        "env": "CO2",
+        "x": 60,
+        "y": 600,
+        "card": "co2",
+        "label": "below",
+        "tag": true
+      },
+      {
+        "id": "Lac",
+        "name": "Lactate",
+        "plain": "Lactate (waste)",
+        "pool": "carbon",
+        "init": 0,
+        "kind": "boundary",
+        "env": "lactate",
+        "x": 930,
+        "y": 470,
+        "card": "ldh",
+        "smiles": "CC(O)C(=O)[O-]",
+        "label": "below"
+      },
+      {
+        "id": "MG",
+        "name": "Methylglyoxal",
+        "plain": "A toxic breakdown product",
+        "pool": "oxygen",
+        "init": 0,
+        "kind": "boundary",
+        "env": "mg",
+        "x": 570,
+        "y": -40,
+        "card": "methylglyoxal",
+        "smiles": "CC(=O)C=O",
+        "label": "left"
+      },
+      {
+        "id": "G6P",
+        "name": "G6P",
+        "plain": "Glucose 6-phosphate",
+        "pool": "carbon",
+        "init": 0.3,
+        "kind": "main",
+        "x": 230,
+        "y": 100,
+        "label": "above",
+        "card": "glycolysis"
+      },
+      {
+        "id": "F6P",
+        "name": "F6P",
+        "plain": "Fructose 6-phosphate",
+        "pool": "carbon",
+        "init": 0.2,
+        "kind": "main",
+        "x": 400,
+        "y": 100,
+        "label": "above",
+        "card": "glycolysis"
+      },
+      {
+        "id": "FBP",
+        "name": "F1,6BP",
+        "plain": "Fructose 1,6-bisphosphate",
+        "pool": "carbon",
+        "init": 0.2,
+        "kind": "main",
+        "x": 570,
+        "y": 100,
+        "label": "above",
+        "card": "glycolysis",
+        "smiles": "OC1(COP(=O)([O-])[O-])OC(COP(=O)([O-])[O-])C(O)C1O"
+      },
+      {
+        "id": "PEP",
+        "name": "PEP",
+        "plain": "Phosphoenolpyruvate",
+        "pool": "atp",
+        "init": 0.2,
+        "kind": "main",
+        "x": 740,
+        "y": 100,
+        "label": "above",
+        "card": "pep",
+        "smiles": "C=C(OP(=O)([O-])[O-])C(=O)[O-]"
+      },
+      {
+        "id": "Pyr",
+        "name": "Pyruvate",
+        "plain": "Pyruvate, the three-carbon hub",
+        "pool": "carbon",
+        "init": 0.5,
+        "kind": "main",
+        "x": 740,
+        "y": 320,
+        "label": "left",
+        "card": "pyruvate",
+        "smiles": "CC(=O)C(=O)[O-]"
+      },
+      {
+        "id": "OAA",
+        "name": "Oxaloacetate",
+        "plain": "Oxaloacetate (cycle)",
+        "pool": "carbon",
+        "init": 0.6,
+        "kind": "main",
+        "x": 250,
+        "y": 500,
+        "label": "left",
+        "card": "rtca"
+      },
+      {
+        "id": "Cit",
+        "name": "Citrate",
+        "plain": "Citrate (cycle)",
+        "pool": "carbon",
+        "init": 0.4,
+        "kind": "main",
+        "x": 480,
+        "y": 500,
+        "label": "right",
+        "card": "rtca",
+        "smiles": "OC(=O)CC(O)(CC(=O)O)C(=O)O"
+      },
+      {
+        "id": "AcU",
+        "name": "Acetyl-CoA",
+        "plain": "Two-carbon unit",
+        "pool": "carbon",
+        "init": 0.3,
+        "kind": "main",
+        "x": 480,
+        "y": 640,
+        "label": "below",
+        "card": "acetyl-coa"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP",
+        "plain": "Spendable energy (ATP)",
+        "pool": "atp",
+        "init": 2.0,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "plain": "Spent energy (ADP)",
+        "pool": "atp",
+        "init": 1.0,
+        "kind": "cofactor",
+        "card": "atp"
+      },
+      {
+        "id": "NAD",
+        "name": "NAD⁺",
+        "plain": "Empty electron carrier (NAD⁺)",
+        "pool": "nad",
+        "init": 0.8,
+        "kind": "cofactor",
+        "card": "nad"
+      },
+      {
+        "id": "NADH",
+        "name": "NADH",
+        "plain": "Carries electrons (NADH)",
+        "pool": "nad",
+        "init": 0.2,
+        "kind": "cofactor",
+        "card": "nad"
+      },
+      {
+        "id": "Fdr",
+        "name": "Fd(red)",
+        "plain": "Carries electrons (ferredoxin)",
+        "pool": "nad",
+        "init": 0.3,
+        "kind": "cofactor",
+        "card": "ferredoxin"
+      },
+      {
+        "id": "Fdo",
+        "name": "Fd(ox)",
+        "plain": "Empty ferredoxin",
+        "pool": "nad",
+        "init": 0.7,
+        "kind": "cofactor",
+        "card": "ferredoxin"
+      }
+    ],
+    "pools": [
+      {
+        "id": "adenylate",
+        "name": "ATP / ADP",
+        "plain": "Spendable energy",
+        "pool": "atp",
+        "charged": "ATP",
+        "species": [
+          "ATP",
+          "ADP"
+        ]
+      },
+      {
+        "id": "nad",
+        "name": "NAD⁺ / NADH",
+        "plain": "Electron carriers",
+        "pool": "nad",
+        "charged": "NAD",
+        "species": [
+          "NAD",
+          "NADH"
+        ]
+      },
+      {
+        "id": "fd",
+        "name": "Fd(red) / Fd(ox)",
+        "plain": "Low-potential electrons",
+        "pool": "nad",
+        "charged": "Fdr",
+        "species": [
+          "Fdr",
+          "Fdo"
+        ]
+      },
+      {
+        "id": "cycle",
+        "name": "Cycle intermediates",
+        "plain": "Oxaloacetate + citrate",
+        "pool": "carbon",
+        "charged": "OAA",
+        "species": [
+          "OAA",
+          "Cit"
+        ]
+      }
+    ],
+    "reactions": [
+      {
+        "id": "hyd",
+        "name": "Hydrogenase",
+        "short": "Hyd",
+        "plain": "Pulls electrons off H₂",
+        "gene": true,
+        "sub": {
+          "H2": 1,
+          "Fdo": 1
+        },
+        "prod": {
+          "Fdr": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.7,
+          "Km": {
+            "H2": 0.25,
+            "Fdo": 0.15
+          }
+        },
+        "x": 170,
+        "y": 330,
+        "card": "hydrogenase"
+      },
+      {
+        "id": "chemi",
+        "name": "Chemiosmosis",
+        "short": "Ech+ATPase",
+        "plain": "Inherited from LUCA: electrons pump protons, protons make ATP",
+        "gene": true,
+        "sub": {
+          "Fdr": 1,
+          "ADP": 1
+        },
+        "prod": {
+          "Fdo": 1,
+          "ATP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "Fdr": 0.15,
+            "ADP": 0.3
+          }
+        },
+        "x": 330,
+        "y": 330,
+        "steps": 2,
+        "card": "atp-synthase"
+      },
+      {
+        "id": "rnf",
+        "name": "Rnf complex",
+        "short": "Rnf",
+        "plain": "Swaps electrons between ferredoxin and NAD",
+        "sub": {
+          "Fdr": 1,
+          "NAD": 1
+        },
+        "prod": {
+          "Fdo": 1,
+          "NADH": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.3,
+          "Km": {
+            "Fdr": 0.1,
+            "NAD": 0.1
+          },
+          "Keq": 8
+        },
+        "x": 160,
+        "y": 470,
+        "hide": true,
+        "card": "ferredoxin"
+      },
+      {
+        "id": "rtca",
+        "name": "Reductive steps",
+        "short": "rTCA",
+        "plain": "Run the TCA cycle backwards to fix CO₂",
+        "gene": true,
+        "sub": {
+          "OAA": 1,
+          "CO2": 1,
+          "Fdr": 2,
+          "ATP": 1
+        },
+        "prod": {
+          "Cit": 1,
+          "Fdo": 2,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.35,
+          "Km": {
+            "OAA": 0.2,
+            "CO2": 2,
+            "Fdr": 0.15,
+            "ATP": 0.5
+          }
+        },
+        "x": 350,
+        "y": 395,
+        "steps": 5,
+        "card": "rtca",
+        "bend": -0.35,
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 1.0,
+            "n": 2
+          }
+        ]
+      },
+      {
+        "id": "acl",
+        "name": "ATP-citrate lyase",
+        "short": "ACL",
+        "plain": "Splits citrate: one acetyl out, the cycle restarts",
+        "gene": true,
+        "sub": {
+          "Cit": 1,
+          "ATP": 1
+        },
+        "prod": {
+          "AcU": 1,
+          "OAA": 1,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "Cit": 0.2,
+            "ATP": 0.5
+          }
+        },
+        "x": 350,
+        "y": 520,
+        "card": "rtca",
+        "bend": -0.35,
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 1.0,
+            "n": 2
+          }
+        ]
+      },
+      {
+        "id": "pfor",
+        "name": "Pyruvate synthase",
+        "short": "PFOR",
+        "plain": "Adds CO₂ to acetyl-CoA",
+        "gene": true,
+        "sub": {
+          "AcU": 1,
+          "CO2": 1,
+          "Fdr": 1
+        },
+        "prod": {
+          "Pyr": 1,
+          "Fdo": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.5,
+          "Km": {
+            "AcU": 0.2,
+            "CO2": 2,
+            "Fdr": 0.15
+          }
+        },
+        "x": 690,
+        "y": 450,
+        "card": "pfor",
+        "mods": [
+          {
+            "species": "Pyr",
+            "type": "inh",
+            "K": 2.0
+          }
+        ]
+      },
+      {
+        "id": "gng",
+        "name": "Gluconeogenesis",
+        "short": "GNG",
+        "plain": "Builds sugar phosphates from pyruvate",
+        "gene": true,
+        "sub": {
+          "Pyr": 2,
+          "ATP": 3,
+          "NADH": 1
+        },
+        "prod": {
+          "F6P": 1,
+          "ADP": 3,
+          "NAD": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.12,
+          "Km": {
+            "Pyr": 0.4,
+            "ATP": 0.8,
+            "NADH": 0.1
+          }
+        },
+        "mods": [
+          {
+            "species": "F6P",
+            "type": "inh",
+            "K": 0.4
+          },
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 1.0,
+            "n": 2
+          }
+        ],
+        "x": 600,
+        "y": 220,
+        "steps": 6,
+        "card": "gluconeogenesis",
+        "bend": 0.2
+      },
+      {
+        "id": "glk",
+        "name": "Hexokinase",
+        "short": "HK",
+        "plain": "Traps glucose inside with a phosphate",
+        "gene": true,
+        "requires": "glycolysis",
+        "sub": {
+          "Glc": 1,
+          "ATP": 1
+        },
+        "prod": {
+          "G6P": 1,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.8,
+          "Km": {
+            "Glc": 0.15,
+            "ATP": 0.3
+          }
+        },
+        "mods": [
+          {
+            "species": "G6P",
+            "type": "inh",
+            "K": 2.0
+          }
+        ],
+        "x": 160,
+        "y": 90,
+        "card": "glycolysis"
+      },
+      {
+        "id": "pgi",
+        "name": "Phosphoglucose isomerase",
+        "short": "PGI",
+        "plain": "Reshapes G6P into F6P",
+        "gene": true,
+        "requires": "glycolysis",
+        "sub": {
+          "G6P": 1
+        },
+        "prod": {
+          "F6P": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 4,
+          "Km": {
+            "G6P": 0.5
+          },
+          "Keq": 0.4
+        },
+        "x": 350,
+        "y": 90,
+        "card": "glycolysis"
+      },
+      {
+        "id": "pfk",
+        "name": "Phosphofructokinase",
+        "short": "PFK",
+        "plain": "Commits sugar to glycolysis",
+        "gene": true,
+        "requires": "glycolysis",
+        "sub": {
+          "F6P": 1,
+          "ATP": 1
+        },
+        "prod": {
+          "FBP": 1,
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.55,
+          "Km": {
+            "F6P": 0.3,
+            "ATP": 0.2
+          }
+        },
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "act",
+            "K": 0.5,
+            "basal": 0.3
+          },
+          {
+            "species": "PEP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 2
+          }
+        ],
+        "x": 530,
+        "y": 90,
+        "card": "pfk"
+      },
+      {
+        "id": "low",
+        "name": "Lower glycolysis",
+        "short": "GAPDH…",
+        "plain": "Splits and oxidises: makes ATP and NADH",
+        "gene": true,
+        "requires": "glycolysis",
+        "sub": {
+          "FBP": 1,
+          "NAD": 2,
+          "ADP": 2
+        },
+        "prod": {
+          "PEP": 2,
+          "NADH": 2,
+          "ATP": 2
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.6,
+          "Km": {
+            "FBP": 0.2,
+            "NAD": 0.2,
+            "ADP": 0.3
+          }
+        },
+        "x": 730,
+        "y": 90,
+        "steps": 5,
+        "card": "gapdh"
+      },
+      {
+        "id": "pyk",
+        "name": "Pyruvate kinase",
+        "short": "PK",
+        "plain": "PEP hands its phosphate to ADP",
+        "gene": true,
+        "requires": "glycolysis",
+        "sub": {
+          "PEP": 1,
+          "ADP": 1
+        },
+        "prod": {
+          "Pyr": 1,
+          "ATP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 1.0,
+          "Km": {
+            "PEP": 0.3,
+            "ADP": 0.3
+          }
+        },
+        "mods": [
+          {
+            "species": "FBP",
+            "type": "act",
+            "K": 0.3,
+            "basal": 0.4
+          }
+        ],
+        "x": 860,
+        "y": 210,
+        "card": "pyruvate-kinase"
+      },
+      {
+        "id": "ldh",
+        "name": "Lactate dehydrogenase",
+        "short": "LDH",
+        "plain": "Dumps electrons onto pyruvate to free NAD⁺",
+        "gene": true,
+        "requires": "ldh",
+        "sub": {
+          "Pyr": 1,
+          "NADH": 1
+        },
+        "prod": {
+          "Lac": 1,
+          "NAD": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 1.2,
+          "Km": {
+            "Pyr": 0.5,
+            "NADH": 0.08
+          }
+        },
+        "x": 880,
+        "y": 420,
+        "card": "ldh"
+      },
+      {
+        "id": "pex",
+        "name": "Overflow excretion",
+        "short": "Excrete",
+        "plain": "Excess pyruvate leaks out",
+        "sub": {
+          "Pyr": 1
+        },
+        "prod": {
+          "Lac": 1
+        },
+        "law": {
+          "type": "ma",
+          "k": 0.01
+        },
+        "x": 900,
+        "y": 330,
+        "hide": true,
+        "card": "pyruvate"
+      },
+      {
+        "id": "mgs",
+        "name": "Triose breakdown",
+        "short": "MG",
+        "plain": "Triose phosphates fall apart into methylglyoxal",
+        "sub": {
+          "FBP": 1
+        },
+        "prod": {
+          "MG": 1
+        },
+        "law": {
+          "type": "ma",
+          "k": 0.004,
+          "scale": [
+            "mgk"
+          ]
+        },
+        "x": 700,
+        "y": 30,
+        "card": "methylglyoxal"
+      },
+      {
+        "id": "grow",
+        "name": "Biosynthesis",
+        "short": "Grow",
+        "plain": "Builds new cells",
+        "sub": {
+          "Pyr": 1,
+          "F6P": 0.25,
+          "ATP": 3,
+          "NADH": 1
+        },
+        "prod": {
+          "ADP": 3,
+          "NAD": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 2.0,
+          "Km": {
+            "Pyr": 0.3,
+            "F6P": 0.04,
+            "ATP": 0.3,
+            "NADH": 0.05
+          }
+        },
+        "mods": [
+          {
+            "species": "ADP",
+            "type": "inh",
+            "K": 0.6,
+            "n": 3
+          }
+        ],
+        "x": 900,
+        "y": 320,
+        "card": "growth",
+        "tags": [
+          "F6P"
+        ]
+      },
+      {
+        "id": "maint",
+        "name": "Maintenance",
+        "short": "Maint",
+        "plain": "Upkeep",
+        "sub": {
+          "ATP": 1
+        },
+        "prod": {
+          "ADP": 1
+        },
+        "law": {
+          "type": "mm",
+          "kcat": 0.006,
+          "Km": {
+            "ATP": 0.1
+          }
+        },
+        "x": 900,
+        "y": 560,
+        "hide": true,
+        "card": "maintenance"
+      }
+    ],
+    "params": {
+      "mgk": 1
+    },
+    "layout": "fixed"
+  },
+  "adaptations": [
+    {
+      "id": "a3-rtca",
+      "name": "Reductive cycle enzymes",
+      "kind": "point",
+      "molecular": "Fumarate reductase and 2-oxoglutarate synthase tuned for the reductive direction",
+      "local": "Reductive steps kcat ×1.5",
+      "target": "rtca",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "rtca",
+          "mul": 1.5
+        }
+      ],
+      "cost": 25,
+      "levels": 4,
+      "costGrowth": 2.2,
+      "card": "rtca"
+    },
+    {
+      "id": "a3-acl",
+      "name": "ATP-citrate lyase",
+      "kind": "point",
+      "molecular": "A His in the CoA-binding domain is phosphorylated, priming citrate cleavage",
+      "local": "ACL kcat ×1.6",
+      "target": "acl",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "acl",
+          "mul": 1.6
+        }
+      ],
+      "cost": 22,
+      "levels": 3,
+      "costGrowth": 2.3
+    },
+    {
+      "id": "a3-pfor",
+      "name": "Pyruvate synthase",
+      "kind": "point",
+      "molecular": "Three Fe₄S₄ clusters wired closer together",
+      "local": "PFOR kcat ×1.6",
+      "target": "pfor",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pfor",
+          "mul": 1.6
+        }
+      ],
+      "cost": 24,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "card": "pfor"
+    },
+    {
+      "id": "a3-hyd",
+      "name": "Uptake hydrogenase",
+      "kind": "point",
+      "molecular": "A higher-affinity NiFe hydrogenase scavenges trace H₂",
+      "local": "Hydrogenase Km(H₂) ×0.5",
+      "target": "hyd",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "hyd",
+          "species": "H2",
+          "mul": 0.5
+        }
+      ],
+      "cost": 20,
+      "levels": 3,
+      "costGrowth": 2.4,
+      "card": "hydrogenase"
+    },
+    {
+      "id": "a3-gng",
+      "name": "Gluconeogenesis: FBPase",
+      "kind": "point",
+      "molecular": "Fructose 1,6-bisphosphatase bypasses PFK's irreversible step",
+      "local": "Gluconeogenesis kcat ×1.8",
+      "target": "gng",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "gng",
+          "mul": 1.8
+        }
+      ],
+      "cost": 30,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "card": "gluconeogenesis"
+    },
+    {
+      "id": "a3-glyc",
+      "name": "Glycolysis",
+      "kind": "gene",
+      "molecular": "A sloppy kinase and an aldolase repurposed from gluconeogenesis run sugar downhill",
+      "local": "New pathway: glucose → 2 pyruvate + 2 ATP + 2 NADH",
+      "target": "pfk",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "glycolysis"
+        }
+      ],
+      "cost": 60,
+      "block": 30,
+      "slots": 5,
+      "needsFlag": "u.glycolysis",
+      "card": "glycolysis",
+      "hint": "Appears once dead cells leave sugar behind"
+    },
+    {
+      "id": "a3-glk",
+      "name": "Hexokinase: glucose clamp",
+      "kind": "point",
+      "molecular": "Domain closure around glucose excludes water",
+      "local": "Hexokinase Km ×0.5",
+      "target": "glk",
+      "effects": [
+        {
+          "type": "Km",
+          "rxn": "glk",
+          "species": "Glc",
+          "mul": 0.5
+        }
+      ],
+      "cost": 40,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "requires": [
+        "a3-glyc"
+      ]
+    },
+    {
+      "id": "a3-pfk",
+      "name": "PFK: faster turnover",
+      "kind": "point",
+      "molecular": "Asp127, the catalytic base, better positioned",
+      "local": "PFK kcat ×1.6",
+      "target": "pfk",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pfk",
+          "mul": 1.6
+        }
+      ],
+      "cost": 45,
+      "levels": 4,
+      "costGrowth": 2.2,
+      "requires": [
+        "a3-glyc"
+      ],
+      "card": "pfk"
+    },
+    {
+      "id": "a3-pfkreg",
+      "name": "PFK: shared allosteric site",
+      "kind": "point",
+      "molecular": "A residue swap near PFK's regulatory site lets ADP outcompete PEP",
+      "local": "PEP inhibition ×0.4, ADP activation ×1.6",
+      "target": "pfk",
+      "effects": [
+        {
+          "type": "K",
+          "rxn": "pfk",
+          "species": "PEP",
+          "mul": 2.5
+        },
+        {
+          "type": "K",
+          "rxn": "pfk",
+          "species": "ADP",
+          "mul": 0.6
+        }
+      ],
+      "cost": 70,
+      "requires": [
+        "a3-glyc"
+      ],
+      "card": "pfk"
+    },
+    {
+      "id": "a3-low",
+      "name": "GAPDH: NAD⁺ pocket",
+      "kind": "point",
+      "molecular": "The Rossmann fold grips NAD⁺ more tightly",
+      "local": "Lower glycolysis kcat ×1.4, Km(NAD⁺) ×0.5",
+      "target": "low",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "low",
+          "mul": 1.4
+        },
+        {
+          "type": "Km",
+          "rxn": "low",
+          "species": "NAD",
+          "mul": 0.5
+        }
+      ],
+      "cost": 50,
+      "levels": 4,
+      "costGrowth": 2.2,
+      "requires": [
+        "a3-glyc"
+      ],
+      "card": "gapdh"
+    },
+    {
+      "id": "a3-pyk",
+      "name": "Pyruvate kinase: K⁺ site",
+      "kind": "point",
+      "molecular": "A potassium ion fixed in the active site",
+      "local": "Pyruvate kinase kcat ×1.6",
+      "target": "pyk",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "pyk",
+          "mul": 1.6
+        }
+      ],
+      "cost": 40,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "requires": [
+        "a3-glyc"
+      ],
+      "card": "pyruvate-kinase"
+    },
+    {
+      "id": "a3-ldh",
+      "name": "Lactate dehydrogenase",
+      "kind": "gene",
+      "molecular": "A duplicated malate dehydrogenase whose Arg102→Gln swap flips it to pyruvate",
+      "local": "New reaction: pyruvate + NADH → lactate + NAD⁺",
+      "target": "ldh",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "ldh"
+        }
+      ],
+      "cost": 55,
+      "slots": 1,
+      "needsFlag": "u.ldh",
+      "card": "ldh",
+      "hint": "Appears when NAD⁺ runs short"
+    },
+    {
+      "id": "a3-ldhk",
+      "name": "LDH: loop closure",
+      "kind": "point",
+      "molecular": "The active-site loop with Arg109 closes faster over pyruvate",
+      "local": "LDH kcat ×1.8",
+      "target": "ldh",
+      "effects": [
+        {
+          "type": "kcat",
+          "rxn": "ldh",
+          "mul": 1.8
+        }
+      ],
+      "cost": 50,
+      "levels": 3,
+      "costGrowth": 2.3,
+      "requires": [
+        "a3-ldh"
+      ],
+      "card": "ldh"
+    },
+    {
+      "id": "a3-glo",
+      "name": "Glyoxalase detox",
+      "kind": "gene",
+      "molecular": "Glyoxalase I and II turn methylglyoxal into harmless lactate",
+      "local": "Methylglyoxal damage ×0.35",
+      "target": "mgs",
+      "effects": [
+        {
+          "type": "param",
+          "key": "mgk",
+          "mul": 0.35
+        }
+      ],
+      "cost": 45,
+      "slots": 1,
+      "requires": [
+        "a3-glyc"
+      ],
+      "card": "methylglyoxal"
+    },
+    {
+      "id": "a3-crp",
+      "name": "Catabolite repression",
+      "kind": "regulator",
+      "molecular": "cAMP–CRP switches carbon-fixing genes off when sugar is plentiful, like the lac operon in reverse",
+      "local": "The cell switches food source on its own",
+      "effects": [
+        {
+          "type": "mod",
+          "rxn": "rtca",
+          "mod": {
+            "species": "G6P",
+            "type": "inh",
+            "K": 0.15
+          }
+        },
+        {
+          "type": "mod",
+          "rxn": "pfor",
+          "mod": {
+            "species": "G6P",
+            "type": "inh",
+            "K": 0.15
+          }
+        }
+      ],
+      "cost": 80,
+      "slots": 1,
+      "requires": [
+        "a3-glyc"
+      ],
+      "automates": "diet",
+      "card": "catabolite-repression"
+    },
+    {
+      "id": "a3-rm",
+      "name": "Restriction–modification",
+      "kind": "defence",
+      "molecular": "A methylase marks your own DNA; a restriction enzyme cuts anything unmarked",
+      "local": "Phage pressure ×0.35",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "rm"
+        }
+      ],
+      "cost": 50,
+      "slots": 1,
+      "needsFlag": "virus",
+      "card": "restriction",
+      "hint": "Appears when phages do"
+    },
+    {
+      "id": "a3-crispr",
+      "name": "CRISPR–Cas",
+      "kind": "defence",
+      "molecular": "Spacers cut from past infections guide Cas nucleases to matching phage DNA",
+      "local": "Phage pressure ×0.35 again",
+      "effects": [
+        {
+          "type": "flag",
+          "key": "crispr"
+        }
+      ],
+      "cost": 90,
+      "slots": 2,
+      "requires": [
+        "a3-rm"
+      ],
+      "card": "crispr"
+    }
+  ],
+  "niches": [
+    {
+      "id": "n3-mat",
+      "name": "Microbial mats",
+      "text": "Layered mats on shallow sediment",
+      "cost": 1,
+      "growth": 2.3,
+      "levels": 14,
+      "capacity": 1.55
+    },
+    {
+      "id": "n3-rich",
+      "name": "Sugar-rich seeps",
+      "text": "Where dead mats rot, sugar collects",
+      "cost": 18,
+      "growth": 2.5,
+      "levels": 10,
+      "capacity": 1.6,
+      "supply": {
+        "glucose": 0.15
+      },
+      "needsFlag": "heterotrophy"
+    },
+    {
+      "id": "n3-deep",
+      "name": "Deep sediment",
+      "text": "Slow, crowded, but vast",
+      "cost": 200,
+      "growth": 2.7,
+      "levels": 8,
+      "capacity": 1.5
+    }
+  ],
+  "chores": [
+    {
+      "id": "diet",
+      "name": "Food source",
+      "text": "Choose what to eat: fix carbon from CO₂ and H₂, or burn sugar. When sugar runs out, switch.",
+      "automatedBy": "a3-crp",
+      "control": "toggle",
+      "needsFlag": "heterotrophy",
+      "options": [
+        {
+          "id": "fix",
+          "label": "Fix carbon",
+          "effects": [
+            {
+              "type": "E",
+              "rxn": "glk",
+              "mul": 0.12
+            },
+            {
+              "type": "E",
+              "rxn": "pfk",
+              "mul": 0.12
+            },
+            {
+              "type": "E",
+              "rxn": "low",
+              "mul": 0.12
+            }
+          ]
+        },
+        {
+          "id": "sugar",
+          "label": "Eat sugar",
+          "effects": [
+            {
+              "type": "E",
+              "rxn": "rtca",
+              "mul": 0.12
+            },
+            {
+              "type": "E",
+              "rxn": "pfor",
+              "mul": 0.12
+            },
+            {
+              "type": "E",
+              "rxn": "hyd",
+              "mul": 0.12
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "unlocks": [
+    {
+      "id": "u.cycle",
+      "title": "A cycle",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 2
+      },
+      "card": "rtca",
+      "tutorial": "The reductive TCA cycle regenerates its own starting molecule. Its intermediates are a conserved pool: drain them and the cycle stops.",
+      "highlight": "cycle"
+    },
+    {
+      "id": "u.glycolysis",
+      "title": "Sugar from the dead",
+      "when": {
+        "stat": "dead",
+        "op": ">",
+        "value": 11.2
+      },
+      "card": "glycolysis",
+      "tutorial": "Dead cells have left sugar in the water. Eating sugar only pays once other cells have made it. Glycolysis is in Evolve."
+    },
+    {
+      "id": "u.ldh",
+      "title": "The NAD⁺ fork",
+      "when": {
+        "all": [
+          {
+            "has": "a3-glyc"
+          },
+          {
+            "any": [
+              {
+                "stat": "share.nad",
+                "op": "<",
+                "value": 0.45
+              },
+              {
+                "stat": "time",
+                "op": ">",
+                "value": 1500
+              }
+            ]
+          }
+        ]
+      },
+      "card": "ldh",
+      "tutorial": "Glycolysis halts without NAD⁺. Reducing pyruvate to lactate regenerates it, at the price of losing that carbon.",
+      "highlight": "NAD",
+      "demo": {
+        "rxn": "low",
+        "seconds": 10
+      }
+    },
+    {
+      "id": "u.population",
+      "title": "Competing lineages",
+      "when": {
+        "stat": "lineages",
+        "op": ">=",
+        "value": 3
+      },
+      "card": "clonal-interference",
+      "tutorial": "Several helpful variants can rise at once and slow each other down: clonal interference. Click a variant in the legend or the tree to build your next trait on it instead of the leader.",
+      "reveals": [
+        "population"
+      ]
+    },
+    {
+      "id": "u.community",
+      "title": "A community",
+      "when": {
+        "stat": "world.archaea",
+        "op": ">",
+        "value": 0
+      },
+      "card": "syntrophy",
+      "tutorial": "Your archaea eat the H₂ your fermenters make, which lets fermentation run more easily: syntrophy. The World screen shows every species you raise; community traits in Evolve found and improve them."
+    },
+    {
+      "id": "u.acid",
+      "title": "Acid builds up",
+      "when": {
+        "stat": "world.lactate",
+        "op": ">",
+        "value": 0.6
+      },
+      "card": "lactate-oxidisers",
+      "tutorial": "Lactate is piling up in the mat. Above the line it slows your fermenters. Lactate eaters (Evolve, Community) live on it and pass H₂ on to your archaea."
+    }
+  ],
+  "events": [
+    {
+      "id": "e.heterotrophy",
+      "when": {
+        "has": "a3-glyc"
+      },
+      "title": "Heterotrophs",
+      "text": "Your cells now eat sugar, and the last of the hydrogen is spent. Food is whatever dead cells leave behind: it comes in feasts and famines.",
+      "flags": [
+        "heterotrophy"
+      ],
+      "env": {
+        "H2": 0.12
+      },
+      "ramp": 120
+    },
+    {
+      "id": "e.split",
+      "when": {
+        "stat": "time",
+        "op": ">",
+        "value": 900
+      },
+      "title": "Bacteria and archaea part ways",
+      "text": "LUCA’s descendants split into two great lines: bacteria with ester lipids, archaea with ether lipids. Your archaea live on the H₂ your fermenters make. See them on the World screen.",
+      "founds": "archaea",
+      "flags": [
+        "split"
+      ]
+    },
+    {
+      "id": "e.foodlow",
+      "when": {
+        "stat": "world.sugar",
+        "op": "<",
+        "value": 0.45,
+        "label": "The seeps run short"
+      },
+      "title": "Sugar runs short",
+      "text": "Your sugar eaters have drawn the seeps down. Fermentation yields only 2 ATP per sugar: who survives now depends on who eats what, and on who eats whose waste.",
+      "flags": [
+        "foodlow"
+      ]
+    }
+  ],
+  "virus": {
+    "name": "Phages",
+    "text": "Viruses that infect cells. They spread fastest through the most common lineage, so they punish monocultures: kill the winner.",
+    "startsWhen": {
+      "all": [
+        {
+          "stat": "P",
+          "op": ">",
+          "value": 10
+        },
+        {
+          "stat": "time",
+          "op": ">",
+          "value": 900
+        }
+      ]
+    },
+    "strength": 1.1,
+    "defences": [
+      "a3-rm",
+      "a3-crispr"
+    ]
+  },
+  "gate": {
+    "flux": 15.2,
+    "when": {
+      "all": [
+        {
+          "flag": "foodlow"
+        },
+        {
+          "stat": "world.sugar",
+          "op": "<",
+          "value": 0.3,
+          "label": "The seeps run dry"
+        },
+        {
+          "has": "a3-crp"
+        },
+        {
+          "stat": "world.coexist",
+          "op": ">=",
+          "value": 3,
+          "for": 60,
+          "label": "Three or more species coexist (each at least 5%) for a minute"
+        },
+        {
+          "stat": "world.archaea",
+          "op": ">",
+          "value": 0.15,
+          "label": "Your archaea thrive on H₂"
+        }
+      ]
+    },
+    "text": "Get through the sugar crash as a community: automate the food switch and, as the seeps run dry, keep three or more species coexisting with your archaea living on your fermenters’ H₂. Hold ATP flux above 10^15.2 per second.",
+    "wall": "Depletion: the seeps run dry"
+  }
+}
