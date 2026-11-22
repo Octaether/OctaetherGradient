@@ -66,6 +66,8 @@ export interface UIState {
   started: boolean;
   screen: Screen;
   tab: DrawerTab;
+  /** Phone layout: whether the drawer's bottom sheet is pulled up. */
+  sheet: boolean;
   sel: { kind: 'rxn' | 'species' | null; id: string | null };
   notes: Note[];
   log: { n: number; title: string; color: string }[];
@@ -139,6 +141,7 @@ export const useGame = create<UIState>((set, get) => ({
   started: false,
   screen: 'main',
   tab: 'evolve',
+  sheet: false,
   sel: { kind: null, id: null },
   notes: [],
   log: [],

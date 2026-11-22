@@ -4,7 +4,7 @@ import { useGame, onGameEvent } from './store';
 import { Title } from './Title';
 import { TopBar, Nav, StatusStrip, GoalBar } from './components/Chrome';
 import { Panel } from './components/Panel';
-import { AwayModal, CardModal, Notifications, SettingsModal, TransitionCinematic } from './components/Overlays';
+import { AlertBanner, AwayModal, CardModal, Notifications, SettingsModal, TransitionCinematic, TutorialCard } from './components/Overlays';
 import { Vessel } from './screens/vessel/Vessel';
 import { CellView } from './screens/CellView';
 import { VirusGame } from './screens/VirusGame';
@@ -18,7 +18,7 @@ const Codex = lazy(() => import('./screens/Codex').then((m) => ({ default: m.Cod
 const WorldView = lazy(() => import('./screens/WorldView').then((m) => ({ default: m.WorldView })));
 const Records = lazy(() => import('./screens/Records').then((m) => ({ default: m.Records })));
 import { audio } from './audio/engine';
-import { toggleFullscreen } from './hooks';
+import { toggleFullscreen, useMobile } from './hooks';
 import { devBoot } from './simClient';
 import { DevPanel } from './components/DevPanel';
 import { MOODS, POOL, RUST, lerpColor, mix, rgbTriplet } from './theme';
@@ -111,6 +111,8 @@ function Backdrop({ snap }: { snap: Snapshot }) {
 function Game() {
   const snap = useGame((s) => s.snap);
   const screen = useGame((s) => s.screen);
+  const sheet = useGame((s) => s.sheet);
+  const mobile = useMobile();
   if (!snap) {
     return (
       <div style={{ position: 'fixed', inset: 0, display: 'grid', placeItems: 'center' }} className="faint">
@@ -122,7 +124,7 @@ function Game() {
   const showStatus = screen === 'main' || screen === 'map';
   return (
     <div
-      className={'app' + (wide ? ' wide' : '')}
+      className={'app' + (wide ? ' wide' : '') + (sheet ? ' sheet-open' : '')}
       style={{ ['--accent' as string]: (MOODS[Math.min(snap.act, 8)] ?? MOODS[1]).accent, ['--acc' as string]: rgbTriplet((MOODS[Math.min(snap.act, 8)] ?? MOODS[1]).accent) } as React.CSSProperties}
     >
       <Backdrop snap={snap} />
@@ -141,6 +143,12 @@ function Game() {
         </AnimatePresence>
         {showStatus && <StatusStrip />}
         {screen !== 'codex' && <Notifications />}
+        {mobile && !wide && (
+          <div className="m-cards">
+            <TutorialCard />
+            <AlertBanner />
+          </div>
+        )}
       </main>
       {!wide && (
         <Boundary fallback={<aside className="drawer" />}>

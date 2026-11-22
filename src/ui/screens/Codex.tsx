@@ -45,8 +45,8 @@ export function Codex() {
   const sel = open && CARDS[open] ? open : cards[0]?.id;
   const tutorials = snap.act >= 1 && snap.act < 8 ? ACTS[snap.act].unlocks.filter((u) => snap.unlocked.includes(u.id)) : [];
   return (
-    <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: '300px 1fr' }}>
-      <div style={{ borderRight: '1px solid var(--hair)', overflowY: 'auto', padding: '22px 14px 30px' }}>
+    <div className={'codex' + (open ? ' reading' : '')}>
+      <div className="codex-list">
         <h2 className="screen-title" style={{ padding: '0 6px' }}>Codex</h2>
         <div className="faint" style={{ fontSize: 11.5, padding: '0 6px 12px' }}>
           {known.size >= total ? total : Math.min(known.size, total)} of {total} entries
@@ -79,8 +79,11 @@ export function Codex() {
           </button>
         )}
       </div>
-      <div style={{ overflowY: 'auto', padding: '30px 40px' }}>
+      <div className="codex-detail">
         <div style={{ maxWidth: 680 }}>
+          <button className="btn ghost sm codex-back" onClick={() => setOpen(null)}>
+            ← All entries
+          </button>
           {sel ? <ScienceCard id={sel} /> : <div className="faint">Nothing here yet.</div>}
           {tutorials.length > 0 && (
             <>

@@ -140,7 +140,7 @@ export function TreeView() {
 
   return (
     <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column' }}>
-      <div ref={head} style={{ padding: '20px 28px 10px', maxWidth: 'min(820px, calc(100% - 330px))' }}>
+      <div ref={head} className="tree-head">
         <div className="screen-title">Your cells' family tree</div>
         <div className="screen-sub" style={{ marginBottom: 10 }}>
           Every branch is a variant of your cells in {actTitle(snap.act)}. When you evolve a trait, or a lucky random mutation helps, some cells carry the change and a branch splits off. It thickens while those cells

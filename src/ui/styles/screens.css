@@ -227,3 +227,24 @@
 .comm-sum { display: grid; gap: 3px; margin: 2px 2px 12px; }
 .comm-guild { font-size: 10.5px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-3); margin: 14px 2px 6px; display: flex; align-items: center; gap: 6px; }
 .comm-guild i { width: 7px; height: 7px; border-radius: 50%; }
+
+/* codex: list and entry side by side; on a phone, one at a time */
+.codex { position: absolute; inset: 0; display: grid; grid-template-columns: 300px 1fr; }
+.codex-list { border-right: 1px solid var(--hair); overflow-y: auto; padding: 22px 14px 30px; }
+.codex-detail { overflow-y: auto; padding: 30px 40px; }
+.codex-back { display: none; margin-bottom: 12px; }
+.tree-head { padding: 20px 28px 10px; max-width: min(820px, calc(100% - 330px)); }
+
+/* Act 0 vessel: vent and pond side by side (one at a time on a phone) */
+.vessel { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.act-roman { display: none; }
+.legend .fold-x { display: none; }
+
+/* the finale planet adapts to its own width, wherever the hero is narrow */
+.planet { position: absolute; inset: 0; container-type: inline-size; }
+@container (max-width: 600px) {
+  .planet-goal { display: none; }
+  .planet-meters { left: 8px !important; right: 8px; bottom: 8px !important; transform: none !important; gap: 12px !important; padding: 9px 11px !important; }
+  .planet-meters .pm { width: auto !important; flex: 1; min-width: 0; }
+  .planet-meters .pm .muted { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}

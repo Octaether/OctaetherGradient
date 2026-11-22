@@ -155,7 +155,11 @@ export function drawPond(ctx: CanvasRenderingContext2D, w: number, h: number, t:
     const r = 7 + hash01(i * 2.1) * 8;
     const candidate = s.spark.ready && i === 0;
     vesicle(ctx, x, y, r, 0.9, candidate);
-    if (hash01(i * 7.7) < 0.4 + 0.5 * Math.min(1, s.ves / 400)) helix(ctx, x - r * 0.55, y, r * 1.1, 0.2, t * move + i, 0.7, candidate);
+    if (candidate) {
+      // the candidate always holds its long strand (45+ nt), folded back on itself to fit
+      helix(ctx, x - r * 0.58, y - r * 0.26, r * 1.16, 0.1, t * move, 1, true);
+      helix(ctx, x + r * 0.52, y + r * 0.28, r * 1.04, Math.PI - 0.1, t * move + 2, 0.95, true);
+    } else if (hash01(i * 7.7) < 0.4 + 0.5 * Math.min(1, s.ves / 400)) helix(ctx, x - r * 0.55, y, r * 1.1, 0.2, t * move + i, 0.7, false);
     if (candidate) cand = { x, y, r };
   }
   // ice crystals

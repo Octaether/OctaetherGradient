@@ -334,6 +334,9 @@ export function TopBar() {
     <header className="top">
       <div className="brand">
         <Mark size={28} />
+        <span className="act-roman" title={actTitle(snap.act)}>
+          {snap.act >= 8 ? 'F' : ROMAN[snap.act]}
+        </span>
         <div className="actname">
           <b>{actTitle(snap.act)}</b>
           <span>{snap.act >= 8 ? 'Finale' : `Act ${ROMAN[snap.act]}`} · T+{String(Math.floor((snap.act0?.time ?? snap.actTime) / 60)).padStart(2, '0')}:{String(Math.floor((snap.act0?.time ?? snap.actTime) % 60)).padStart(2, '0')}</span>
@@ -378,25 +381,25 @@ export function Nav() {
           className={'nav-btn' + (screen === it.id ? ' on' : '')}
           onClick={() => {
             audio.click();
-            set({ screen: it.id });
+            set({ screen: it.id, sheet: false });
           }}
         >
           {it.icon}
-          {it.label}
+          <span className="nl">{it.label}</span>
         </button>
       ))}
       <div className="nav-spacer" />
-      <button className="nav-btn" onClick={toggleFullscreen} title="Fullscreen (F)">
+      <button className="nav-btn nav-full" onClick={toggleFullscreen} title="Fullscreen (F)">
         <IconFullscreen on={full} />
         {full ? 'Exit full' : 'Full · F'}
       </button>
       <button className="nav-btn" onClick={() => setSettings({ muted: !settings.muted })}>
         <IconSound muted={settings.muted} />
-        {settings.muted ? 'Muted' : 'Sound'}
+        <span className="nl">{settings.muted ? 'Muted' : 'Sound'}</span>
       </button>
       <button className="nav-btn" onClick={() => set({ showSettings: true })}>
         <IconSettings />
-        Settings
+        <span className="nl">Settings</span>
       </button>
     </nav>
   );

@@ -4,7 +4,7 @@
 // when they die; food drifts in the water and is absorbed by nearby cells.
 import { useEffect, useRef, useState } from 'react';
 import { useGame, variantName, nameKey, onGameEvent } from '../store';
-import { useCanvas } from '../hooks';
+import { isCompact, isMobile, useCanvas } from '../hooks';
 import { LINEAGE, MOODS, POOL, mix, MONO, SANS } from '../theme';
 import { send } from '../simClient';
 import { DEV } from '../components/DevPanel';
@@ -139,6 +139,8 @@ export function CellView() {
   const set = useGame((s) => s.set);
   const [editing, setEditing] = useState<{ key: string; value: string } | null>(null);
   const [inside, setInside] = useState(false);
+  // on a phone the legend starts folded to its first row, so the cells have the screen
+  const [folded, setFolded] = useState(isCompact);
   const cells = useRef<Cell[]>([]);
   const food = useRef<Mote[]>([]);
   const debris = useRef<Debris[]>([]);
@@ -680,9 +682,12 @@ export function CellView() {
   return (
     <div style={{ position: 'absolute', inset: 0 }}>
       <canvas ref={canvas} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
-      <div className="legend">
-        <h5>
+      <div className={'legend' + (folded ? ' folded' : '')}>
+        <h5 onClick={() => setFolded(!folded)} style={{ cursor: 'pointer' }}>
           Population <span className="faint">· {snap.lineages.length} variant{snap.lineages.length > 1 ? 's' : ''}</span>
+          <span className="faint fold-x" style={{ marginLeft: 'auto' }}>
+            {folded ? '▾' : '▴'}
+          </span>
         </h5>
         {lineages.map((l) => {
           const key = nameKey(snap.act, l.tag, l.id);
@@ -742,7 +747,7 @@ export function CellView() {
           <span className="nm">Spilled contents of a burst cell (ATP, NADH, carbon)</span>
         </div>
         <div className="legend-foot">
-          <span>Click to view · double-click to rename</span>
+          <span>{isMobile() ? 'Tap to view; rename in Evolve' : 'Click to view · double-click to rename'}</span>
           <button className="lnk" onClick={() => set({ screen: 'tree' })}>
             Tree →
           </button>

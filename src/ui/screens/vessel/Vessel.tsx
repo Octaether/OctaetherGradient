@@ -5,7 +5,7 @@
 // pond.ts; this file holds the overlays, feedback and controls.
 import { useEffect, useRef, useState } from 'react';
 import { useGame } from '../../store';
-import { useCanvas, useMoreBelow } from '../../hooks';
+import { useCanvas, useMobile, useMoreBelow } from '../../hooks';
 import { send } from '../../simClient';
 import { audio } from '../../audio/engine';
 import { fmt, roman } from '../../../sim/num';
@@ -29,6 +29,9 @@ function VesselInner() {
   const state = useRef(a);
   state.current = a;
   const move = reduced ? 0 : 1;
+  // a phone shows one site at a time; the pond first, where the cycles are run
+  const mobile = useMobile();
+  const [site, setSite] = useState<'vent' | 'pond'>('pond');
   const ventPanel = useRef<HTMLDivElement>(null);
   const pondPanel = useRef<HTMLDivElement>(null);
   const libPanel = useRef<HTMLDivElement>(null);
@@ -131,8 +134,20 @@ function VesselInner() {
   const cycleProgress = a.cycleT > 0 ? 1 - a.cycleT / 3 : 0;
   const freezeProgress = a.freezeT > 0 ? 1 - a.freezeT / 4 : 0;
   return (
-    <div style={{ position: 'absolute', inset: 0, display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-      <div style={siteStyle('vent')}>
+    <div className={'vessel' + (mobile ? ' m show-' + site : '')}>
+      {mobile && (
+        <div className="site-switch">
+          <button className={site === 'vent' ? 'on' : ''} onClick={() => setSite('vent')}>
+            <i style={{ background: POOL.proton }} />
+            Hydrothermal vent
+          </button>
+          <button className={site === 'pond' ? 'on' : ''} onClick={() => setSite('pond')}>
+            <i style={{ background: POOL.nad }} />
+            Shallow pond
+          </button>
+        </div>
+      )}
+      <div className="site-vent" style={siteStyle('vent')}>
         <canvas ref={vent} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
         <div ref={ventPanel} className="overlay-chip" style={{ left: 16, top: 16, width: 236 }}>
           <div className="site-h" style={{ color: POOL.proton }}>Hydrothermal vent</div>
@@ -142,7 +157,7 @@ function VesselInner() {
         </div>
         {floatsFor('vent')}
       </div>
-      <div style={{ ...siteStyle('pond'), borderLeft: '1px solid var(--line)' }}>
+      <div className="site-pond" style={{ ...siteStyle('pond'), borderLeft: mobile ? 'none' : '1px solid var(--line)' }}>
         <canvas ref={pond} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
         <div ref={pondPanel} className="overlay-chip" style={{ left: 16, top: 16, width: 'min(236px, calc(50% - 24px))' }}>
           <div className="site-h" style={{ color: POOL.nad }}>Shallow pond</div>

@@ -5,13 +5,15 @@
 // the world; the chart shows their numbers over the last five minutes.
 import { useMemo, useRef, useState } from 'react';
 import { useGame } from '../store';
-import { useCanvas } from '../hooks';
+import { useCanvas, useMobile } from '../hooks';
 import { guildColor } from '../theme';
 import type { WorldSnap } from '../../sim/snapshot';
 import { drawWorld, newWorldScene, type WorldScene } from './world/scene';
 
 const PANEL_W = 268;
 const CHART_H = 118;
+/** On a phone the panel folds into a chip and the chart is shorter. */
+const M_CHART_H = 92;
 
 
 export function WorldView() {
@@ -38,10 +40,16 @@ function WorldInner() {
   const scene = useRef<WorldScene>(newWorldScene());
   const hoverId = useRef<string | null>(null);
   hoverId.current = hover?.id ?? null;
+  const mobile = useMobile();
+  const mobileRef = useRef(mobile);
+  mobileRef.current = mobile;
+  const [panel, setPanel] = useState(false);
+  const panelW = mobile ? 0 : PANEL_W;
 
   const canvas = useCanvas((ctx, W, H, t, dt) => {
-    const X0 = Math.min(W * 0.45, PANEL_W + 12);
-    const sh = Math.max(200, H - CHART_H - 28);
+    const m = mobileRef.current;
+    const X0 = m ? 0 : Math.min(W * 0.45, PANEL_W + 12);
+    const sh = Math.max(200, H - (m ? M_CHART_H + 16 : CHART_H + 28));
     drawWorld(ctx, W, H, t, dt, ref.current, scene.current, { X0, sh, move: reduced ? 0 : 1, accent: getAccent(), hover: hoverId.current, dayPhase: dayRef.current });
   });
 
@@ -63,7 +71,14 @@ function WorldInner() {
     <div style={{ position: 'absolute', inset: 0 }}>
       <canvas ref={canvas} onMouseMove={onMove} onMouseLeave={() => setHover(null)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
       {hg && hover && (
-        <div className="world-tip" style={{ left: Math.max(PANEL_W + 20, hover.x - 290 > PANEL_W ? (hover.x > 700 ? hover.x - 280 : hover.x + 16) : hover.x + 16), top: hover.y + 12 }}>
+        <div
+          className="world-tip"
+          style={
+            mobile
+              ? { left: 8, right: 8, maxWidth: 'none', top: hover.y > 300 ? undefined : hover.y + 16, bottom: hover.y > 300 ? M_CHART_H + 24 : undefined }
+              : { left: Math.max(PANEL_W + 20, hover.x - 290 > PANEL_W ? (hover.x > 700 ? hover.x - 280 : hover.x + 16) : hover.x + 16), top: hover.y + 12 }
+          }
+        >
           <b style={{ color: guildColor(hg) }}>{hg.name}</b>
           <div className="faint">{hg.sci}</div>
           <div>
@@ -80,10 +95,25 @@ function WorldInner() {
           {hg.danger && <div style={{ color: 'var(--oxygen)' }}>Oxygen is killing them here. Move them to the sediment (Evolve, Community).</div>}
         </div>
       )}
-      <div className="overlay-chip world-side" style={{ left: 16, top: 16, width: PANEL_W - 16, bottom: 16 }}>
+      {mobile && !panel && (
+        <button className="overlay-chip world-fold" onClick={() => setPanel(true)}>
+          <span className="site-h" style={{ margin: 0 }}>
+            The world
+          </span>
+          <span className="faint">
+            {w.coexist} coexisting · {w.guilds.filter((g) => g.alive).length} species ▾
+          </span>
+        </button>
+      )}
+      <div className={'overlay-chip world-side' + (mobile ? ' m' : '')} style={mobile ? { display: panel ? undefined : 'none' } : { left: 16, top: 16, width: PANEL_W - 16, bottom: 16 }}>
         <div className="site-h" style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span>The world</span>
           <span className="faint" title="Species that each make up at least 5% of the community">{w.coexist} coexisting</span>
+          {mobile && (
+            <button className="btn ghost sm" style={{ height: 22, padding: '0 6px' }} onClick={() => setPanel(false)} aria-label="Fold the panel">
+              ▴
+            </button>
+          )}
         </div>
         {w.gauges.map((gz) => (
           <div key={gz.id} className="wg" title={gz.text}>
@@ -136,11 +166,11 @@ function WorldInner() {
               ))}
           </details>
         )}
-        <button className="btn ghost sm" style={{ marginTop: 10, width: '100%' }} onClick={() => set({ tab: 'community' })}>
+        <button className="btn ghost sm" style={{ marginTop: 10, width: '100%' }} onClick={() => set({ tab: 'community', sheet: true })}>
           Community traits in Evolve →
         </button>
       </div>
-      <PopChart w={w} />
+      <PopChart w={w} left={panelW + (mobile ? 8 : 12)} right={mobile ? 8 : 16} bottom={mobile ? 8 : 16} height={mobile ? M_CHART_H : CHART_H} />
     </div>
   );
 }
@@ -157,7 +187,7 @@ function getAccent(): string {
 }
 
 /** Every species' numbers over the last five minutes. */
-function PopChart({ w }: { w: WorldSnap }) {
+function PopChart({ w, left, right, bottom, height }: { w: WorldSnap; left: number; right: number; bottom: number; height: number }) {
   const rows = w.hist;
   const series = useMemo(() => {
     if (rows.length < 2) return [];
@@ -176,7 +206,7 @@ function PopChart({ w }: { w: WorldSnap }) {
   }, [rows, w.guilds, w.histKeys]);
   const span = rows.length > 1 ? rows[rows.length - 1][0] - rows[0][0] : 0;
   return (
-    <div className="overlay-chip world-chart" style={{ left: PANEL_W + 12, right: 16, bottom: 16, height: CHART_H }}>
+    <div className="overlay-chip world-chart" style={{ left, right, bottom, height }}>
       <div className="wc-h">
         <span className="site-h" style={{ margin: 0 }}>
           Populations

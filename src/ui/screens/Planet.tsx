@@ -219,9 +219,13 @@ function PlanetInner() {
         ctx.fillStyle = g;
         ctx.fillRect(bx - br, by - br, br * 2, br * 2);
       }
-      const R = Math.max(80, Math.min(w * 0.17, h * 0.27));
+      // on a narrow screen two guilds sit above the globe and two below it, labels under each
+      const narrow = w < 600;
+      const nTop = 172;
+      const nBot = h - 76 - 116;
+      const R = narrow ? Math.max(60, Math.min(w * 0.28, (nBot - nTop) / 2 / 1.2)) : Math.max(80, Math.min(w * 0.17, h * 0.27));
       const cx = w / 2;
-      const cy = h * 0.47;
+      const cy = narrow ? (nTop + nBot) / 2 : h * 0.47;
       const vals = s.vals as Record<string, number>;
       // ---- the globe ----
       const green = Math.round(Math.min(1, vals.Pr / 2.5) * 20) / 20;
@@ -412,7 +416,8 @@ function PlanetInner() {
       const px = Math.max(R * 1.45, Math.min(R * 2.05, cx - 215));
       const pyy = R * 0.9;
       const pos: Record<string, { x: number; y: number }> = {};
-      for (const g of GUILDS) pos[g.key] = { x: cx + g.pos[0] * px, y: cy + g.pos[1] * pyy };
+      for (const g of GUILDS)
+        pos[g.key] = narrow ? { x: cx + g.pos[0] * w * 0.26, y: g.pos[1] < 0 ? 62 : cy + ringR + 50 } : { x: cx + g.pos[0] * px, y: cy + g.pos[1] * pyy };
       const ctrl = (pa: { x: number; y: number }, pb: { x: number; y: number }): [number, number] => {
         let dx = (pa.x + pb.x) / 2 - cx;
         let dy = (pa.y + pb.y) / 2 - cy;
@@ -429,6 +434,7 @@ function PlanetInner() {
       ctx.rect(0, 0, w, h);
       ctx.arc(cx, cy, R * 1.06, 0, Math.PI * 2, true);
       ctx.clip();
+      const placed: [number, number][] = [];
       FLOWS.forEach(([a, b, label], i) => {
         const pa = pos[a];
         const pb = pos[b];
@@ -443,12 +449,16 @@ function PlanetInner() {
         ctx.setLineDash([]);
         // label where the curve is clear of the planet and of the ring's title
         const at = (q: number) => [(1 - q) * (1 - q) * pa.x + 2 * (1 - q) * q * mx + q * q * pb.x, (1 - q) * (1 - q) * pa.y + 2 * (1 - q) * q * my + q * q * pb.y];
-        let lpt = at(0.5);
-        for (const q of [0.5, 0.36, 0.64, 0.25, 0.75]) {
+        // no clear spot (crowded narrow layouts): the label is left out rather than drawn over text
+        let lpt: number[] | null = narrow ? null : at(0.5);
+        for (const q of [0.5, 0.36, 0.64, 0.25, 0.75, 0.18, 0.82]) {
           const [qx, qy] = at(q);
           const clearGlobe = Math.hypot(qx - cx, qy - cy) > R * 1.3;
           const clearTitle = !(Math.abs(qx - cx) < 90 && Math.abs(qy - (cy - R * 1.2 - 12)) < 22);
-          if (clearGlobe && clearTitle) {
+          const clearLabels = placed.every(([px2, py2]) => Math.abs(qx - px2) > 70 || Math.abs(qy - py2) > 13);
+          // narrow: pods carry their text underneath, so keep clear of that block too
+          const clearPods = !narrow || Object.values(pos).every((pp) => Math.abs(qx - pp.x) > 85 || qy < pp.y - 40 || qy > pp.y + 112);
+          if (clearGlobe && clearTitle && clearLabels && clearPods) {
             lpt = [qx, qy];
             break;
           }
@@ -456,7 +466,10 @@ function PlanetInner() {
         ctx.font = `600 8px ${MONO}`;
         ctx.fillStyle = 'rgba(230,240,255,0.34)';
         ctx.textAlign = 'center';
-        ctx.fillText(label.toUpperCase(), lpt[0], lpt[1] - 5);
+        if (lpt) {
+          placed.push([lpt[0], lpt[1]]);
+          ctx.fillText(label.toUpperCase(), lpt[0], lpt[1] - 5);
+        }
         const strength = Math.min(1, Math.sqrt((vals[a] ?? 0) * (vals[b] ?? 0)) / 1.2);
         if (move && Math.random() < strength * dt * 6) parts.current.push({ i, t: 0 });
       });
@@ -476,7 +489,7 @@ function PlanetInner() {
         ctx.fill();
       }
       ctx.restore();
-      for (const g of GUILDS) pod(ctx, g, pos[g.key], cx, cy, R, s, memRef.current[g.key] ?? [], t, move);
+      for (const g of GUILDS) pod(ctx, g, pos[g.key], cx, cy, R, s, memRef.current[g.key] ?? [], t, move, narrow);
 
       // ---- a perturbation in progress ----
       if (s.perturb) {
@@ -484,7 +497,7 @@ function PlanetInner() {
         const txt = '⚠ ' + s.perturb.toUpperCase();
         const tw = ctx.measureText(txt).width + 24;
         const bx = cx - tw / 2;
-        const by = Math.min(cy + ringR + 22, h - 112);
+        const by = narrow ? cy + R + 2 : Math.min(cy + ringR + 22, h - 112);
         ctx.fillStyle = 'rgba(255,77,109,0.12)';
         ctx.strokeStyle = mix(POOL.oxygen, 0.75);
         ctx.beginPath();
@@ -510,16 +523,16 @@ function PlanetInner() {
     ['N', 'Fixed nitrogen', POOL.nitrogen],
   ];
   return (
-    <div style={{ position: 'absolute', inset: 0 }}>
+    <div className="planet">
       <canvas ref={canvas} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
-      <div className="overlay-chip" style={{ left: '50%', bottom: 16, transform: 'translateX(-50%)', display: 'flex', gap: 22, padding: '12px 18px' }}>
+      <div className="overlay-chip planet-meters" style={{ left: '50%', bottom: 16, transform: 'translateX(-50%)', display: 'flex', gap: 22, padding: '12px 18px' }}>
         {meters.map(([k, name, color]) => {
           const [lo, hi] = f.bands[k];
           const v = f.vals[k];
           const max = hi * 1.6;
           const ok = f.inBand[k];
           return (
-            <div key={k} style={{ width: 170 }}>
+            <div key={k} className="pm" style={{ width: 170 }}>
               <div style={{ display: 'flex', fontSize: 11 }}>
                 <span className="muted">{name}</span>
                 <span className="num" style={{ marginLeft: 'auto', color: ok ? 'var(--text-2)' : 'var(--oxygen)' }}>{v.toFixed(2)}</span>
@@ -532,7 +545,7 @@ function PlanetInner() {
           );
         })}
       </div>
-      <div className="overlay-chip" style={{ left: 16, top: 16, maxWidth: 320 }}>
+      <div className="overlay-chip planet-goal" style={{ left: 16, top: 16, maxWidth: 320 }}>
         <div className="caps" style={{ color: f.won ? 'var(--light)' : undefined }}>{f.challenge ? 'Challenge seed' : f.won ? 'The loop is closed' : 'Close the loop'}</div>
         <div className="muted" style={{ fontSize: 12, marginTop: 6, lineHeight: 1.5 }}>
           {f.challenge
@@ -550,12 +563,12 @@ function PlanetInner() {
  * One guild as an instrument: a segmented gauge (its safe band marked), its
  * cell in line art, the value, and which of your species fill it.
  */
-function pod(ctx: CanvasRenderingContext2D, g: (typeof GUILDS)[number], p: { x: number; y: number }, cx: number, cy: number, R: number, s: FinaleSnap, members: string[], t: number, move: number) {
+function pod(ctx: CanvasRenderingContext2D, g: (typeof GUILDS)[number], p: { x: number; y: number }, cx: number, cy: number, R: number, s: FinaleSnap, members: string[], t: number, move: number, narrow = false) {
   const v = (s.vals as Record<string, number>)[g.key] ?? 0;
   const [lo, hi] = s.bands[g.key] ?? [0, 1];
   const ok = s.inBand[g.key];
   const max = hi * 1.4;
-  const pr = 30;
+  const pr = narrow ? 22 : 30;
   const col = ok ? g.color : '#ff6b5e';
   // leader to the planet's rim
   const ang = Math.atan2(p.y - cy, p.x - cx);
@@ -603,10 +616,32 @@ function pod(ctx: CanvasRenderingContext2D, g: (typeof GUILDS)[number], p: { x: 
   ctx.beginPath();
   ctx.arc(p.x, p.y, pr, 0, Math.PI * 2);
   ctx.stroke();
-  if (g.key === 'Vi') drawPhage(ctx, p.x, p.y + 4, 15, Math.sin(t * 0.6 * move) * 0.2, g.color, 0.95);
+  const ik = narrow ? 0.75 : 1;
+  if (g.key === 'Vi') drawPhage(ctx, p.x, p.y + 4 * ik, 15 * ik, Math.sin(t * 0.6 * move) * 0.2, g.color, 0.95);
   else {
     const sp = cellSprite(ICON[g.key]);
-    iconCell(ctx, sp, p.x, p.y, g.key === 'Mi' ? 11 : 16, t * 0.15 * move, g.color);
+    iconCell(ctx, sp, p.x, p.y, (g.key === 'Mi' ? 11 : 16) * ik, t * 0.15 * move, g.color);
+  }
+  const memberLine = members.length ? (members.length <= 2 && members.slice(0, 2).join(' · ').length <= 26 ? members.slice(0, 2).join(' · ') : `${members[0]} +${members.length - 1}`) : g.key === 'Vi' ? 'Phages and giant viruses' : '';
+  if (narrow) {
+    // labels centred under the pod
+    ctx.textAlign = 'center';
+    const y0 = p.y + pr + 22;
+    ctx.font = `600 9px ${MONO}`;
+    ctx.fillStyle = mix(g.color, 0.95);
+    ctx.fillText(g.name.toUpperCase(), p.x, y0);
+    ctx.font = `600 14px ${MONO}`;
+    ctx.fillStyle = ok ? 'rgba(232,236,242,0.95)' : '#ff8a7e';
+    ctx.fillText(v.toFixed(2), p.x, y0 + 16);
+    ctx.font = `500 9px ${MONO}`;
+    ctx.fillStyle = 'rgba(232,236,242,0.38)';
+    ctx.fillText(`BAND ${lo}–${hi}`, p.x, y0 + 29);
+    if (memberLine) {
+      ctx.font = `500 10px ${SANS}`;
+      ctx.fillStyle = 'rgba(232,236,242,0.55)';
+      ctx.fillText(memberLine.length > 24 ? memberLine.slice(0, 22) + '…' : memberLine, p.x, y0 + 43);
+    }
+    return;
   }
   // labels
   const right = p.x > cx;
@@ -621,17 +656,11 @@ function pod(ctx: CanvasRenderingContext2D, g: (typeof GUILDS)[number], p: { x: 
   ctx.font = `500 9.5px ${MONO}`;
   ctx.fillStyle = 'rgba(232,236,242,0.38)';
   ctx.fillText(`BAND ${lo}–${hi}`, tx, p.y + 22);
-  if (members.length) {
-    ctx.font = `500 10.5px ${SANS}`;
-    ctx.fillStyle = 'rgba(232,236,242,0.6)';
+  if (memberLine) {
     // first species by name, the rest as a count, so the line never runs off the screen
-    const two = members.slice(0, 2).join(' · ');
-    const line = members.length <= 2 && two.length <= 26 ? two : `${members[0]} +${members.length - 1}`;
-    ctx.fillText(line, tx, p.y + 37);
-  } else if (g.key === 'Vi') {
     ctx.font = `500 10.5px ${SANS}`;
-    ctx.fillStyle = 'rgba(232,236,242,0.45)';
-    ctx.fillText('Phages and giant viruses', tx, p.y + 37);
+    ctx.fillStyle = members.length ? 'rgba(232,236,242,0.6)' : 'rgba(232,236,242,0.45)';
+    ctx.fillText(memberLine, tx, p.y + 37);
   }
 }
 

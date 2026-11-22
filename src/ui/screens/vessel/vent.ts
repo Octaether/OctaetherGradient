@@ -103,7 +103,7 @@ export function drawVent(ctx: CanvasRenderingContext2D, w: number, h: number, t:
   for (let i = 2; i < N; i += 4) {
     const k = i / N;
     ctx.beginPath();
-    ctx.ellipse(cx, yAt(k), wid(k), wid(k) * 0.16, 0, 0, Math.PI);
+    ctx.ellipse(cx, yAt(k), Math.max(0.5, wid(k)), Math.max(0.1, wid(k) * 0.16), 0, 0, Math.PI);
     ctx.stroke();
   }
   // cut-away window into the micropores, open to the ocean on the left

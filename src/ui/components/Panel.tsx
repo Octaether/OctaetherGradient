@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useRef, useState, type ReactNode } from 'react';
+import { useMobile } from '../hooks';
 import { AVOGADRO_ML } from '../../sim/act0';
 import { useGame, variantName, nameKey, type DrawerTab } from '../store';
 import { LINEAGE, guildColor } from '../theme';
@@ -19,6 +20,38 @@ export function Panel() {
   return <ActDrawer />;
 }
 
+/**
+ * The drawer. On a phone it becomes a bottom sheet: its tabs peek above the
+ * tab bar; tap a tab or the handle, or swipe, to pull it up or put it away.
+ */
+function Drawer({ children }: { children: ReactNode }) {
+  const open = useGame((s) => s.sheet);
+  const set = useGame((s) => s.set);
+  const mobile = useMobile();
+  const y0 = useRef<number | null>(null);
+  return (
+    <aside className={'drawer' + (open ? ' open' : '')}>
+      {mobile && (
+        <button
+          className="sheet-handle"
+          aria-label={open ? 'Put the panel away' : 'Pull the panel up'}
+          onPointerDown={(e) => (y0.current = e.clientY)}
+          onPointerUp={(e) => {
+            const dy = y0.current === null ? 0 : e.clientY - y0.current;
+            y0.current = null;
+            set({ sheet: Math.abs(dy) > 24 ? dy < 0 : !open });
+          }}
+        >
+          <i />
+        </button>
+      )}
+      {!mobile && <TutorialCard />}
+      {!mobile && <AlertBanner />}
+      {children}
+    </aside>
+  );
+}
+
 function Tabs({ tabs, current }: { tabs: { id: DrawerTab; label: string; count?: number }[]; current: DrawerTab }) {
   const set = useGame((s) => s.set);
   return (
@@ -29,7 +62,7 @@ function Tabs({ tabs, current }: { tabs: { id: DrawerTab; label: string; count?:
           className={'dtab' + (current === t.id ? ' on' : '')}
           onClick={() => {
             audio.click();
-            set({ tab: t.id });
+            set({ tab: t.id, sheet: true });
           }}
         >
           {t.label}
@@ -51,9 +84,7 @@ function ActDrawer() {
   if (snap.chores.length) tabs.push({ id: 'control', label: 'Control', count: snap.chores.some((c) => !c.automated) ? 1 : undefined });
   const current = tabs.find((t) => t.id === tab) ? tab : 'evolve';
   return (
-    <aside className="drawer">
-      <TutorialCard />
-      <AlertBanner />
+    <Drawer>
       <Tabs tabs={tabs} current={current} />
       <div className="dbody">
         {current === 'evolve' && <Evolve />}
@@ -61,7 +92,7 @@ function ActDrawer() {
         {current === 'expand' && <Expand />}
         {current === 'control' && <Control />}
       </div>
-    </aside>
+    </Drawer>
   );
 }
 
@@ -789,10 +820,11 @@ function WorldDrawer() {
     ['both', 'Everywhere', ''],
   ];
   return (
-    <aside className="drawer">
-      <TutorialCard />
+    <Drawer>
       <div className="dtabs">
-        <button className="dtab on">Shape the world</button>
+        <button className="dtab on" onClick={() => set({ sheet: !useGame.getState().sheet })}>
+          Shape the world
+        </button>
       </div>
       <div className="dbody">
         <div className="faint" style={{ fontSize: 12.5, lineHeight: 1.5, margin: '0 2px 12px' }}>
@@ -833,7 +865,7 @@ function WorldDrawer() {
           );
         })}
       </div>
-    </aside>
+    </Drawer>
   );
 }
 
@@ -869,6 +901,7 @@ function Roster() {
 
 function FinaleDrawer() {
   const snap = useGame((s) => s.snap)!;
+  const set = useGame((s) => s.set);
   const f = snap.finale!;
   const guilds: [string, string, string][] = [
     ['producers', 'Producers', 'var(--nitrogen)'],
@@ -877,10 +910,11 @@ function FinaleDrawer() {
     ['viruses', 'Viruses', 'var(--oxygen)'],
   ];
   return (
-    <aside className="drawer">
-      <TutorialCard />
+    <Drawer>
       <div className="dtabs">
-        <button className="dtab on">Traits</button>
+        <button className="dtab on" onClick={() => set({ sheet: !useGame.getState().sheet })}>
+          Traits
+        </button>
       </div>
       <div className="dbody">
         <div className="faint" style={{ fontSize: 12.5, lineHeight: 1.5, margin: '0 2px 8px' }}>
@@ -942,6 +976,6 @@ function FinaleDrawer() {
           </>
         )}
       </div>
-    </aside>
+    </Drawer>
   );
 }

@@ -86,3 +86,20 @@ export function hash01(n: number) {
   const x = Math.sin(n * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
 }
+
+/** Phones in portrait get their own layout: bottom tabs, and the drawer as a sheet. */
+const MOBILE_MQ = '(max-width: 760px)';
+export const isMobile = () => typeof matchMedia !== 'undefined' && matchMedia(MOBILE_MQ).matches;
+export function useMobile() {
+  const [m, setM] = useState(isMobile);
+  useEffect(() => {
+    const q = matchMedia(MOBILE_MQ);
+    const on = () => setM(q.matches);
+    q.addEventListener('change', on);
+    return () => q.removeEventListener('change', on);
+  }, []);
+  return m;
+}
+
+/** Phones either way round: legends start folded so the scene has the room. */
+export const isCompact = () => typeof matchMedia !== 'undefined' && matchMedia('(max-width: 760px), (max-height: 500px)').matches;

@@ -5,6 +5,7 @@
 // Layout and geometry live in ../map/layout.ts.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useGame } from '../store';
+import { isCompact } from '../hooks';
 import type { ActSpec, NetworkSpec, SpeciesSpec } from '../../sim/types';
 import { buildGeometry, layoutNet, nodeRadius, notch, placeLabels, quad, textW, trim, type Badge, type EdgeGeo, type Pt } from '../map/layout';
 import type { CellSnap } from '../../sim/snapshot';
@@ -206,20 +207,46 @@ export function MapView({ act, cell }: { act: ActSpec; cell: CellSnap }) {
   // ---------- pan & zoom ----------
   const drag = useRef<{ x: number; y: number; vx: number; vy: number; moved: boolean } | null>(null);
   const onWheel = (e: React.WheelEvent) => {
-    const z = Math.max(0.7, Math.min(3, view.z * (e.deltaY < 0 ? 1.1 : 1 / 1.1)));
+    const z = Math.max(0.7, Math.min(4, view.z * (e.deltaY < 0 ? 1.1 : 1 / 1.1)));
     setView((v) => ({ ...v, z }));
   };
+  // two fingers pinch to zoom (touch screens)
+  const touches = useRef(new Map<number, { x: number; y: number }>());
+  const pinch = useRef<{ d: number; z: number } | null>(null);
+  const spread = () => {
+    const [a, b] = [...touches.current.values()];
+    return Math.hypot(a.x - b.x, a.y - b.y) || 1;
+  };
   const onDown = (e: React.PointerEvent) => {
+    if (e.pointerType === 'touch') touches.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (touches.current.size === 2) {
+      pinch.current = { d: spread(), z: view.z };
+      drag.current = null;
+      return;
+    }
     if ((e.target as Element).closest('[data-hit],.popover,.legend')) return;
     drag.current = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, moved: false };
   };
   const onMove = (e: React.PointerEvent) => {
+    if (touches.current.has(e.pointerId)) touches.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const pz = pinch.current;
+    if (pz && touches.current.size === 2) {
+      const z = Math.max(0.7, Math.min(4, (pz.z * spread()) / pz.d));
+      setView((v) => ({ ...v, z }));
+      return;
+    }
     const d = drag.current;
     if (!d) return;
     if (Math.abs(e.clientX - d.x) + Math.abs(e.clientY - d.y) > 4) d.moved = true;
     if (d.moved) setView((v) => ({ ...v, x: d.vx - (e.clientX - d.x) / scale, y: d.vy - (e.clientY - d.y) / scale }));
   };
-  const onUp = () => {
+  const onUp = (e: React.PointerEvent) => {
+    touches.current.delete(e.pointerId);
+    if (pinch.current) {
+      if (touches.current.size < 2) pinch.current = null;
+      drag.current = null;
+      return;
+    }
     const d = drag.current;
     drag.current = null;
     if (d && !d.moved) set({ sel: { kind: null, id: null } });
@@ -254,12 +281,17 @@ export function MapView({ act, cell }: { act: ActSpec; cell: CellSnap }) {
   return (
     <div
       ref={wrap}
-      style={{ position: 'absolute', inset: 0, cursor: drag.current?.moved ? 'grabbing' : 'default' }}
+      style={{ position: 'absolute', inset: 0, cursor: drag.current?.moved ? 'grabbing' : 'default', touchAction: 'none' }}
       onWheel={onWheel}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
       onPointerLeave={() => (drag.current = null)}
+      onPointerCancel={(e) => {
+        touches.current.delete(e.pointerId);
+        pinch.current = null;
+        drag.current = null;
+      }}
       onDoubleClick={() => setView({ x: 0, y: 0, z: 1 })}
     >
       <svg width={size.w} height={size.h} style={{ position: 'absolute', inset: 0 }}>
@@ -490,9 +522,13 @@ export function MapView({ act, cell }: { act: ActSpec; cell: CellSnap }) {
 }
 
 function MapLegend() {
+  // folded to its title on a phone; tap to open
+  const [folded, setFolded] = useState(isCompact);
   return (
-    <div className="legend" style={{ width: 'auto', maxWidth: 'calc(100% - 28px)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px 16px', padding: '9px 13px', fontSize: 12, color: 'var(--text-2)' }}>
-      <b style={{ color: 'var(--text)', fontWeight: 600 }}>How to read the map</b>
+    <div className={'legend map-key' + (folded ? ' folded' : '')} style={{ width: 'auto', maxWidth: 'calc(100% - 28px)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '6px 16px', padding: '9px 13px', fontSize: 12, color: 'var(--text-2)' }}>
+      <b style={{ color: 'var(--text)', fontWeight: 600, cursor: 'pointer' }} onClick={() => setFolded(!folded)}>
+        How to read the map <span className="faint fold-x">{folded ? '▾' : '▴'}</span>
+      </b>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
         <svg width="16" height="16">
           <circle cx="8" cy="8" r="6" fill={mix(POOL.carbon, 0.14)} stroke={POOL.carbon} strokeWidth="1.6" />
